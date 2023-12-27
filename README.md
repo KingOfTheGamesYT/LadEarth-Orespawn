@@ -1,2 +1,2 @@
 # LadEarth-Orespawn
-a modified version of OreSpawn for LadEarth
+A modified version of OreSpawn for LadEarth
