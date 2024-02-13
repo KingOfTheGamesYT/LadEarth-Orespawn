@@ -23,3 +23,5 @@ run
 
 # Files from Forge MDK
 forge*changelog.txt
+.gradle/4.4/fileHashes/fileHashes.bin
+.gradle/4.4/fileHashes/fileHashes.lock
