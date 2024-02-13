@@ -16,13 +16,13 @@
 
  import org.lwjgl.opengl.GL11;
 
- public class GirlfriendOverlayGui
+ public class BossOverlayGui
    extends Gui
  {
    private Minecraft mc;
    private static final ResourceLocation texture = new ResourceLocation("orespawn", "girlfriendgui.png");
 
-   public GirlfriendOverlayGui(Minecraft mc) {
+   public BossOverlayGui(Minecraft mc) {
      this.mc = mc;
    }
 
@@ -469,7 +469,7 @@
 /*     */ }
 
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\GirlfriendOverlayGui.class
+/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\BossOverlayGui.class
  * Java compiler version: 6 (50.0)
  * JD-Core Version:       1.1.3
  */
