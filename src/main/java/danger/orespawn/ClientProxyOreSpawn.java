@@ -1,46 +1,23 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.client.registry.RenderingRegistry;
-/*     */ import cpw.mods.fml.common.FMLCommonHandler;
-/*     */ import net.minecraft.client.Minecraft;
-/*     */ import net.minecraft.client.model.ModelBiped;
-/*     */ import net.minecraft.client.model.ModelCow;
-/*     */ import net.minecraft.client.model.ModelSpider;
-/*     */ import net.minecraft.client.renderer.entity.Render;
-/*     */ import net.minecraft.client.renderer.entity.RenderArrow;
-/*     */ import net.minecraft.client.renderer.entity.RenderFish;
-/*     */ import net.minecraftforge.client.MinecraftForgeClient;
-/*     */ import net.minecraftforge.common.MinecraftForge;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class ClientProxyOreSpawn
-/*     */   extends CommonProxyOreSpawn
-/*     */ {
-/*     */   public void registerRenderThings() {
-/*  41 */     MinecraftForge.EVENT_BUS.register(new GirlfriendOverlayGui(Minecraft.getMinecraft()));
-/*     */ 
-/*     */     
+ package danger.orespawn;
+
+ import cpw.mods.fml.client.registry.RenderingRegistry;
+ import cpw.mods.fml.common.FMLCommonHandler;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.model.ModelBiped;
+ import net.minecraft.client.model.ModelCow;
+ import net.minecraft.client.model.ModelSpider;
+ import net.minecraft.client.renderer.entity.Render;
+ import net.minecraft.client.renderer.entity.RenderArrow;
+ import net.minecraft.client.renderer.entity.RenderFish;
+ import net.minecraftforge.client.MinecraftForgeClient;
+ import net.minecraftforge.common.MinecraftForge;
+
+ public class ClientProxyOreSpawn
+   extends CommonProxyOreSpawn
+ {
+   public void registerRenderThings() {
+     MinecraftForge.EVENT_BUS.register(new BossOverlayGui(Minecraft.getMinecraft()));
+
 /*  44 */     RenderingRegistry.registerEntityRenderingHandler(Girlfriend.class, (Render)new RenderGirlfriend(new ModelBiped(), 0.5F));
 /*  45 */     RenderingRegistry.registerEntityRenderingHandler(Boyfriend.class, (Render)new RenderBoyfriend(new ModelBiped(), 0.55F));
 /*  46 */     RenderingRegistry.registerEntityRenderingHandler(RedCow.class, (Render)new RenderEnchantedCow(new ModelCow(), 0.7F));
