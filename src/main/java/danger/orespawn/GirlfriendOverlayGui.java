@@ -1,229 +1,182 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-/*     */ import net.minecraft.block.material.Material;
-/*     */ import net.minecraft.client.Minecraft;
-/*     */ import net.minecraft.client.entity.EntityClientPlayerMP;
-/*     */ import net.minecraft.client.gui.FontRenderer;
-/*     */ import net.minecraft.client.gui.Gui;
-/*     */ import net.minecraft.client.gui.ScaledResolution;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityLivingBase;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.util.ResourceLocation;
-/*     */ import net.minecraft.world.World;
-/*     */ import net.minecraftforge.client.event.RenderGameOverlayEvent;
-/*     */ import org.lwjgl.opengl.GL11;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class GirlfriendOverlayGui
-/*     */   extends Gui
-/*     */ {
-/*     */   private Minecraft mc;
-/*  40 */   private static final ResourceLocation texture = new ResourceLocation("orespawn", "girlfriendgui.png");
-/*     */ 
-/*     */   
-/*     */   public GirlfriendOverlayGui(Minecraft mc) {
-/*  44 */     this.mc = mc;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   @SubscribeEvent
-/*     */   public void onRenderOverlay(RenderGameOverlayEvent event) {
-/*  50 */     if (event.isCancelable() || event.type != RenderGameOverlayEvent.ElementType.HOTBAR) {
-/*     */       return;
-/*     */     }
-/*     */     
-/*  54 */     int u = 0;
-/*  55 */     int v = 0;
-/*  56 */     String outstring = null;
-/*  57 */     int color = 16725044;
-/*  58 */     FontRenderer fr = this.mc.fontRenderer;
-/*     */     
-/*  60 */     int barWidth = 182;
-/*     */     
-/*  62 */     int barHeight = 5;
-/*     */ 
-/*     */     
-/*  65 */     float gfHealth = 0.0F;
-/*     */     
-/*  67 */     Entity entity = null;
-/*  68 */     EntityPlayer player = null;
-/*     */ 
-/*     */ 
-/*     */     
-/*  72 */     if (this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
-/*     */       return;
-/*     */     }
-/*     */ 
-/*     */ 
-/*     */     
-/*  78 */     EntityClientPlayerMP entityClientPlayerMP = this.mc.thePlayer;
-/*     */     
-/*  80 */     if (entityClientPlayerMP == null) {
-/*     */       return;
-/*     */     }
-/*     */ 
-/*     */     
-/*  85 */     OreSpawnMain.current_dimension = ((EntityPlayer)entityClientPlayerMP).worldObj.provider.dimensionId;
-/*  86 */     if (this.mc.gameSettings.fancyGraphics) {
-/*  87 */       OreSpawnMain.FastGraphicsLeaves = 0;
-/*     */     } else {
-/*  89 */       OreSpawnMain.FastGraphicsLeaves = 1;
-/*     */     } 
-/*     */     
-/*  92 */     if (OreSpawnMain.GuiOverlayEnable == 0) {
-/*     */       return;
-/*     */     }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */     
-/* 101 */     entity = this.mc.pointedEntity;
-/*     */ 
-/*     */     
-/* 104 */     if (entity == null) {
-/* 105 */       entity = OreSpawnMain.getPointedAtEntity((World)this.mc.theWorld, (EntityPlayer)entityClientPlayerMP, 16.0D);
-/* 106 */       if (entity == null)
-/* 107 */         return;  if (!(entity instanceof EntityLivingBase))
-/*     */         return; 
-/*     */     } 
-/* 110 */     if (entity instanceof Girlfriend) {
-/* 111 */       Girlfriend gf = null;
-/* 112 */       gf = (Girlfriend)entity;
-/*     */ 
-/*     */       
-/* 115 */       if (!gf.isOwner((EntityLivingBase)entityClientPlayerMP)) {
-/*     */         return;
-/*     */       }
-/*     */ 
-/*     */       
-/* 120 */       if (gf.passenger != 0)
-/*     */         return; 
-/* 122 */       if (gf.hasCustomNameTag()) outstring = gf.getCustomNameTag(); 
-/* 123 */       if (outstring == null || outstring.equals("")) {
-/* 124 */         outstring = "Girlfriend";
-/*     */       }
-/*     */ 
-/*     */       
-/* 128 */       gfHealth = gf.getGirlfriendHealth() / gf.getMaxHealth();
-/*     */     } 
-/*     */     
-/* 131 */     if (entity instanceof Boyfriend) {
-/* 132 */       Boyfriend gf = null;
-/* 133 */       gf = (Boyfriend)entity;
-/*     */ 
-/*     */       
-/* 136 */       if (!gf.isOwner((EntityLivingBase)entityClientPlayerMP)) {
-/*     */         return;
-/*     */       }
-/*     */ 
-/*     */       
-/* 141 */       if (gf.passenger != 0)
-/*     */         return; 
-/* 143 */       if (gf.hasCustomNameTag()) outstring = gf.getCustomNameTag(); 
-/* 144 */       if (outstring == null || outstring.equals("")) {
-/* 145 */         outstring = "Boyfriend";
-/*     */       }
-/*     */ 
-/*     */       
-/* 149 */       gfHealth = gf.getBoyfriendHealth() / gf.getMaxHealth();
-/*     */     } 
-/*     */     
-/* 152 */     if (entity instanceof ThePrince) {
-/* 153 */       ThePrince gf = null;
-/* 154 */       gf = (ThePrince)entity;
-/*     */ 
-/*     */       
-/* 157 */       if (!gf.isOwner((EntityLivingBase)entityClientPlayerMP)) {
-/*     */         return;
-/*     */       }
-/*     */ 
-/*     */       
-/* 162 */       if (gf.hasCustomNameTag()) outstring = gf.getCustomNameTag(); 
-/* 163 */       if (outstring == null || outstring.equals("")) {
-/* 164 */         outstring = "The Toddler Prince";
-/*     */       }
-/*     */ 
-/*     */       
-/* 168 */       gfHealth = gf.getHealth() / gf.getMaxHealth();
-/*     */     } 
-/*     */     
-/* 171 */     if (entity instanceof ThePrincess) {
-/* 172 */       ThePrincess gf = null;
-/* 173 */       gf = (ThePrincess)entity;
-/*     */ 
-/*     */       
-/* 176 */       if (!gf.isOwner((EntityLivingBase)entityClientPlayerMP)) {
-/*     */         return;
-/*     */       }
-/*     */ 
-/*     */       
-/* 181 */       if (gf.hasCustomNameTag()) outstring = gf.getCustomNameTag(); 
-/* 182 */       if (outstring == null || outstring.equals("")) {
-/* 183 */         outstring = "The Toddler Princess";
-/*     */       }
-/*     */ 
-/*     */       
-/* 187 */       gfHealth = gf.getHealth() / gf.getMaxHealth();
-/*     */     } 
-/*     */     
-/* 190 */     if (entity instanceof ThePrinceTeen) {
-/* 191 */       ThePrinceTeen gf = null;
-/* 192 */       gf = (ThePrinceTeen)entity;
-/*     */ 
-/*     */       
-/* 195 */       if (!gf.isOwner((EntityLivingBase)entityClientPlayerMP)) {
-/*     */         return;
-/*     */       }
-/*     */ 
-/*     */       
-/* 200 */       if (gf.hasCustomNameTag()) outstring = gf.getCustomNameTag(); 
-/* 201 */       if (outstring == null || outstring.equals("")) {
-/* 202 */         outstring = "The Young Prince";
-/*     */       }
-/* 204 */       if (gf.getActivity() != 0)
-/*     */         return; 
-/* 206 */       gfHealth = gf.getHealth() / gf.getMaxHealth();
-/*     */     } 
-/*     */     
-/* 209 */     if (entity instanceof ThePrinceAdult) {
-/* 210 */       ThePrinceAdult gf = null;
-/* 211 */       gf = (ThePrinceAdult)entity;
-/*     */ 
-/*     */       
-/* 214 */       if (!gf.isOwner((EntityLivingBase)entityClientPlayerMP)) {
-/*     */         return;
-/*     */       }
-/*     */ 
-/*     */       
-/* 219 */       if (gf.hasCustomNameTag()) outstring = gf.getCustomNameTag(); 
-/* 220 */       if (outstring == null || outstring.equals("")) {
-/* 221 */         outstring = "The Young Adult Prince";
-/*     */       }
-/* 223 */       if (gf.getActivity() != 0)
-/*     */         return; 
-/* 225 */       gfHealth = gf.getHealth() / gf.getMaxHealth();
-/*     */     } 
+ package danger.orespawn;
+
+ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+ import net.minecraft.block.material.Material;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.entity.EntityClientPlayerMP;
+ import net.minecraft.client.gui.FontRenderer;
+ import net.minecraft.client.gui.Gui;
+ import net.minecraft.client.gui.ScaledResolution;
+ import net.minecraft.entity.Entity;
+ import net.minecraft.entity.EntityLivingBase;
+ import net.minecraft.entity.player.EntityPlayer;
+ import net.minecraft.util.ResourceLocation;
+ import net.minecraft.world.World;
+ import net.minecraftforge.client.event.RenderGameOverlayEvent;
+
+ import org.lwjgl.opengl.GL11;
+
+ public class GirlfriendOverlayGui
+   extends Gui
+ {
+   private Minecraft mc;
+   private static final ResourceLocation texture = new ResourceLocation("orespawn", "girlfriendgui.png");
+
+   public GirlfriendOverlayGui(Minecraft mc) {
+     this.mc = mc;
+   }
+
+   @SubscribeEvent
+   public void onRenderOverlay(RenderGameOverlayEvent event) {
+     if (event.isCancelable() || event.type != RenderGameOverlayEvent.ElementType.HOTBAR) {
+       return;
+     }
+
+     int u = 0;
+     int v = 0;
+     String outstring = null;
+     int color = 16725044;
+     FontRenderer fr = this.mc.fontRenderer;
+     int barWidth = 182;
+     int barHeight = 5;
+     float gfHealth = 0.0F;
+     float bfHealth = 0.0F;
+     float princeHealth = 0.0F;
+     float princeteenHealth = 0.0F;
+     float pprinceadultHealth = 0.0F;
+     float princessHealth = 0.0F;
+       Entity entity = null;
+     EntityPlayer player = null;
+
+     if (this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
+       return;
+     }
+
+     EntityClientPlayerMP entityClientPlayerMP = this.mc.thePlayer;
+
+     if (entityClientPlayerMP == null) {
+       return;
+     }
+
+     OreSpawnMain.current_dimension = ((EntityPlayer)entityClientPlayerMP).worldObj.provider.dimensionId;
+     if (this.mc.gameSettings.fancyGraphics) {
+       OreSpawnMain.FastGraphicsLeaves = 0;
+     } else {
+       OreSpawnMain.FastGraphicsLeaves = 1;
+     }
+
+     if (OreSpawnMain.GuiOverlayEnable == 0) {
+       return;
+     }
+
+     entity = this.mc.pointedEntity;
+
+    if (entity == null) {
+       entity = OreSpawnMain.getPointedAtEntity((World)this.mc.theWorld, (EntityPlayer)entityClientPlayerMP, 16.0D);
+       if (entity == null)
+         return;
+       if (!(entity instanceof EntityLivingBase))
+         return;
+     }
+     if (entity instanceof Girlfriend) {
+       Girlfriend gf = (Girlfriend)entity;
+
+       if (!gf.isOnSameTeam((EntityLivingBase)entityClientPlayerMP)) {
+         return;
+       }
+
+       if (gf.passenger != 0)
+         return;
+       if (gf.hasCustomNameTag()) outstring = gf.getCustomNameTag();
+       if (outstring == null || outstring.equals("")) {
+         outstring = "Girlfriend";
+       }
+
+       gfHealth = gf.getGirlfriendHealth() / gf.getMaxHealth();
+     }
+
+     if (entity instanceof Boyfriend) {
+       Boyfriend bf = (Boyfriend)entity;
+
+       if (!bf.isOnSameTeam((EntityLivingBase)entityClientPlayerMP)) {
+        return;
+      }
+
+       if (bf.passenger != 0)
+         return;
+       if (bf.hasCustomNameTag()) outstring = bf.getCustomNameTag();
+       if (outstring == null || outstring.equals("")) {
+         outstring = "Boyfriend";
+       }
+
+       bfHealth = bf.getBoyfriendHealth() / bf.getMaxHealth();
+     }
+
+     if (entity instanceof ThePrince) {
+       ThePrince prince = null;
+       prince = (ThePrince)entity;
+
+       if (!prince.isOnSameTeam((EntityLivingBase)entityClientPlayerMP)) {
+         return;
+       }
+
+       if (prince.hasCustomNameTag()) outstring = prince.getCustomNameTag();
+      if (outstring == null || outstring.equals("")) {
+        outstring = "The Toddler Prince";
+       }
+
+       princeHealth = prince.getHealth() / prince.getMaxHealth();
+     }
+
+     if (entity instanceof ThePrincess) {
+       ThePrincess princess = null;
+       princess = (ThePrincess)entity;
+
+       if (!princess.isOnSameTeam((EntityLivingBase)entityClientPlayerMP)) {
+         return;
+       }
+
+       if (princess.hasCustomNameTag()) outstring = princess.getCustomNameTag();
+       if (outstring == null || outstring.equals("")) {
+         outstring = "The Toddler Princess";
+       }
+
+       princessHealth = princess.getHealth() / princess.getMaxHealth();
+     }
+
+     if (entity instanceof ThePrinceTeen) {
+       ThePrinceTeen princeteen = null;
+       princeteen = (ThePrinceTeen)entity;
+
+       if (!princeteen.isOnSameTeam((EntityLivingBase)entityClientPlayerMP)) {
+         return;
+       }
+
+       if (princeteen.hasCustomNameTag()) outstring = princeteen.getCustomNameTag();
+       if (outstring == null || outstring.equals("")) {
+         outstring = "The Young Prince";
+       }
+       if (princeteen.getActivity() != 0)
+         return;
+       princeteenHealth = princeteen.getHealth() / princeteen.getMaxHealth();
+     }
+
+     if (entity instanceof ThePrinceAdult) {
+       ThePrinceAdult princeAdult = null;
+       princeAdult = (ThePrinceAdult)entity;
+
+       if (!princeAdult.isOnSameTeam((EntityLivingBase)entityClientPlayerMP)) {
+         return;
+       }
+
+       if (princeAdult.hasCustomNameTag()) outstring = princeAdult.getCustomNameTag();
+       if (outstring == null || outstring.equals("")) {
+         outstring = "The Young Adult Prince";
+       }
+       if (princeAdult.getActivity() != 0)
+         return;
+       gfHealth = princeAdult.getHealth() / princeAdult.getMaxHealth();
+     }
 /*     */     
 /* 228 */     if (entity instanceof Dragon) {
 /* 229 */       Dragon df = null;
@@ -503,13 +456,11 @@
 /*     */ 
 /*     */     
 /* 505 */     fr.drawStringWithShadow(outstring, width / 2 - fr.getStringWidth(outstring) / 2, y - 10, color);
-/*     */ 
-/*     */ 
-/*     */     
-/* 509 */     this; this.mc.renderEngine.bindTexture(texture);
-/*     */     
-/* 511 */     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-/*     */     
+
+      this.mc.renderEngine.bindTexture(texture);
+
+     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
 /* 513 */     drawTexturedModalRect(x, y, u, v, barWidth, barHeight);
 /*     */     
 /* 515 */     if (barWidthFilled > 0)
