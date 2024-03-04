@@ -1,113 +1,73 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.relauncher.Side;
-/*     */ import cpw.mods.fml.relauncher.SideOnly;
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityLivingBase;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.init.Blocks;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.item.ItemStack;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class ItemDuctTape
-/*     */   extends Item
-/*     */ {
-/*     */   private Block block;
-/*     */   
-/*     */   public ItemDuctTape(int par1, Block par2Block) {
-/*  23 */     this.block = par2Block;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
-/*  32 */     Block block = p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_);
-/*     */     
-/*  34 */     if (block == Blocks.snow_layer && (p_77648_3_.getBlockMetadata(p_77648_4_, p_77648_5_, p_77648_6_) & 0x7) < 1) {
-/*     */       
-/*  36 */       p_77648_7_ = 1;
-/*     */     }
-/*  38 */     else if (block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush) {
-/*     */       
-/*  40 */       if (p_77648_7_ == 0)
-/*     */       {
-/*  42 */         p_77648_5_--;
-/*     */       }
-/*     */       
-/*  45 */       if (p_77648_7_ == 1)
-/*     */       {
-/*  47 */         p_77648_5_++;
-/*     */       }
-/*     */       
-/*  50 */       if (p_77648_7_ == 2)
-/*     */       {
-/*  52 */         p_77648_6_--;
-/*     */       }
-/*     */       
-/*  55 */       if (p_77648_7_ == 3)
-/*     */       {
-/*  57 */         p_77648_6_++;
-/*     */       }
-/*     */       
-/*  60 */       if (p_77648_7_ == 4)
-/*     */       {
-/*  62 */         p_77648_4_--;
-/*     */       }
-/*     */       
-/*  65 */       if (p_77648_7_ == 5)
-/*     */       {
-/*  67 */         p_77648_4_++;
-/*     */       }
-/*     */     } 
-/*     */     
-/*  71 */     if (!p_77648_2_.canPlayerEdit(p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_1_))
-/*     */     {
-/*  73 */       return false;
-/*     */     }
-/*  75 */     if (p_77648_1_.stackSize == 0)
-/*     */     {
-/*  77 */       return false;
-/*     */     }
-/*     */ 
-/*     */     
-/*  81 */     if (p_77648_3_.canPlaceEntityOnSide(this.block, p_77648_4_, p_77648_5_, p_77648_6_, false, p_77648_7_, (Entity)null, p_77648_1_)) {
-/*     */       
-/*  83 */       int i1 = this.block.onBlockPlaced(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_, 0);
-/*     */       
-/*  85 */       if (p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, this.block, i1, 3)) {
-/*     */         
-/*  87 */         if (p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_) == this.block) {
-/*     */           
-/*  89 */           this.block.onBlockPlacedBy(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, (EntityLivingBase)p_77648_2_, p_77648_1_);
-/*  90 */           this.block.onPostBlockPlaced(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, i1);
-/*     */         } 
-/*     */         
-/*  93 */         p_77648_3_.playSoundEffect((p_77648_4_ + 0.5F), (p_77648_5_ + 0.5F), (p_77648_6_ + 0.5F), this.block.stepSound.func_150496_b(), (this.block.stepSound.getVolume() + 1.0F) / 2.0F, this.block.stepSound.getPitch() * 0.8F);
-/*  94 */         p_77648_1_.stackSize--;
-/*     */       } 
-/*     */     } 
-/*     */     
-/*  98 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void registerIcons(IIconRegister iconRegister) {
-/* 105 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\ItemDuctTape.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.block.*;
+import net.minecraft.item.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.world.*;
+import net.minecraft.init.*;
+import net.minecraft.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class ItemDuctTape extends Item
+{
+    private Block field_150935_a;
+    
+    public ItemDuctTape(final int par1, final Block par2Block) {
+        this.field_150935_a = par2Block;
+    }
+    
+    public boolean onItemUse(final ItemStack p_77648_1_, final EntityPlayer p_77648_2_, final World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, final float p_77648_8_, final float p_77648_9_, final float p_77648_10_) {
+        final Block block = p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_);
+        if (block == Blocks.snow_layer && (p_77648_3_.getBlockMetadata(p_77648_4_, p_77648_5_, p_77648_6_) & 0x7) < 1) {
+            p_77648_7_ = 1;
+        }
+        else if (block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush) {
+            if (p_77648_7_ == 0) {
+                --p_77648_5_;
+            }
+            if (p_77648_7_ == 1) {
+                ++p_77648_5_;
+            }
+            if (p_77648_7_ == 2) {
+                --p_77648_6_;
+            }
+            if (p_77648_7_ == 3) {
+                ++p_77648_6_;
+            }
+            if (p_77648_7_ == 4) {
+                --p_77648_4_;
+            }
+            if (p_77648_7_ == 5) {
+                ++p_77648_4_;
+            }
+        }
+        if (!p_77648_2_.canPlayerEdit(p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_1_)) {
+            return false;
+        }
+        if (p_77648_1_.stackSize == 0) {
+            return false;
+        }
+        if (p_77648_3_.canPlaceEntityOnSide(this.field_150935_a, p_77648_4_, p_77648_5_, p_77648_6_, false, p_77648_7_, (Entity)null, p_77648_1_)) {
+            final int i1 = this.field_150935_a.onBlockPlaced(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_, p_77648_9_, p_77648_10_, 0);
+            if (p_77648_3_.setBlock(p_77648_4_, p_77648_5_, p_77648_6_, this.field_150935_a, i1, 3)) {
+                if (p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_) == this.field_150935_a) {
+                    this.field_150935_a.onBlockPlacedBy(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, (EntityLivingBase)p_77648_2_, p_77648_1_);
+                    this.field_150935_a.onPostBlockPlaced(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, i1);
+                }
+                p_77648_3_.playSoundEffect((double)(p_77648_4_ + 0.5f), (double)(p_77648_5_ + 0.5f), (double)(p_77648_6_ + 0.5f), this.field_150935_a.stepSound.func_150496_b(), (this.field_150935_a.stepSound.getVolume() + 1.0f) / 2.0f, this.field_150935_a.stepSound.getPitch() * 0.8f);
+                --p_77648_1_.stackSize;
+            }
+        }
+        return true;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

@@ -1,82 +1,48 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import cpw.mods.fml.relauncher.Side;
-/*    */ import cpw.mods.fml.relauncher.SideOnly;
-/*    */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*    */ import net.minecraft.creativetab.CreativeTabs;
-/*    */ import net.minecraft.entity.EntityLivingBase;
-/*    */ import net.minecraft.item.Item;
-/*    */ import net.minecraft.item.ItemStack;
-/*    */ import net.minecraft.item.ItemSword;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class BigHammer
-/*    */   extends ItemSword
-/*    */ {
-/*    */   private int weaponDamage;
-/*    */   private final Item.ToolMaterial toolMaterial;
-/*    */   
-/*    */   public BigHammer(int par1, Item.ToolMaterial par2EnumToolMaterial) {
-/* 29 */     super(par2EnumToolMaterial);
-/* 30 */     this.toolMaterial = par2EnumToolMaterial;
-/* 31 */     this.weaponDamage = 15;
-/* 32 */     this.maxStackSize = 1;
-/* 33 */     setMaxDamage(9000);
-/* 34 */     setCreativeTab(CreativeTabs.tabCombat);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public String getMaterialName() {
-/* 40 */     return "AMETHYST";
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
-/* 48 */     int var2 = 5;
-/*    */     
-/* 50 */     if (par2EntityLiving != null && 
-/* 51 */       !par2EntityLiving.worldObj.isRemote)
-/*    */     {
-/* 53 */       par2EntityLiving.addVelocity(0.0D, Math.abs(par2EntityLiving.worldObj.rand.nextFloat() * 2.0F / 3.0F), 0.0D);
-/*    */     }
-/*    */ 
-/*    */     
-/* 57 */     par1ItemStack.damageItem(1, par3EntityLiving);
-/* 58 */     return true;
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public int getMaxItemUseDuration(ItemStack par1ItemStack) {
-/* 68 */     return 3000;
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   @SideOnly(Side.CLIENT)
-/*    */   public void registerIcons(IIconRegister iconRegister) {
-/* 74 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\BigHammer.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.creativetab.*;
+import net.minecraft.item.*;
+import net.minecraft.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class BigHammer extends ItemSword
+{
+    private int weaponDamage;
+    private final Item.ToolMaterial toolMaterial;
+    
+    public BigHammer(final int par1, final Item.ToolMaterial par2EnumToolMaterial) {
+        super(par2EnumToolMaterial);
+        this.toolMaterial = par2EnumToolMaterial;
+        this.weaponDamage = 15;
+        this.maxStackSize = 1;
+        this.setMaxDamage(9000);
+        this.setCreativeTab(CreativeTabs.tabCombat);
+    }
+    
+    public String getMaterialName() {
+        return "AMETHYST";
+    }
+    
+    public boolean hitEntity(final ItemStack par1ItemStack, final EntityLivingBase par2EntityLiving, final EntityLivingBase par3EntityLiving) {
+        final int var2 = 5;
+        if (par2EntityLiving != null && !par2EntityLiving.worldObj.isRemote) {
+            par2EntityLiving.addVelocity(0.0, (double)Math.abs(par2EntityLiving.worldObj.rand.nextFloat() * 2.0f / 3.0f), 0.0);
+        }
+        par1ItemStack.damageItem(1, par3EntityLiving);
+        return true;
+    }
+    
+    public int getMaxItemUseDuration(final ItemStack par1ItemStack) {
+        return 3000;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

@@ -1,497 +1,360 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityAgeable;
-/*     */ import net.minecraft.entity.EntityCreature;
-/*     */ import net.minecraft.entity.EntityLiving;
-/*     */ import net.minecraft.entity.EntityLivingBase;
-/*     */ import net.minecraft.entity.SharedMonsterAttributes;
-/*     */ import net.minecraft.entity.ai.EntityAIAvoidEntity;
-/*     */ import net.minecraft.entity.ai.EntityAIBase;
-/*     */ import net.minecraft.entity.ai.EntityAILookIdle;
-/*     */ import net.minecraft.entity.ai.EntityAIMate;
-/*     */ import net.minecraft.entity.ai.EntityAIMoveIndoors;
-/*     */ import net.minecraft.entity.ai.EntityAIPanic;
-/*     */ import net.minecraft.entity.ai.EntityAISwimming;
-/*     */ import net.minecraft.entity.ai.EntityAITempt;
-/*     */ import net.minecraft.entity.ai.EntityAIWatchClosest;
-/*     */ import net.minecraft.entity.monster.EntityMob;
-/*     */ import net.minecraft.entity.passive.EntityAnimal;
-/*     */ import net.minecraft.entity.passive.EntityTameable;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.init.Blocks;
-/*     */ import net.minecraft.init.Items;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.item.ItemStack;
-/*     */ import net.minecraft.util.DamageSource;
-/*     */ import net.minecraft.util.MathHelper;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class Camarasaurus
-/*     */   extends EntityTameable
-/*     */ {
-/*  43 */   private float moveSpeed = 0.2F;
-/*     */   private int closest; private int tx; private int ty; private int tz; protected void applyEntityAttributes() { super.applyEntityAttributes(); getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(mygetMaxHealth());
-/*     */     getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(this.moveSpeed);
-/*     */     getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
-/*  47 */     getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(1.0D); } public Camarasaurus(World par1World) { super(par1World);
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */     
-/* 125 */     this.closest = 99999;
-/* 126 */     this.tx = 0; this.ty = 0; this.tz = 0; setSize(0.5F, 1.2F); this.moveSpeed = 0.2F; this.fireResistance = 100; getNavigator().setAvoidsWater(true); setSitting(false); this.experienceValue = 5; this.tasks.addTask(0, (EntityAIBase)new EntityAISwimming((EntityLiving)this)); this.tasks.addTask(1, (EntityAIBase)new EntityAIMate((EntityAnimal)this, 1.0D)); this.tasks.addTask(2, new MyEntityAIFollowOwner(this, 2.0F, 10.0F, 2.0F)); this.tasks.addTask(3, (EntityAIBase)new EntityAIAvoidEntity((EntityCreature)this, EntityMob.class, 8.0F, 1.0D, 1.399999976158142D)); this.tasks.addTask(4, (EntityAIBase)new EntityAITempt((EntityCreature)this, 1.2000000476837158D, Items.apple, false)); this.tasks.addTask(5, (EntityAIBase)new EntityAIPanic((EntityCreature)this, 1.5D)); this.tasks.addTask(6, (EntityAIBase)new EntityAIWatchClosest((EntityLiving)this, EntityPlayer.class, 6.0F)); this.tasks.addTask(7, new MyEntityAIWander((EntityCreature)this, 1.0F)); this.tasks.addTask(8, (EntityAIBase)new EntityAILookIdle((EntityLiving)this));
-/*     */     this.tasks.addTask(9, (EntityAIBase)new EntityAIMoveIndoors((EntityCreature)this)); }
-/*     */   protected void entityInit() { super.entityInit();
-/* 129 */     setSitting(false); } private boolean scan_it(int x, int y, int z, int dx, int dy, int dz) { int found = 0;
-/*     */ 
-/*     */     
-/*     */     int i;
-/*     */     
-/* 134 */     for (i = -dy; i <= dy; i++) {
-/* 135 */       for (int j = -dz; j <= dz; j++) {
-/* 136 */         Block bid = this.worldObj.getBlock(x + dx, y + i, z + j);
-/* 137 */         if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
-/* 138 */           int d = dx * dx + j * j + i * i;
-/* 139 */           if (d < this.closest) {
-/* 140 */             this.closest = d;
-/* 141 */             this.tx = x + dx; this.ty = y + i; this.tz = z + j;
-/* 142 */             found++;
-/*     */           } 
-/*     */         } 
-/* 145 */         bid = this.worldObj.getBlock(x - dx, y + i, z + j);
-/* 146 */         if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
-/* 147 */           int d = dx * dx + j * j + i * i;
-/* 148 */           if (d < this.closest) {
-/* 149 */             this.closest = d;
-/* 150 */             this.tx = x - dx; this.ty = y + i; this.tz = z + j;
-/* 151 */             found++;
-/*     */           } 
-/*     */         } 
-/*     */       } 
-/*     */     } 
-/*     */     
-/* 157 */     for (i = -dx; i <= dx; i++) {
-/* 158 */       for (int j = -dz; j <= dz; j++) {
-/* 159 */         Block bid = this.worldObj.getBlock(x + i, y + dy, z + j);
-/* 160 */         if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
-/* 161 */           int d = dy * dy + j * j + i * i;
-/* 162 */           if (d < this.closest) {
-/* 163 */             this.closest = d;
-/* 164 */             this.tx = x + i; this.ty = y + dy; this.tz = z + j;
-/* 165 */             found++;
-/*     */           } 
-/*     */         } 
-/* 168 */         bid = this.worldObj.getBlock(x + i, y - dy, z + j);
-/* 169 */         if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
-/* 170 */           int d = dy * dy + j * j + i * i;
-/* 171 */           if (d < this.closest) {
-/* 172 */             this.closest = d;
-/* 173 */             this.tx = x + i; this.ty = y - dy; this.tz = z + j;
-/* 174 */             found++;
-/*     */           } 
-/*     */         } 
-/*     */       } 
-/*     */     } 
-/*     */     
-/* 180 */     for (i = -dx; i <= dx; i++) {
-/* 181 */       for (int j = -dy; j <= dy; j++) {
-/* 182 */         Block bid = this.worldObj.getBlock(x + i, y + j, z + dz);
-/* 183 */         if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
-/* 184 */           int d = dz * dz + j * j + i * i;
-/* 185 */           if (d < this.closest) {
-/* 186 */             this.closest = d;
-/* 187 */             this.tx = x + i; this.ty = y + j; this.tz = z + dz;
-/* 188 */             found++;
-/*     */           } 
-/*     */         } 
-/* 191 */         bid = this.worldObj.getBlock(x + i, y + j, z - dz);
-/* 192 */         if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
-/* 193 */           int d = dz * dz + j * j + i * i;
-/* 194 */           if (d < this.closest) {
-/* 195 */             this.closest = d;
-/* 196 */             this.tx = x + i; this.ty = y + j; this.tz = z - dz;
-/* 197 */             found++;
-/*     */           } 
-/*     */         } 
-/*     */       } 
-/*     */     } 
-/*     */     
-/* 203 */     if (found != 0) return true; 
-/* 204 */     return false; } public boolean getCanSpawnHere() { if (this.posY < 50.0D)
-/*     */       return false;  if (!this.worldObj.isDaytime())
-/*     */       return false;  return true; }
-/*     */   public void onUpdate() { getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(this.moveSpeed); super.onUpdate(); }
-/*     */   protected void fall(float par1) { float i = MathHelper.ceiling_float_int(par1 - 3.0F); if (i > 0.0F) { if (i > 3.0F) { playSound("damage.fallbig", 1.0F, 1.0F); }
-/*     */       else
-/*     */       { playSound("damage.fallsmall", 1.0F, 1.0F); }
-/*     */        if (i > 2.0F)
-/*     */         i = 2.0F;  attackEntityFrom(DamageSource.fall, i); }
-/*     */      }
-/* 214 */   protected void updateAITick() { if (this.isDead)
-/* 215 */       return;  if (this.worldObj.rand.nextInt(200) == 1) setRevengeTarget(null); 
-/* 216 */     super.updateAITick();
-/* 217 */     if (!isSitting() && ((
-/* 218 */       this.worldObj.rand.nextInt(20) == 0 && getCamarasaurusHealth() < mygetMaxHealth()) || this.worldObj.rand.nextInt(250) == 0))
-/*     */     {
-/* 220 */       if (OreSpawnMain.PlayNicely == 0) {
-/*     */ 
-/*     */         
-/* 223 */         this.closest = 99999;
-/* 224 */         this.tx = this.ty = this.tz = 0;
-/* 225 */         for (int i = 1; i < 11; i++) {
-/* 226 */           int j = i;
-/* 227 */           if (j > 2) j = 2; 
-/* 228 */           if (scan_it((int)this.posX, (int)this.posY + 1, (int)this.posZ, i, j, i) == true)
-/* 229 */             break;  if (i >= 6) i++;
-/*     */         
-/*     */         } 
-/* 232 */         if (this.closest < 99999) {
-/*     */           
-/* 234 */           getNavigator().tryMoveToXYZ(this.tx, this.ty, this.tz, 1.0D);
-/* 235 */           if (this.closest < 12) {
-/*     */             
-/* 237 */             if (this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing")) this.worldObj.setBlock(this.tx, this.ty, this.tz, Blocks.air, 0, 2); 
-/* 238 */             heal(1.0F);
-/* 239 */             playSound("random.burp", 1.0F, this.worldObj.rand.nextFloat() * 0.2F + 0.9F);
-/*     */           } 
-/*     */         } 
-/*     */       } 
-/*     */     } }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean isAIEnabled() {
-/* 253 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean canBreatheUnderwater() {
-/* 259 */     return false;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public int mygetMaxHealth() {
-/* 264 */     return 20;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public int getCamarasaurusHealth() {
-/* 271 */     return (int)getHealth();
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean interact(EntityPlayer par1EntityPlayer) {
-/* 279 */     ItemStack var2 = par1EntityPlayer.inventory.getCurrentItem();
-/*     */ 
-/*     */     
-/* 282 */     if (var2 != null)
-/*     */     {
-/* 284 */       if (var2.stackSize <= 0) {
-/*     */         
-/* 286 */         par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/* 287 */         var2 = null;
-/*     */       } 
-/*     */     }
-/*     */     
-/* 291 */     if (super.interact(par1EntityPlayer)) {
-/* 292 */       return true;
-/*     */     }
-/*     */     
-/* 295 */     if (var2 != null && var2.getItem() == Items.apple && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D) {
-/*     */       
-/* 297 */       if (!isTamed()) {
-/*     */         
-/* 299 */         if (!this.worldObj.isRemote)
-/*     */         {
-/* 301 */           if (this.rand.nextInt(2) == 0)
-/*     */           {
-/* 303 */             setTamed(true);
-/* 304 */             func_152115_b(par1EntityPlayer.getUniqueID().toString());
-/* 305 */             playTameEffect(true);
-/* 306 */             this.worldObj.setEntityState((Entity)this, (byte)7);
-/* 307 */             heal(mygetMaxHealth() - getHealth());
-/*     */           
-/*     */           }
-/*     */           else
-/*     */           {
-/* 312 */             playTameEffect(false);
-/* 313 */             this.worldObj.setEntityState((Entity)this, (byte)6);
-/*     */           }
-/*     */         
-/*     */         }
-/*     */       }
-/* 318 */       else if (isOwner((EntityLivingBase)par1EntityPlayer)) {
-/*     */         
-/* 320 */         if (this.worldObj.isRemote) {
-/* 321 */           playTameEffect(true);
-/* 322 */           this.worldObj.setEntityState((Entity)this, (byte)7);
-/*     */         } 
-/*     */         
-/* 325 */         if (mygetMaxHealth() > getHealth()) {
-/* 326 */           heal(mygetMaxHealth() - getHealth());
-/*     */         }
-/*     */       } 
-/*     */       
-/* 330 */       if (!par1EntityPlayer.capabilities.isCreativeMode) {
-/*     */         
-/* 332 */         var2.stackSize--;
-/* 333 */         if (var2.stackSize <= 0)
-/*     */         {
-/* 335 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*     */         }
-/*     */       } 
-/* 338 */       return true;
-/*     */     } 
-/* 340 */     if (isTamed() && var2 != null && var2.getItem() == Items.name_tag && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D && isOwner((EntityLivingBase)par1EntityPlayer)) {
-/*     */       
-/* 342 */       setCustomNameTag(var2.getDisplayName());
-/* 343 */       if (!par1EntityPlayer.capabilities.isCreativeMode) {
-/*     */         
-/* 345 */         var2.stackSize--;
-/* 346 */         if (var2.stackSize <= 0)
-/*     */         {
-/* 348 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*     */         }
-/*     */       } 
-/* 351 */       return true;
-/* 352 */     }  if (isTamed() && isOwner((EntityLivingBase)par1EntityPlayer) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D) {
-/*     */       
-/* 354 */       if (!isSitting()) {
-/* 355 */         setSitting(true);
-/*     */       } else {
-/* 357 */         setSitting(false);
-/*     */       } 
-/* 359 */       return true;
-/*     */     } 
-/*     */     
-/* 362 */     return false;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected String getLivingSound() {
-/* 370 */     if (isSitting())
-/*     */     {
-/* 372 */       return null;
-/*     */     }
-/* 374 */     return null;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected String getHurtSound() {
-/* 382 */     return "orespawn:cryo_hurt";
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected String getDeathSound() {
-/* 390 */     return "orespawn:cryo_death";
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected float getSoundVolume() {
-/* 398 */     return 0.4F;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected Item getDropItem() {
-/* 406 */     return Item.getItemFromBlock((Block)Blocks.red_flower);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected void dropFewItems(boolean par1, int par2) {
-/* 414 */     int var3 = 0;
-/*     */     
-/* 416 */     if (isTamed()) {
-/*     */       
-/* 418 */       var3 = this.rand.nextInt(5);
-/* 419 */       var3 += 2;
-/* 420 */       for (int var4 = 0; var4 < var3; var4++)
-/*     */       {
-/* 422 */         dropItem(Item.getItemFromBlock((Block)Blocks.red_flower), 1);
-/*     */       }
-/*     */     } 
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected float getSoundPitch() {
-/* 434 */     return isChild() ? ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F + 1.5F) : ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F + 1.0F);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-/* 444 */     boolean ret = false;
-/* 445 */     ret = super.attackEntityFrom(par1DamageSource, par2);
-/* 446 */     return ret;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected boolean canDespawn() {
-/* 455 */     if (isChild()) {
-/* 456 */       enablePersistence();
-/* 457 */       return false;
-/*     */     } 
-/* 459 */     if (isNoDespawnRequired()) return false; 
-/* 460 */     if (isTamed()) return false; 
-/* 461 */     return true;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public EntityAgeable createChild(EntityAgeable entityageable) {
-/* 466 */     return (EntityAgeable)spawnBabyAnimal(entityageable);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public Camarasaurus spawnBabyAnimal(EntityAgeable par1EntityAgeable) {
-/* 472 */     return new Camarasaurus(this.worldObj);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean isWheat(ItemStack par1ItemStack) {
-/* 480 */     return (par1ItemStack != null && par1ItemStack.getItem() == Items.apple);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean isBreedingItem(ItemStack par1ItemStack) {
-/* 489 */     return (par1ItemStack.getItem() == OreSpawnMain.MyCrystalApple);
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\Camarasaurus.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.world.*;
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.entity.ai.*;
+import net.minecraft.util.*;
+import net.minecraft.init.*;
+import net.minecraft.block.*;
+import net.minecraft.item.*;
+import net.minecraft.entity.*;
+
+public class Camarasaurus extends EntityTameable
+{
+    private float moveSpeed;
+    private int closest;
+    private int tx;
+    private int ty;
+    private int tz;
+    
+    public Camarasaurus(final World par1World) {
+        super(par1World);
+        this.moveSpeed = 0.2f;
+        this.closest = 99999;
+        this.tx = 0;
+        this.ty = 0;
+        this.tz = 0;
+        this.setSize(0.5f, 1.2f);
+        this.moveSpeed = 0.2f;
+        this.fireResistance = 100;
+        this.getNavigator().setAvoidsWater(true);
+        this.setSitting(false);
+        this.experienceValue = 5;
+        this.tasks.addTask(0, (EntityAIBase)new EntityAISwimming((EntityLiving)this));
+        this.tasks.addTask(1, (EntityAIBase)new EntityAIMate((EntityAnimal)this, 1.0));
+        this.tasks.addTask(2, (EntityAIBase)new MyEntityAIFollowOwner(this, 2.0f, 10.0f, 2.0f));
+        this.tasks.addTask(3, (EntityAIBase)new EntityAIAvoidEntity((EntityCreature)this, (Class)EntityMob.class, 8.0f, 1.0, 1.399999976158142));
+        this.tasks.addTask(4, (EntityAIBase)new EntityAITempt((EntityCreature)this, 1.2000000476837158, Items.apple, false));
+        this.tasks.addTask(5, (EntityAIBase)new EntityAIPanic((EntityCreature)this, 1.5));
+        this.tasks.addTask(6, (EntityAIBase)new EntityAIWatchClosest((EntityLiving)this, (Class)EntityPlayer.class, 6.0f));
+        this.tasks.addTask(7, (EntityAIBase)new MyEntityAIWander((EntityCreature)this, 1.0f));
+        this.tasks.addTask(8, (EntityAIBase)new EntityAILookIdle((EntityLiving)this));
+        this.tasks.addTask(9, (EntityAIBase)new EntityAIMoveIndoors((EntityCreature)this));
+    }
+    
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)this.mygetMaxHealth());
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)this.moveSpeed);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(1.0);
+    }
+    
+    protected void entityInit() {
+        super.entityInit();
+        this.setSitting(false);
+    }
+    
+    public boolean getCanSpawnHere() {
+        return this.posY >= 50.0 && this.worldObj.isDaytime();
+    }
+    
+    public void onUpdate() {
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)this.moveSpeed);
+        super.onUpdate();
+    }
+    
+    protected void fall(final float par1) {
+        float i = (float)MathHelper.ceiling_float_int(par1 - 3.0f);
+        if (i > 0.0f) {
+            if (i > 3.0f) {
+                this.playSound("damage.fallbig", 1.0f, 1.0f);
+            }
+            else {
+                this.playSound("damage.fallsmall", 1.0f, 1.0f);
+            }
+            if (i > 2.0f) {
+                i = 2.0f;
+            }
+            this.attackEntityFrom(DamageSource.fall, i);
+        }
+    }
+    
+    private boolean scan_it(final int x, final int y, final int z, final int dx, final int dy, final int dz) {
+        int found = 0;
+        for (int i = -dy; i <= dy; ++i) {
+            for (int j = -dz; j <= dz; ++j) {
+                Block bid = this.worldObj.getBlock(x + dx, y + i, z + j);
+                if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
+                    final int d = dx * dx + j * j + i * i;
+                    if (d < this.closest) {
+                        this.closest = d;
+                        this.tx = x + dx;
+                        this.ty = y + i;
+                        this.tz = z + j;
+                        ++found;
+                    }
+                }
+                bid = this.worldObj.getBlock(x - dx, y + i, z + j);
+                if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
+                    final int d = dx * dx + j * j + i * i;
+                    if (d < this.closest) {
+                        this.closest = d;
+                        this.tx = x - dx;
+                        this.ty = y + i;
+                        this.tz = z + j;
+                        ++found;
+                    }
+                }
+            }
+        }
+        for (int i = -dx; i <= dx; ++i) {
+            for (int j = -dz; j <= dz; ++j) {
+                Block bid = this.worldObj.getBlock(x + i, y + dy, z + j);
+                if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
+                    final int d = dy * dy + j * j + i * i;
+                    if (d < this.closest) {
+                        this.closest = d;
+                        this.tx = x + i;
+                        this.ty = y + dy;
+                        this.tz = z + j;
+                        ++found;
+                    }
+                }
+                bid = this.worldObj.getBlock(x + i, y - dy, z + j);
+                if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
+                    final int d = dy * dy + j * j + i * i;
+                    if (d < this.closest) {
+                        this.closest = d;
+                        this.tx = x + i;
+                        this.ty = y - dy;
+                        this.tz = z + j;
+                        ++found;
+                    }
+                }
+            }
+        }
+        for (int i = -dx; i <= dx; ++i) {
+            for (int j = -dy; j <= dy; ++j) {
+                Block bid = this.worldObj.getBlock(x + i, y + j, z + dz);
+                if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
+                    final int d = dz * dz + j * j + i * i;
+                    if (d < this.closest) {
+                        this.closest = d;
+                        this.tx = x + i;
+                        this.ty = y + j;
+                        this.tz = z + dz;
+                        ++found;
+                    }
+                }
+                bid = this.worldObj.getBlock(x + i, y + j, z - dz);
+                if (bid == Blocks.leaves || bid == Blocks.vine || bid == Blocks.tallgrass || bid == Blocks.cactus || bid == Blocks.double_plant) {
+                    final int d = dz * dz + j * j + i * i;
+                    if (d < this.closest) {
+                        this.closest = d;
+                        this.tx = x + i;
+                        this.ty = y + j;
+                        this.tz = z - dz;
+                        ++found;
+                    }
+                }
+            }
+        }
+        return found != 0;
+    }
+    
+    protected void updateAITick() {
+        if (this.isDead) {
+            return;
+        }
+        if (this.worldObj.rand.nextInt(200) == 1) {
+            this.setRevengeTarget((EntityLivingBase)null);
+        }
+        super.updateAITick();
+        if (!this.isSitting() && ((this.worldObj.rand.nextInt(20) == 0 && this.getCamarasaurusHealth() < this.mygetMaxHealth()) || this.worldObj.rand.nextInt(250) == 0) && OreSpawnMain.PlayNicely == 0) {
+            this.closest = 99999;
+            final int tx = 0;
+            this.tz = tx;
+            this.ty = tx;
+            this.tx = tx;
+            for (int i = 1; i < 11; ++i) {
+                int j = i;
+                if (j > 2) {
+                    j = 2;
+                }
+                if (this.scan_it((int)this.posX, (int)this.posY + 1, (int)this.posZ, i, j, i)) {
+                    break;
+                }
+                if (i >= 6) {
+                    ++i;
+                }
+            }
+            if (this.closest < 99999) {
+                this.getNavigator().tryMoveToXYZ((double)this.tx, (double)this.ty, (double)this.tz, 1.0);
+                if (this.closest < 12) {
+                    if (this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing")) {
+                        this.worldObj.setBlock(this.tx, this.ty, this.tz, Blocks.air, 0, 2);
+                    }
+                    this.heal(1.0f);
+                    this.playSound("random.burp", 1.0f, this.worldObj.rand.nextFloat() * 0.2f + 0.9f);
+                }
+            }
+        }
+    }
+    
+    public boolean isAIEnabled() {
+        return true;
+    }
+    
+    public boolean canBreatheUnderwater() {
+        return false;
+    }
+    
+    public int mygetMaxHealth() {
+        return 20;
+    }
+    
+    public int getCamarasaurusHealth() {
+        return (int)this.getHealth();
+    }
+    
+    public boolean interact(final EntityPlayer par1EntityPlayer) {
+        ItemStack var2 = par1EntityPlayer.inventory.getCurrentItem();
+        if (var2 != null && var2.stackSize <= 0) {
+            par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+            var2 = null;
+        }
+        if (super.interact(par1EntityPlayer)) {
+            return true;
+        }
+        if (var2 != null && var2.getItem() == Items.apple && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0) {
+            if (!this.isTamed()) {
+                if (!this.worldObj.isRemote) {
+                    if (this.rand.nextInt(2) == 0) {
+                        this.setTamed(true);
+                        this.func_152115_b(par1EntityPlayer.getUniqueID().toString());
+                        this.playTameEffect(true);
+                        this.worldObj.setEntityState((Entity)this, (byte)7);
+                        this.heal(this.mygetMaxHealth() - this.getHealth());
+                    }
+                    else {
+                        this.playTameEffect(false);
+                        this.worldObj.setEntityState((Entity)this, (byte)6);
+                    }
+                }
+            }
+            else if (this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
+                if (this.worldObj.isRemote) {
+                    this.playTameEffect(true);
+                    this.worldObj.setEntityState((Entity)this, (byte)7);
+                }
+                if (this.mygetMaxHealth() > this.getHealth()) {
+                    this.heal(this.mygetMaxHealth() - this.getHealth());
+                }
+            }
+            if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                final ItemStack itemStack = var2;
+                --itemStack.stackSize;
+                if (var2.stackSize <= 0) {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
+            }
+            return true;
+        }
+        if (this.isTamed() && var2 != null && var2.getItem() == Items.name_tag && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0 && this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
+            this.setCustomNameTag(var2.getDisplayName());
+            if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                final ItemStack itemStack2 = var2;
+                --itemStack2.stackSize;
+                if (var2.stackSize <= 0) {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
+            }
+            return true;
+        }
+        if (this.isTamed() && this.func_152114_e((EntityLivingBase)par1EntityPlayer) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0) {
+            if (!this.isSitting()) {
+                this.setSitting(true);
+            }
+            else {
+                this.setSitting(false);
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    protected String getLivingSound() {
+        if (this.isSitting()) {
+            return null;
+        }
+        return null;
+    }
+    
+    protected String getHurtSound() {
+        return "orespawn:cryo_hurt";
+    }
+    
+    protected String getDeathSound() {
+        return "orespawn:cryo_death";
+    }
+    
+    protected float getSoundVolume() {
+        return 0.4f;
+    }
+    
+    protected Item getDropItem() {
+        return Item.getItemFromBlock((Block)Blocks.red_flower);
+    }
+    
+    protected void dropFewItems(final boolean par1, final int par2) {
+        int var3 = 0;
+        if (this.isTamed()) {
+            var3 = this.rand.nextInt(5);
+            var3 += 2;
+            for (int var4 = 0; var4 < var3; ++var4) {
+                this.dropItem(Item.getItemFromBlock((Block)Blocks.red_flower), 1);
+            }
+        }
+    }
+    
+    protected float getSoundPitch() {
+        return this.isChild() ? ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1f + 1.5f) : ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1f + 1.0f);
+    }
+    
+    public boolean attackEntityFrom(final DamageSource par1DamageSource, final float par2) {
+        boolean ret = false;
+        ret = super.attackEntityFrom(par1DamageSource, par2);
+        return ret;
+    }
+    
+    protected boolean canDespawn() {
+        if (this.isChild()) {
+            this.func_110163_bv();
+            return false;
+        }
+        return !this.isNoDespawnRequired() && !this.isTamed();
+    }
+    
+    public EntityAgeable createChild(final EntityAgeable entityageable) {
+        return (EntityAgeable)this.spawnBabyAnimal(entityageable);
+    }
+    
+    public Camarasaurus spawnBabyAnimal(final EntityAgeable par1EntityAgeable) {
+        return new Camarasaurus(this.worldObj);
+    }
+    
+    public boolean isWheat(final ItemStack par1ItemStack) {
+        return par1ItemStack != null && par1ItemStack.getItem() == Items.apple;
+    }
+    
+    public boolean isBreedingItem(final ItemStack par1ItemStack) {
+        return par1ItemStack.getItem() == OreSpawnMain.MyCrystalApple;
+    }
+}

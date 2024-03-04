@@ -1,97 +1,76 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import cpw.mods.fml.relauncher.Side;
-/*    */ import cpw.mods.fml.relauncher.SideOnly;
-/*    */ import net.minecraft.block.Block;
-/*    */ import net.minecraft.block.material.Material;
-/*    */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*    */ import net.minecraft.creativetab.CreativeTabs;
-/*    */ import net.minecraft.entity.Entity;
-/*    */ import net.minecraft.entity.player.EntityPlayer;
-/*    */ import net.minecraft.entity.player.EntityPlayerMP;
-/*    */ import net.minecraft.init.Blocks;
-/*    */ import net.minecraft.world.World;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class RTPBlock
-/*    */   extends Block
-/*    */ {
-/*    */   public RTPBlock(int i) {
-/* 26 */     super(Material.rock);
-/* 27 */     setCreativeTab(CreativeTabs.tabBlock);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void onEntityWalking(World world, int par2, int par3, int par4, Entity par5Entity) {
-/* 36 */     if (par5Entity instanceof EntityPlayer) {
-/* 37 */       EntityPlayer p = (EntityPlayer)par5Entity;
-/* 38 */       EntityPlayerMP mp = null;
-/* 39 */       if (par5Entity instanceof EntityPlayerMP) {
-/* 40 */         mp = (EntityPlayerMP)par5Entity;
-/*    */       }
-/* 42 */       int x = par2, y = par3, z = par4, found = 0;
-/*    */       
-/* 44 */       for (int tries = 0; tries < 1000 && found == 0; tries++) {
-/* 45 */         if (world.rand.nextInt(2) == 0) {
-/* 46 */           x = par2 + 16 + world.rand.nextInt(8) - world.rand.nextInt(8);
-/*    */         } else {
-/* 48 */           x = par2 - 16 + world.rand.nextInt(8) - world.rand.nextInt(8);
-/*    */         } 
-/* 50 */         if (world.rand.nextInt(2) == 0) {
-/* 51 */           z = par4 + 16 + world.rand.nextInt(8) - world.rand.nextInt(8);
-/*    */         } else {
-/* 53 */           z = par4 - 16 + world.rand.nextInt(8) - world.rand.nextInt(8);
-/*    */         } 
-/* 55 */         for (y = par3 - 4; y <= par3 + 4; y++) {
-/* 56 */           if (world.getBlock(x, y - 1, z).getMaterial().isSolid() && 
-/* 57 */             world.getBlock(x, y, z) == Blocks.air && 
-/* 58 */             world.getBlock(x, y + 1, z) == Blocks.air) {
-/* 59 */             found = 1;
-/*    */ 
-/*    */             
-/*    */             break;
-/*    */           } 
-/*    */         } 
-/*    */       } 
-/*    */       
-/* 67 */       if (found != 0) {
-/*    */         
-/* 69 */         if (mp != null) {
-/* 70 */           mp.playerNetServerHandler.setPlayerLocation((x + 0.5F), y, (z + 0.5F), p.rotationYaw, 0.0F);
-/*    */         } else {
-/* 72 */           p.setLocationAndAngles((x + 0.5F), y, (z + 0.5F), p.rotationYaw, 0.0F);
-/*    */         } 
-/*    */         
-/* 75 */         for (int var3 = 0; var3 < 6; var3++) {
-/*    */           
-/* 77 */           world.spawnParticle("smoke", (x + 0.5F), (y + 2.25F), (z + 0.5F), 0.0D, 0.0D, 0.0D);
-/* 78 */           world.spawnParticle("explode", (x + 0.5F), (y + 2.25F), (z + 0.5F), 0.0D, 0.0D, 0.0D);
-/* 79 */           world.spawnParticle("reddust", (x + 0.5F), (y + 2.25F), (z + 0.5F), 0.0D, 0.0D, 0.0D);
-/*    */         } 
-/* 81 */         p.worldObj.playSoundAtEntity((Entity)p, "random.explode", 1.0F, 1.5F);
-/*    */       } 
-/*    */     } 
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   @SideOnly(Side.CLIENT)
-/*    */   public void registerBlockIcons(IIconRegister iconRegister) {
-/* 89 */     this.blockIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\RTPBlock.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.creativetab.*;
+import net.minecraft.world.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.init.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class RTPBlock extends Block
+{
+    public RTPBlock(final int i) {
+        super(Material.rock);
+        this.setCreativeTab(CreativeTabs.tabBlock);
+    }
+    
+    public void onEntityWalking(final World world, final int par2, final int par3, final int par4, final Entity par5Entity) {
+        if (par5Entity instanceof EntityPlayer) {
+            final EntityPlayer p = (EntityPlayer)par5Entity;
+            EntityPlayerMP mp = null;
+            if (par5Entity instanceof EntityPlayerMP) {
+                mp = (EntityPlayerMP)par5Entity;
+            }
+            int x = par2;
+            int y = par3;
+            int z = par4;
+            int found = 0;
+            for (int tries = 0; tries < 1000 && found == 0; ++tries) {
+                if (world.rand.nextInt(2) == 0) {
+                    x = par2 + 16 + world.rand.nextInt(8) - world.rand.nextInt(8);
+                }
+                else {
+                    x = par2 - 16 + world.rand.nextInt(8) - world.rand.nextInt(8);
+                }
+                if (world.rand.nextInt(2) == 0) {
+                    z = par4 + 16 + world.rand.nextInt(8) - world.rand.nextInt(8);
+                }
+                else {
+                    z = par4 - 16 + world.rand.nextInt(8) - world.rand.nextInt(8);
+                }
+                for (y = par3 - 4; y <= par3 + 4; ++y) {
+                    if (world.getBlock(x, y - 1, z).getMaterial().isSolid() && world.getBlock(x, y, z) == Blocks.air && world.getBlock(x, y + 1, z) == Blocks.air) {
+                        found = 1;
+                        break;
+                    }
+                }
+            }
+            if (found != 0) {
+                if (mp != null) {
+                    mp.playerNetServerHandler.setPlayerLocation((double)(x + 0.5f), (double)(float)y, (double)(z + 0.5f), p.rotationYaw, 0.0f);
+                }
+                else {
+                    p.setLocationAndAngles((double)(x + 0.5f), (double)(float)y, (double)(z + 0.5f), p.rotationYaw, 0.0f);
+                }
+                for (int var3 = 0; var3 < 6; ++var3) {
+                    world.spawnParticle("smoke", (double)(x + 0.5f), (double)(y + 2.25f), (double)(z + 0.5f), 0.0, 0.0, 0.0);
+                    world.spawnParticle("explode", (double)(x + 0.5f), (double)(y + 2.25f), (double)(z + 0.5f), 0.0, 0.0, 0.0);
+                    world.spawnParticle("reddust", (double)(x + 0.5f), (double)(y + 2.25f), (double)(z + 0.5f), 0.0, 0.0, 0.0);
+                }
+                p.worldObj.playSoundAtEntity((Entity)p, "random.explode", 1.0f, 1.5f);
+            }
+        }
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(final IIconRegister iconRegister) {
+        this.blockIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

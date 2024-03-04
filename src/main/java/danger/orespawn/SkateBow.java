@@ -1,160 +1,89 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.relauncher.Side;
-/*     */ import cpw.mods.fml.relauncher.SideOnly;
-/*     */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*     */ import net.minecraft.creativetab.CreativeTabs;
-/*     */ import net.minecraft.enchantment.Enchantment;
-/*     */ import net.minecraft.enchantment.EnchantmentHelper;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityLivingBase;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.item.EnumAction;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.item.ItemStack;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class SkateBow
-/*     */   extends Item
-/*     */ {
-/*     */   public SkateBow(int par1) {
-/*  26 */     this.maxStackSize = 1;
-/*  27 */     setMaxDamage(300);
-/*  28 */     setCreativeTab(CreativeTabs.tabCombat);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {}
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {}
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, int par4) {
-/*  52 */     int var6 = getMaxItemUseDuration(par1ItemStack) - par4;
-/*     */     
-/*  54 */     boolean flag = (par3EntityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, par1ItemStack) > 0);
-/*     */     
-/*  56 */     if (flag || par3EntityPlayer.inventory.hasItem(OreSpawnMain.MyIrukandjiArrow)) {
-/*     */ 
-/*     */       
-/*  59 */       float f = var6 / 20.0F;
-/*  60 */       f = (f * f + f * 2.0F) / 3.0F;
-/*     */       
-/*  62 */       if (f < 0.1D) {
-/*     */         return;
-/*     */       }
-/*     */ 
-/*     */       
-/*  67 */       if (f > 1.75F)
-/*     */       {
-/*  69 */         f = 1.75F;
-/*     */       }
-/*     */ 
-/*     */       
-/*  73 */       IrukandjiArrow var8 = new IrukandjiArrow(par2World, par3EntityPlayer, f);
-/*     */ 
-/*     */       
-/*  76 */       if (par2World.rand.nextInt(20) == 1) var8.setIsCritical(true);
-/*     */ 
-/*     */       
-/*  79 */       int var10 = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, par1ItemStack);
-/*  80 */       if (var10 > 0)
-/*     */       {
-/*  82 */         var8.setKnockbackStrength(var10);
-/*     */       }
-/*     */       
-/*  85 */       if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, par1ItemStack) > 0)
-/*     */       {
-/*  87 */         var8.setFire(100);
-/*     */       }
-/*     */       
-/*  90 */       par1ItemStack.damageItem(1, (EntityLivingBase)par3EntityPlayer);
-/*  91 */       par2World.playSoundAtEntity((Entity)par3EntityPlayer, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + 0.5F);
-/*     */       
-/*  93 */       if (!flag) {
-/*  94 */         par3EntityPlayer.inventory.consumeInventoryItem(OreSpawnMain.MyIrukandjiArrow);
-/*     */       }
-/*     */       
-/*  97 */       if (!par2World.isRemote)
-/*     */       {
-/*  99 */         par2World.spawnEntityInWorld((Entity)var8);
-/*     */       }
-/*     */     } 
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public ItemStack onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-/* 106 */     return par1ItemStack;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public int getMaxItemUseDuration(ItemStack par1ItemStack) {
-/* 114 */     return 9000;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-/* 122 */     return EnumAction.bow;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-/* 137 */     par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
-/*     */     
-/* 139 */     return par1ItemStack;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public int getItemEnchantability() {
-/* 147 */     return 50;
-/*     */   }
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void registerIcons(IIconRegister iconRegister) {
-/* 152 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\SkateBow.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.creativetab.*;
+import net.minecraft.world.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.enchantment.*;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class SkateBow extends Item
+{
+    public SkateBow(final int par1) {
+        this.maxStackSize = 1;
+        this.setMaxDamage(300);
+        this.setCreativeTab(CreativeTabs.tabCombat);
+    }
+    
+    public void onCreated(final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer) {
+    }
+    
+    public void onUsingTick(final ItemStack stack, final EntityPlayer player, final int count) {
+    }
+    
+    public void onPlayerStoppedUsing(final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer, final int par4) {
+        final int var6 = this.getMaxItemUseDuration(par1ItemStack) - par4;
+        final boolean flag = par3EntityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, par1ItemStack) > 0;
+        if (flag || par3EntityPlayer.inventory.hasItem(OreSpawnMain.MyIrukandjiArrow)) {
+            float f = var6 / 20.0f;
+            f = (f * f + f * 2.0f) / 3.0f;
+            if (f < 0.1) {
+                return;
+            }
+            if (f > 1.75f) {
+                f = 1.75f;
+            }
+            final IrukandjiArrow var7 = new IrukandjiArrow(par2World, par3EntityPlayer, f);
+            if (par2World.rand.nextInt(20) == 1) {
+                var7.setIsCritical(true);
+            }
+            final int var8 = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, par1ItemStack);
+            if (var8 > 0) {
+                var7.setKnockbackStrength(var8);
+            }
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, par1ItemStack) > 0) {
+                var7.setFire(100);
+            }
+            par1ItemStack.damageItem(1, (EntityLivingBase)par3EntityPlayer);
+            par2World.playSoundAtEntity((Entity)par3EntityPlayer, "random.bow", 1.0f, 1.0f / (SkateBow.itemRand.nextFloat() * 0.4f + 1.2f) + 0.5f);
+            if (!flag) {
+                par3EntityPlayer.inventory.consumeInventoryItem(OreSpawnMain.MyIrukandjiArrow);
+            }
+            if (!par2World.isRemote) {
+                par2World.spawnEntityInWorld((Entity)var7);
+            }
+        }
+    }
+    
+    public ItemStack onFoodEaten(final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer) {
+        return par1ItemStack;
+    }
+    
+    public int getMaxItemUseDuration(final ItemStack par1ItemStack) {
+        return 9000;
+    }
+    
+    public EnumAction getItemUseAction(final ItemStack par1ItemStack) {
+        return EnumAction.bow;
+    }
+    
+    public ItemStack onItemRightClick(final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer) {
+        par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
+        return par1ItemStack;
+    }
+    
+    public int getItemEnchantability() {
+        return 50;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

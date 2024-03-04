@@ -1,26 +1,17 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import net.minecraft.dispenser.BehaviorProjectileDispense;
-/*    */ import net.minecraft.dispenser.IPosition;
-/*    */ import net.minecraft.entity.IProjectile;
-/*    */ import net.minecraft.world.World;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ final class MyDispenserBehaviorAcid
-/*    */   extends BehaviorProjectileDispense
-/*    */ {
-/*    */   protected IProjectile getProjectileEntity(World par1World, IPosition par2IPosition) {
-/* 16 */     Acid entityarrow = new Acid(par1World, par2IPosition.getX(), par2IPosition.getY(), par2IPosition.getZ());
-/*    */     
-/* 18 */     return (IProjectile)entityarrow;
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\MyDispenserBehaviorAcid.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.world.*;
+import net.minecraft.dispenser.*;
+import net.minecraft.entity.*;
+
+final class MyDispenserBehaviorAcid extends BehaviorProjectileDispense
+{
+    protected IProjectile getProjectileEntity(final World par1World, final IPosition par2IPosition) {
+        final Acid entityarrow = new Acid(par1World, par2IPosition.getX(), par2IPosition.getY(), par2IPosition.getZ());
+        return (IProjectile)entityarrow;
+    }
+}

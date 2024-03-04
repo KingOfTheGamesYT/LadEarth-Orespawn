@@ -1,51 +1,28 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import cpw.mods.fml.common.network.simpleimpl.IMessage;
-/*    */ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-/*    */ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-/*    */ import cpw.mods.fml.relauncher.Side;
-/*    */ import io.netty.channel.ChannelHandler.Sharable;
-/*    */ import org.apache.logging.log4j.LogManager;
-/*    */ import org.apache.logging.log4j.Logger;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ @Sharable
-/*    */ public class RiderControlMessageHandler
-/*    */   implements IMessageHandler<RiderControlMessage, IMessage>
-/*    */ {
-/* 30 */   private static final Logger L = LogManager.getLogger();
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public IMessage onMessage(RiderControlMessage message, MessageContext ctx) {
-/* 35 */     if (ctx.side == Side.CLIENT)
-/*    */     {
-/* 37 */       return null;
-/*    */     }
-/*    */     
-/* 40 */     OreSpawnMain.flyup_keystate = message.keystate;
-/*    */ 
-/*    */     
-/* 43 */     return null;
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\RiderControlMessageHandler.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import io.netty.channel.*;
+import cpw.mods.fml.common.network.simpleimpl.*;
+import cpw.mods.fml.relauncher.*;
+import org.apache.logging.log4j.*;
+
+@ChannelHandler.Sharable
+public class RiderControlMessageHandler implements IMessageHandler<RiderControlMessage, IMessage>
+{
+    private static final Logger L;
+    
+    public IMessage onMessage(final RiderControlMessage message, final MessageContext ctx) {
+        if (ctx.side == Side.CLIENT) {
+            return null;
+        }
+        OreSpawnMain.flyup_keystate = message.keystate;
+        return null;
+    }
+    
+    static {
+        L = LogManager.getLogger();
+    }
+}

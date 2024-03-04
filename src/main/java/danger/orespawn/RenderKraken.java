@@ -1,78 +1,66 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import net.minecraft.client.renderer.entity.RenderLiving;
-/*    */ import net.minecraft.entity.Entity;
-/*    */ import net.minecraft.entity.EntityLiving;
-/*    */ import net.minecraft.entity.EntityLivingBase;
-/*    */ import net.minecraft.util.ResourceLocation;
-/*    */ import org.lwjgl.opengl.GL11;
-/*    */ 
-/*    */ 
-/*    */ public class RenderKraken
-/*    */   extends RenderLiving
-/*    */ {
-/*    */   protected ModelKraken model;
-/* 15 */   private float scale = 1.0F;
-/* 16 */   private static final ResourceLocation texture = new ResourceLocation("orespawn", "Kraken.png");
-/*    */   
-/*    */   public RenderKraken(ModelKraken par1ModelBase, float par2, float par3) {
-/* 19 */     super(par1ModelBase, par2 * par3);
-/* 20 */     this.model = (ModelKraken)this.mainModel;
-/* 21 */     this.scale = par3;
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void renderKraken(Kraken par1EntityKraken, double par2, double par4, double par6, float par8, float par9) {
-/* 27 */     super.doRender((EntityLiving)par1EntityKraken, par2, par4, par6, par8, par9);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public void doRender(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9) {
-/* 32 */     renderKraken((Kraken)par1EntityLiving, par2, par4, par6, par8, par9);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
-/* 43 */     renderKraken((Kraken)par1Entity, par2, par4, par6, par8, par9);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   protected void preRenderScale(Kraken par1Entity, float par2) {
-/* 51 */     if (par1Entity != null && par1Entity.getPlayNicely() != 0) {
-/* 52 */       GL11.glScalef(this.scale / 3.0F, this.scale / 3.0F, this.scale / 3.0F);
-/*    */       return;
-/*    */     } 
-/* 55 */     GL11.glScalef(this.scale, this.scale, this.scale);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2) {
-/* 64 */     preRenderScale((Kraken)par1EntityLiving, par2);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   protected ResourceLocation getEntityTexture(Entity entity) {
-/* 70 */     return texture;
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
-
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\RenderKraken.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
+/*
+ * Decompiled with CFR 0.0.6 (FabricMC f687381d).
+ * 
+ * Could not load the following classes:
+ *  java.lang.Object
+ *  net.minecraft.client.model.ModelBase
+ *  net.minecraft.client.renderer.entity.RenderLiving
+ *  net.minecraft.entity.Entity
+ *  net.minecraft.entity.EntityLiving
+ *  net.minecraft.entity.EntityLivingBase
+ *  net.minecraft.util.ResourceLocation
+ *  org.lwjgl.opengl.GL11
  */
+package danger.orespawn;
+
+import danger.orespawn.Kraken;
+import danger.orespawn.ModelKraken;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+
+public class RenderKraken
+extends RenderLiving {
+    protected ModelKraken model = (ModelKraken)this.mainModel;
+    private float scale = 1.0f;
+    private static final ResourceLocation texture = new ResourceLocation("orespawn", "Kraken.png");
+
+    public RenderKraken(ModelKraken par1ModelBase, float par2, float par3) {
+        super((ModelBase)par1ModelBase, par2 * par3);
+        this.scale = par3;
+    }
+
+    public void renderKraken(Kraken par1EntityKraken, double par2, double par4, double par6, float par8, float par9) {
+        super.doRender((EntityLiving)par1EntityKraken, par2, par4, par6, par8, par9);
+    }
+
+    public void doRender(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9) {
+        this.renderKraken((Kraken)par1EntityLiving, par2, par4, par6, par8, par9);
+    }
+
+    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+        this.renderKraken((Kraken)par1Entity, par2, par4, par6, par8, par9);
+    }
+
+    protected void preRenderScale(Kraken par1Entity, float par2) {
+        if (par1Entity != null && par1Entity.getPlayNicely() != 0) {
+            GL11.glScalef((float)(this.scale / 3.0f), (float)(this.scale / 3.0f), (float)(this.scale / 3.0f));
+            return;
+        }
+        GL11.glScalef((float)this.scale, (float)this.scale, (float)this.scale);
+    }
+
+    protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2) {
+        this.preRenderScale((Kraken)par1EntityLiving, par2);
+    }
+
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        return texture;
+    }
+}

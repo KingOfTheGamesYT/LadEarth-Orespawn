@@ -1,1344 +1,1204 @@
-/*      */ package danger.orespawn;
-/*      */ 
-/*      */ import net.minecraft.block.Block;
-/*      */ import net.minecraft.enchantment.Enchantment;
-/*      */ import net.minecraft.enchantment.EnchantmentHelper;
-/*      */ import net.minecraft.entity.Entity;
-/*      */ import net.minecraft.entity.EntityAgeable;
-/*      */ import net.minecraft.entity.EntityCreature;
-/*      */ import net.minecraft.entity.EntityLiving;
-/*      */ import net.minecraft.entity.EntityLivingBase;
-/*      */ import net.minecraft.entity.IRangedAttackMob;
-/*      */ import net.minecraft.entity.SharedMonsterAttributes;
-/*      */ import net.minecraft.entity.ai.EntityAIArrowAttack;
-/*      */ import net.minecraft.entity.ai.EntityAIBase;
-/*      */ import net.minecraft.entity.ai.EntityAILookIdle;
-/*      */ import net.minecraft.entity.ai.EntityAIMoveIndoors;
-/*      */ import net.minecraft.entity.ai.EntityAIOpenDoor;
-/*      */ import net.minecraft.entity.ai.EntityAIPanic;
-/*      */ import net.minecraft.entity.ai.EntityAISwimming;
-/*      */ import net.minecraft.entity.ai.EntityAITempt;
-/*      */ import net.minecraft.entity.ai.EntityAIWatchClosest;
-/*      */ import net.minecraft.entity.item.EntityItem;
-/*      */ import net.minecraft.entity.monster.EntityCreeper;
-/*      */ import net.minecraft.entity.monster.IMob;
-/*      */ import net.minecraft.entity.passive.EntityTameable;
-/*      */ import net.minecraft.entity.player.EntityPlayer;
-/*      */ import net.minecraft.entity.projectile.EntityArrow;
-/*      */ import net.minecraft.init.Blocks;
-/*      */ import net.minecraft.init.Items;
-/*      */ import net.minecraft.item.Item;
-/*      */ import net.minecraft.item.ItemArmor;
-/*      */ import net.minecraft.item.ItemFood;
-/*      */ import net.minecraft.item.ItemStack;
-/*      */ import net.minecraft.nbt.NBTTagCompound;
-/*      */ import net.minecraft.potion.Potion;
-/*      */ import net.minecraft.tileentity.TileEntityMobSpawner;
-/*      */ import net.minecraft.util.ChatComponentText;
-/*      */ import net.minecraft.util.DamageSource;
-/*      */ import net.minecraft.util.IChatComponent;
-/*      */ import net.minecraft.util.MathHelper;
-/*      */ import net.minecraft.util.ResourceLocation;
-/*      */ import net.minecraft.world.World;
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ public class Girlfriend
-/*      */   extends EntityTameable
-/*      */   implements IRangedAttackMob
-/*      */ {
-/*   50 */   public int which_girl = 0;
-/*   51 */   public int which_wet_girl = 0;
-/*   52 */   public int wet_count = 0;
-/*   53 */   private int auto_heal = 200;
-/*   54 */   private int force_sync = 50;
-/*   55 */   private int fight_sound_ticker = 0;
-/*   56 */   private int taunt_sound_ticker = 0;
-/*   57 */   private int had_target = 0;
-/*   58 */   private int voice = 0;
-/*   59 */   private int is_princess = 0;
-/*   60 */   public MyEntityAIDance Dance = null;
-/*   61 */   private float moveSpeed = 0.3F;
-/*   62 */   private int voice_enable = 1;
-/*   63 */   public int passenger = 0;
-/*   64 */   public int feelingBetter = 0;
-/*   65 */   private static final ResourceLocation DryTexture0 = new ResourceLocation("orespawn", "girlfriend0.png");
-/*   66 */   private static final ResourceLocation DryTexture1 = new ResourceLocation("orespawn", "girlfriend1.png");
-/*   67 */   private static final ResourceLocation DryTexture2 = new ResourceLocation("orespawn", "girlfriend2.png");
-/*   68 */   private static final ResourceLocation DryTexture3 = new ResourceLocation("orespawn", "girlfriend3.png");
-/*   69 */   private static final ResourceLocation DryTexture4 = new ResourceLocation("orespawn", "girlfriend4.png");
-/*   70 */   private static final ResourceLocation DryTexture5 = new ResourceLocation("orespawn", "girlfriend5.png");
-/*   71 */   private static final ResourceLocation DryTexture6 = new ResourceLocation("orespawn", "girlfriend6.png");
-/*   72 */   private static final ResourceLocation DryTexture7 = new ResourceLocation("orespawn", "girlfriend7.png");
-/*   73 */   private static final ResourceLocation DryTexture8 = new ResourceLocation("orespawn", "girlfriend8.png");
-/*   74 */   private static final ResourceLocation DryTexture9 = new ResourceLocation("orespawn", "girlfriend9.png");
-/*   75 */   private static final ResourceLocation DryTexture10 = new ResourceLocation("orespawn", "girlfriend10.png");
-/*   76 */   private static final ResourceLocation DryTexture11 = new ResourceLocation("orespawn", "girlfriend11.png");
-/*   77 */   private static final ResourceLocation DryTexture12 = new ResourceLocation("orespawn", "girlfriend12.png");
-/*   78 */   private static final ResourceLocation DryTexture13 = new ResourceLocation("orespawn", "girlfriend13.png");
-/*   79 */   private static final ResourceLocation DryTexture14 = new ResourceLocation("orespawn", "girlfriend14.png");
-/*   80 */   private static final ResourceLocation DryTexture15 = new ResourceLocation("orespawn", "girlfriend15.png");
-/*   81 */   private static final ResourceLocation DryTexture16 = new ResourceLocation("orespawn", "girlfriend16.png");
-/*   82 */   private static final ResourceLocation DryTexture17 = new ResourceLocation("orespawn", "girlfriend17.png");
-/*   83 */   private static final ResourceLocation DryTexture18 = new ResourceLocation("orespawn", "girlfriend18.png");
-/*   84 */   private static final ResourceLocation DryTexture19 = new ResourceLocation("orespawn", "girlfriend19.png");
-/*   85 */   private static final ResourceLocation DryTexture20 = new ResourceLocation("orespawn", "girlfriend20.png");
-/*   86 */   private static final ResourceLocation DryTexture21 = new ResourceLocation("orespawn", "girlfriend21.png");
-/*   87 */   private static final ResourceLocation DryTexture22 = new ResourceLocation("orespawn", "girlfriend22.png");
-/*   88 */   private static final ResourceLocation DryTexture23 = new ResourceLocation("orespawn", "girlfriend23.png");
-/*   89 */   private static final ResourceLocation DryTexture24 = new ResourceLocation("orespawn", "girlfriend24.png");
-/*   90 */   private static final ResourceLocation DryTexture25 = new ResourceLocation("orespawn", "girlfriend25.png");
-/*   91 */   private static final ResourceLocation DryTexture26 = new ResourceLocation("orespawn", "girlfriend26.png");
-/*   92 */   private static final ResourceLocation DryTexture27 = new ResourceLocation("orespawn", "girlfriend27.png");
-/*   93 */   private static final ResourceLocation DryTexture28 = new ResourceLocation("orespawn", "girlfriend28.png");
-/*   94 */   private static final ResourceLocation DryTexture29 = new ResourceLocation("orespawn", "girlfriend29.png");
-/*   95 */   private static final ResourceLocation DryTexture30 = new ResourceLocation("orespawn", "girlfriend30.png");
-/*   96 */   private static final ResourceLocation DryTexture31 = new ResourceLocation("orespawn", "girlfriend31.png");
-/*   97 */   private static final ResourceLocation DryTexture32 = new ResourceLocation("orespawn", "girlfriend32.png");
-/*   98 */   private static final ResourceLocation DryTexture33 = new ResourceLocation("orespawn", "girlfriend33.png");
-/*   99 */   private static final ResourceLocation DryTexture34 = new ResourceLocation("orespawn", "girlfriend34.png");
-/*  100 */   private static final ResourceLocation DryTexture35 = new ResourceLocation("orespawn", "girlfriend35.png");
-/*  101 */   private static final ResourceLocation DryTexture36 = new ResourceLocation("orespawn", "girlfriend36.png");
-/*  102 */   private static final ResourceLocation DryTexture37 = new ResourceLocation("orespawn", "girlfriend37.png");
-/*  103 */   private static final ResourceLocation DryTexture38 = new ResourceLocation("orespawn", "girlfriend38.png");
-/*  104 */   private static final ResourceLocation DryTexture39 = new ResourceLocation("orespawn", "girlfriend39.png");
-/*  105 */   private static final ResourceLocation DryTexture40 = new ResourceLocation("orespawn", "girlfriend40.png");
-/*  106 */   private static final ResourceLocation ValentineTexture = new ResourceLocation("orespawn", "girlfriendv.png");
-/*      */   
-/*  108 */   private static final ResourceLocation WetTexture0 = new ResourceLocation("orespawn", "bikini0.png");
-/*  109 */   private static final ResourceLocation WetTexture1 = new ResourceLocation("orespawn", "bikini1.png");
-/*  110 */   private static final ResourceLocation WetTexture2 = new ResourceLocation("orespawn", "bikini2.png");
-/*  111 */   private static final ResourceLocation WetTexture3 = new ResourceLocation("orespawn", "bikini3.png");
-/*  112 */   private static final ResourceLocation WetTexture4 = new ResourceLocation("orespawn", "bikini4.png");
-/*  113 */   private static final ResourceLocation WetTexture5 = new ResourceLocation("orespawn", "bikini5.png");
-/*  114 */   private static final ResourceLocation WetTexture6 = new ResourceLocation("orespawn", "bikini6.png");
-/*  115 */   private static final ResourceLocation WetTexture7 = new ResourceLocation("orespawn", "bikini7.png");
-/*  116 */   private static final ResourceLocation WetTexture8 = new ResourceLocation("orespawn", "bikini8.png");
-/*  117 */   private static final ResourceLocation WetTexture9 = new ResourceLocation("orespawn", "bikini9.png");
-/*  118 */   private static final ResourceLocation WetTexture10 = new ResourceLocation("orespawn", "bikini10.png");
-/*  119 */   private static final ResourceLocation WetTexture11 = new ResourceLocation("orespawn", "bikini11.png");
-/*  120 */   private static final ResourceLocation WetTexture12 = new ResourceLocation("orespawn", "bikini12.png");
-/*  121 */   private static final ResourceLocation WetTexture13 = new ResourceLocation("orespawn", "bikini13.png");
-/*  122 */   private static final ResourceLocation WetTexture14 = new ResourceLocation("orespawn", "bikini14.png");
-/*  123 */   private static final ResourceLocation WetTexture15 = new ResourceLocation("orespawn", "bikini15.png");
-/*  124 */   private static final ResourceLocation WetTexture16 = new ResourceLocation("orespawn", "bikini16.png");
-/*  125 */   private static final ResourceLocation WetTexture17 = new ResourceLocation("orespawn", "bikini17.png");
-/*      */   
-/*  127 */   private static final ResourceLocation PrincessTexture1 = new ResourceLocation("orespawn", "FrogPrincess.png");
-/*  128 */   private static final ResourceLocation PrincessTexture2 = new ResourceLocation("orespawn", "FrogPrincess2.png");
-/*      */ 
-/*      */   
-/*      */   public Girlfriend(World par1World) {
-/*  132 */     super(par1World);
-/*      */     
-/*  134 */     this.which_girl = this.rand.nextInt(41);
-/*  135 */     this.which_wet_girl = this.rand.nextInt(18);
-/*  136 */     this.voice = this.rand.nextInt(10);
-/*  137 */     setSize(0.5F, 1.6F);
-/*  138 */     if (OreSpawnMain.valentines_day != 0) setSize(2.5F, 8.0F); 
-/*  139 */     this.isImmuneToFire = true;
-/*  140 */     this.fireResistance = 100;
-/*      */ 
-/*      */     
-/*  143 */     getNavigator().setAvoidsWater(false);
-/*  144 */     setSitting(false);
-/*  145 */     this.tasks.addTask(1, new MyEntityAIFollowOwner(this, 1.4F, 12.0F, 1.5F));
-/*  146 */     this.tasks.addTask(2, (EntityAIBase)new EntityAITempt((EntityCreature)this, 1.25D, Item.getItemFromBlock((Block)Blocks.red_flower), false));
-/*  147 */     this.Dance = new MyEntityAIDance(this);
-/*  148 */     this.tasks.addTask(3, this.Dance);
-/*  149 */     this.tasks.addTask(4, (EntityAIBase)new EntityAIArrowAttack(this, 1.25D, 20, 10.0F));
-/*  150 */     this.tasks.addTask(5, (EntityAIBase)new EntityAISwimming((EntityLiving)this));
-/*  151 */     this.tasks.addTask(6, (EntityAIBase)new EntityAIPanic((EntityCreature)this, 1.5D));
-/*  152 */     this.tasks.addTask(7, (EntityAIBase)new EntityAIWatchClosest((EntityLiving)this, EntityPlayer.class, 6.0F));
-/*  153 */     this.tasks.addTask(8, new MyEntityAIWander((EntityCreature)this, 0.75F));
-/*  154 */     this.tasks.addTask(9, (EntityAIBase)new EntityAILookIdle((EntityLiving)this));
-/*  155 */     this.tasks.addTask(10, (EntityAIBase)new EntityAIOpenDoor((EntityLiving)this, true));
-/*  156 */     this.tasks.addTask(11, (EntityAIBase)new EntityAIMoveIndoors((EntityCreature)this));
-/*  157 */     this.targetTasks.addTask(1, new MyValentineTarget((EntityLiving)this, EntityPlayer.class, 16.0F, 0, true, true));
-/*  158 */     this.targetTasks.addTask(2, new MyValentineTarget((EntityLiving)this, Boyfriend.class, 16.0F, 0, true, true));
-/*      */     
-/*  160 */     if (OreSpawnMain.PlayNicely == 0) this.targetTasks.addTask(2, new MyEntityAINearestAttackableTarget((EntityLiving)this, EntityCreeper.class, 20.0F, 0, true, true, IMob.mobSelector));
-/*      */     
-/*  162 */     if (OreSpawnMain.PlayNicely == 0) this.targetTasks.addTask(3, new MyEntityAINearestAttackableTarget((EntityLiving)this, EntityLiving.class, 15.0F, 0, true, true, IMob.mobSelector));
-/*      */     
-/*  164 */     if (OreSpawnMain.PlayNicely == 0) this.targetTasks.addTask(4, new MyEntityAIJealousy(this, Girlfriend.class, 6.0F, 5, true)); 
-/*  165 */     if (OreSpawnMain.PlayNicely == 0) this.targetTasks.addTask(5, new MyEntityAIJealousy(this, Girlfriend.class, 3.0F, 15, true));
-/*      */ 
-/*      */     
-/*  168 */     this.experienceValue = 0;
-/*      */   }
-/*      */ 
-/*      */   
-/*      */   protected void entityInit() {
-/*  173 */     super.entityInit();
-/*      */     
-/*  175 */     this.which_girl = this.rand.nextInt(41);
-/*  176 */     this.dataWatcher.addObject(20, Integer.valueOf(this.which_girl));
-/*  177 */     this.wet_count = 0;
-/*  178 */     this.which_wet_girl = this.rand.nextInt(18);
-/*  179 */     this.dataWatcher.addObject(22, Integer.valueOf(this.which_wet_girl));
-/*  180 */     this.voice = this.rand.nextInt(10);
-/*  181 */     this.dataWatcher.addObject(21, Integer.valueOf(this.voice));
-/*  182 */     this.dataWatcher.addObject(23, Integer.valueOf(this.voice_enable));
-/*  183 */     this.dataWatcher.addObject(24, Integer.valueOf(this.is_princess));
-/*  184 */     this.dataWatcher.addObject(25, Integer.valueOf(this.feelingBetter));
-/*  185 */     this.auto_heal = 200;
-/*  186 */     this.force_sync = 50;
-/*  187 */     this.fight_sound_ticker = 0;
-/*  188 */     this.taunt_sound_ticker = 0;
-/*  189 */     this.had_target = 0;
-/*  190 */     setSitting(false);
-/*      */   }
-/*      */ 
-/*      */   
-/*      */   protected void applyEntityAttributes() {
-/*  195 */     super.applyEntityAttributes();
-/*  196 */     getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(mygetMaxHealth());
-/*  197 */     getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(this.moveSpeed);
-/*  198 */     getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
-/*  199 */     getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(8.0D);
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public int getTotalArmorValue() {
-/*  205 */     int i = 0;
-/*  206 */     ItemStack[] aitemstack = getLastActiveItems();
-/*  207 */     int j = aitemstack.length;
-/*      */     
-/*  209 */     for (int k = 0; k < j; k++) {
-/*      */       
-/*  211 */       ItemStack itemstack = aitemstack[k];
-/*      */       
-/*  213 */       if (itemstack != null && itemstack.getItem() instanceof ItemArmor) {
-/*      */         
-/*  215 */         int l = ((ItemArmor)itemstack.getItem()).damageReduceAmount;
-/*  216 */         i += l;
-/*      */       } 
-/*      */     } 
-/*  219 */     if (i < 8) i = 8; 
-/*  220 */     if (i > 23) i = 23; 
-/*  221 */     return i;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public void onUpdate() {
-/*  229 */     getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(this.moveSpeed);
-/*  230 */     super.onUpdate();
-/*  231 */     this.passenger = 0;
-/*  232 */     if (isTamed() && !isSitting()) {
-/*  233 */       EntityLivingBase entityLivingBase = getOwner();
-/*  234 */       if (entityLivingBase != null && entityLivingBase instanceof EntityPlayer) {
-/*  235 */         EntityPlayer p = (EntityPlayer)entityLivingBase;
-/*  236 */         Entity r = ((Entity)entityLivingBase).ridingEntity;
-/*  237 */         if (r != null && 
-/*  238 */           r instanceof Elevator) {
-/*      */ 
-/*      */           
-/*  241 */           float f = -0.45F;
-/*  242 */           setPosition(r.posX - f * Math.sin(Math.toRadians(r.rotationYaw)), r.posY, r.posZ + f * Math.cos(Math.toRadians(r.rotationYaw)));
-/*      */ 
-/*      */           
-/*  245 */           this.rotationYaw = r.rotationYaw;
-/*  246 */           this.rotationPitch = r.rotationPitch;
-/*      */           
-/*  248 */           this.limbSwing = this.limbSwingAmount = 0.0F;
-/*  249 */           this.fallDistance = 0.0F;
-/*  250 */           this.passenger = 1;
-/*      */         } 
-/*      */       } 
-/*      */     } 
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-/*  264 */     super.writeEntityToNBT(par1NBTTagCompound);
-/*  265 */     par1NBTTagCompound.setInteger("GirlType", getTameSkin());
-/*  266 */     par1NBTTagCompound.setInteger("WetGirlType", getWetTameSkin());
-/*  267 */     par1NBTTagCompound.setInteger("GirlVoice", this.dataWatcher.getWatchableObjectInt(21));
-/*  268 */     par1NBTTagCompound.setInteger("GirlVoiceEnable", this.dataWatcher.getWatchableObjectInt(23));
-/*  269 */     par1NBTTagCompound.setInteger("IsPrincess", this.dataWatcher.getWatchableObjectInt(24));
-/*  270 */     par1NBTTagCompound.setInteger("feelingBetter", this.dataWatcher.getWatchableObjectInt(25));
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-/*  279 */     super.readEntityFromNBT(par1NBTTagCompound);
-/*  280 */     this.which_girl = par1NBTTagCompound.getInteger("GirlType");
-/*  281 */     setTameSkin(this.which_girl);
-/*  282 */     this.which_wet_girl = par1NBTTagCompound.getInteger("WetGirlType");
-/*  283 */     setWetTameSkin(this.which_wet_girl);
-/*  284 */     this.voice = par1NBTTagCompound.getInteger("GirlVoice");
-/*  285 */     this.dataWatcher.updateObject(21, Integer.valueOf(this.voice));
-/*  286 */     this.voice_enable = par1NBTTagCompound.getInteger("GirlVoiceEnable");
-/*  287 */     this.dataWatcher.updateObject(23, Integer.valueOf(this.voice_enable));
-/*  288 */     this.is_princess = par1NBTTagCompound.getInteger("IsPrincess");
-/*  289 */     this.dataWatcher.updateObject(24, Integer.valueOf(this.is_princess));
-/*  290 */     this.feelingBetter = par1NBTTagCompound.getInteger("feelingBetter");
-/*  291 */     this.dataWatcher.updateObject(25, Integer.valueOf(this.feelingBetter));
-/*  292 */     if (OreSpawnMain.valentines_day != 0 && this.feelingBetter != 0) setSize(0.5F, 1.6F);
-/*      */   
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected void updateAITick() {
-/*  300 */     super.updateAITick();
-/*      */     
-/*  302 */     ItemStack stack = getCurrentEquippedItem();
-/*  303 */     EntityLivingBase entityLivingBase = getAttackTarget();
-/*  304 */     if (OreSpawnMain.PlayNicely != 0) entityLivingBase = null; 
-/*  305 */     if (this.worldObj.rand.nextInt(100) == 1) setRevengeTarget(null); 
-/*  306 */     if (this.worldObj.rand.nextInt(200) == 1) setAttackTarget(null);
-/*      */     
-/*  308 */     if (stack != null && !isSitting())
-/*      */     {
-/*  310 */       if (entityLivingBase != null) {
-/*      */         
-/*  312 */         if (entityLivingBase instanceof EntityLivingBase)
-/*      */         {
-/*  314 */           if (getHeldItem() != null)
-/*      */           {
-/*  316 */             if (getDistanceToEntity((Entity)entityLivingBase) < 4.0F || (stack.getItem() == OreSpawnMain.MyBertha && getDistanceToEntity((Entity)entityLivingBase) < 10.0F)) {
-/*      */               
-/*  318 */               this.attackTime--;
-/*  319 */               if (this.attackTime <= 0)
-/*      */               {
-/*  321 */                 this.attackTime = 25;
-/*      */                 
-/*  323 */                 swingItem();
-/*      */                 
-/*  325 */                 attackTargetEntityWithCurrentItem((Entity)entityLivingBase);
-/*  326 */                 this.fight_sound_ticker--;
-/*  327 */                 if (this.fight_sound_ticker <= 0) {
-/*      */                   
-/*  329 */                   if (!this.worldObj.isRemote && this.voice_enable != 0) this.worldObj.playSoundAtEntity((Entity)this, "orespawn:o_fight", 0.5F, getSoundPitch()); 
-/*  330 */                   this.fight_sound_ticker = 3;
-/*      */                 } 
-/*  332 */                 this.had_target = 1;
-/*      */               }
-/*      */             
-/*  335 */             } else if (getDistanceToEntity((Entity)entityLivingBase) < 7.0F && stack.getItem() != OreSpawnMain.MyUltimateBow) {
-/*      */               
-/*  337 */               this.taunt_sound_ticker--;
-/*  338 */               if (this.taunt_sound_ticker <= 0) {
-/*      */                 
-/*  340 */                 if (!this.worldObj.isRemote && this.voice_enable != 0) this.worldObj.playSoundAtEntity((Entity)this, "orespawn:o_taunt", 0.5F, getSoundPitch()); 
-/*  341 */                 this.taunt_sound_ticker = 300;
-/*      */               } 
-/*      */               
-/*  344 */               getNavigator().tryMoveToEntityLiving((Entity)entityLivingBase, 1.25D);
-/*      */             } 
-/*      */           }
-/*      */         }
-/*      */       } else {
-/*      */         
-/*  350 */         this.fight_sound_ticker = 0;
-/*  351 */         this.attackTime = 0;
-/*  352 */         if (this.had_target != 0) {
-/*  353 */           this.had_target = 0;
-/*  354 */           if (!this.worldObj.isRemote && this.voice_enable != 0) this.worldObj.playSoundAtEntity((Entity)this, "orespawn:o_woohoo", 0.4F, getSoundPitch());
-/*      */         
-/*      */         } 
-/*      */       } 
-/*      */     }
-/*      */   }
-/*      */   
-/*      */   public void setPrincess(int par1) {
-/*  362 */     this.is_princess = par1;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public ResourceLocation getTexture() {
-/*  370 */     if (OreSpawnMain.valentines_day != 0 && this.feelingBetter == 0) return ValentineTexture; 
-/*  371 */     if (this.wet_count <= 0) {
-/*      */       
-/*  373 */       int txture = getTameSkin();
-/*      */       
-/*  375 */       if (this.is_princess == 1) return PrincessTexture1; 
-/*  376 */       if (this.is_princess == 2) return PrincessTexture2;
-/*      */       
-/*  378 */       if (txture == 0) return DryTexture0; 
-/*  379 */       if (txture == 1) return DryTexture1; 
-/*  380 */       if (txture == 2) return DryTexture2; 
-/*  381 */       if (txture == 3) return DryTexture3; 
-/*  382 */       if (txture == 4) return DryTexture4; 
-/*  383 */       if (txture == 5) return DryTexture5; 
-/*  384 */       if (txture == 6) return DryTexture6; 
-/*  385 */       if (txture == 7) return DryTexture7; 
-/*  386 */       if (txture == 8) return DryTexture8; 
-/*  387 */       if (txture == 9) return DryTexture9; 
-/*  388 */       if (txture == 10) return DryTexture10; 
-/*  389 */       if (txture == 11) return DryTexture11; 
-/*  390 */       if (txture == 12) return DryTexture12; 
-/*  391 */       if (txture == 13) return DryTexture13; 
-/*  392 */       if (txture == 14) return DryTexture14; 
-/*  393 */       if (txture == 15) return DryTexture15; 
-/*  394 */       if (txture == 16) return DryTexture16; 
-/*  395 */       if (txture == 17) return DryTexture17; 
-/*  396 */       if (txture == 18) return DryTexture18; 
-/*  397 */       if (txture == 19) return DryTexture19; 
-/*  398 */       if (txture == 20) return DryTexture20; 
-/*  399 */       if (txture == 21) return DryTexture21; 
-/*  400 */       if (txture == 22) return DryTexture22; 
-/*  401 */       if (txture == 23) return DryTexture23; 
-/*  402 */       if (txture == 24) return DryTexture24; 
-/*  403 */       if (txture == 25) return DryTexture25; 
-/*  404 */       if (txture == 26) return DryTexture26; 
-/*  405 */       if (txture == 27) return DryTexture27; 
-/*  406 */       if (txture == 28) return DryTexture28; 
-/*  407 */       if (txture == 29) return DryTexture29; 
-/*  408 */       if (txture == 30) return DryTexture30; 
-/*  409 */       if (txture == 31) return DryTexture31; 
-/*  410 */       if (txture == 32) return DryTexture32; 
-/*  411 */       if (txture == 33) return DryTexture33; 
-/*  412 */       if (txture == 34) return DryTexture34; 
-/*  413 */       if (txture == 35) return DryTexture35; 
-/*  414 */       if (txture == 36) return DryTexture36; 
-/*  415 */       if (txture == 37) return DryTexture37; 
-/*  416 */       if (txture == 38) return DryTexture38; 
-/*  417 */       if (txture == 39) return DryTexture39; 
-/*  418 */       if (txture == 40) return DryTexture40;
-/*      */     
-/*      */     } else {
-/*  421 */       int temp = getWetTameSkin();
-/*      */       
-/*  423 */       if (temp == 0) return WetTexture0; 
-/*  424 */       if (temp == 1) return WetTexture1; 
-/*  425 */       if (temp == 2) return WetTexture2; 
-/*  426 */       if (temp == 3) return WetTexture3; 
-/*  427 */       if (temp == 4) return WetTexture4; 
-/*  428 */       if (temp == 5) return WetTexture5; 
-/*  429 */       if (temp == 6) return WetTexture6; 
-/*  430 */       if (temp == 7) return WetTexture7; 
-/*  431 */       if (temp == 8) return WetTexture8; 
-/*  432 */       if (temp == 9) return WetTexture9; 
-/*  433 */       if (temp == 10) return WetTexture10; 
-/*  434 */       if (temp == 11) return WetTexture11; 
-/*  435 */       if (temp == 12) return WetTexture12; 
-/*  436 */       if (temp == 13) return WetTexture13; 
-/*  437 */       if (temp == 14) return WetTexture14; 
-/*  438 */       if (temp == 15) return WetTexture15; 
-/*  439 */       if (temp == 16) return WetTexture16; 
-/*  440 */       if (temp == 17) return WetTexture17;
-/*      */     
-/*      */     } 
-/*  443 */     return null;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public int getTameSkin() {
-/*  449 */     return this.dataWatcher.getWatchableObjectInt(20);
-/*      */   }
-/*      */   
-/*      */   public int getVoice() {
-/*  453 */     return this.dataWatcher.getWatchableObjectInt(21);
-/*      */   }
-/*      */ 
-/*      */   
-/*      */   public void setTameSkin(int par1) {
-/*  458 */     this.dataWatcher.updateObject(20, Integer.valueOf(par1));
-/*  459 */     this.which_girl = par1;
-/*      */   }
-/*      */ 
-/*      */   
-/*      */   public int getWetTameSkin() {
-/*  464 */     return this.dataWatcher.getWatchableObjectInt(22);
-/*      */   }
-/*      */ 
-/*      */   
-/*      */   public void setWetTameSkin(int par1) {
-/*  469 */     this.dataWatcher.updateObject(22, Integer.valueOf(par1));
-/*  470 */     this.which_wet_girl = par1;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public boolean isAIEnabled() {
-/*  478 */     return true;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public boolean canBreatheUnderwater() {
-/*  484 */     return true;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected void fall(float par1) {
-/*  490 */     float i = MathHelper.ceiling_float_int(par1 - 3.0F);
-/*      */     
-/*  492 */     if (i > 0.0F) {
-/*      */       
-/*  494 */       if (i > 3.0F) {
-/*      */         
-/*  496 */         playSound("damage.fallbig", 1.0F, 1.0F);
-/*  497 */         i = 3.0F;
-/*      */       }
-/*      */       else {
-/*      */         
-/*  501 */         playSound("damage.fallsmall", 1.0F, 1.0F);
-/*      */       } 
-/*      */       
-/*  504 */       attackEntityFrom(DamageSource.fall, i);
-/*      */     } 
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public int mygetMaxHealth() {
-/*  511 */     if (OreSpawnMain.valentines_day != 0 && this.feelingBetter == 0) return 800; 
-/*  512 */     return 80;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public void onLivingUpdate() {
-/*  521 */     updateArmSwingProgress();
-/*      */     
-/*  523 */     super.onLivingUpdate();
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/*  529 */     if (isInWater() || handleLavaMovement()) {
-/*  530 */       this.wet_count = 500;
-/*      */     }
-/*  532 */     else if (this.wet_count > 0) {
-/*  533 */       this.wet_count--;
-/*      */     } 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/*  540 */     this.auto_heal--;
-/*  541 */     if (this.auto_heal <= 0) {
-/*  542 */       if (mygetMaxHealth() > getGirlfriendHealth())
-/*      */       {
-/*  544 */         heal(1.0F);
-/*      */       }
-/*      */       
-/*  547 */       this.auto_heal = 100;
-/*      */     } 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/*  555 */     this.force_sync--;
-/*  556 */     if (this.force_sync <= 0) {
-/*  557 */       this.force_sync = 20;
-/*  558 */       if (!this.worldObj.isRemote) {
-/*      */         
-/*  560 */         this.dataWatcher.updateObject(21, Integer.valueOf(this.voice));
-/*  561 */         this.dataWatcher.updateObject(23, Integer.valueOf(this.voice_enable));
-/*  562 */         this.dataWatcher.updateObject(24, Integer.valueOf(this.is_princess));
-/*  563 */         this.dataWatcher.updateObject(25, Integer.valueOf(this.feelingBetter));
-/*  564 */         setSitting(isSitting());
-/*      */       } else {
-/*      */         
-/*  567 */         this.voice = getVoice();
-/*  568 */         this.voice_enable = this.dataWatcher.getWatchableObjectInt(23);
-/*  569 */         int nowfeeling = this.dataWatcher.getWatchableObjectInt(25);
-/*  570 */         if (nowfeeling != this.feelingBetter && nowfeeling != 0) {
-/*  571 */           this.feelingBetter = nowfeeling;
-/*  572 */           setSize(0.5F, 1.6F);
-/*      */         } 
-/*      */       } 
-/*      */     } 
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public int getGirlfriendHealth() {
-/*  591 */     return (int)getHealth();
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public boolean interact(EntityPlayer par1EntityPlayer) {
-/*  599 */     ItemStack var2 = par1EntityPlayer.inventory.getCurrentItem();
-/*      */ 
-/*      */     
-/*  602 */     if (var2 != null)
-/*      */     {
-/*  604 */       if (var2.stackSize <= 0) {
-/*      */         
-/*  606 */         par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*  607 */         var2 = null;
-/*      */       } 
-/*      */     }
-/*      */     
-/*  611 */     if (var2 != null && (var2.getItem() == Item.getItemFromBlock((Block)Blocks.red_flower) || var2.getItem() == Item.getItemFromBlock(OreSpawnMain.CrystalFlowerRedBlock)) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D) {
-/*      */       
-/*  613 */       if (!isTamed()) {
-/*      */         
-/*  615 */         if (!this.worldObj.isRemote)
-/*      */         {
-/*  617 */           if (this.rand.nextInt(3) == 0)
-/*      */           {
-/*  619 */             setTamed(true);
-/*  620 */             func_152115_b(par1EntityPlayer.getUniqueID().toString());
-/*  621 */             playTameEffect(true);
-/*  622 */             this.worldObj.setEntityState((Entity)this, (byte)7);
-/*  623 */             heal(mygetMaxHealth() - getHealth());
-/*      */           
-/*      */           }
-/*      */           else
-/*      */           {
-/*  628 */             playTameEffect(false);
-/*  629 */             this.worldObj.setEntityState((Entity)this, (byte)6);
-/*      */           }
-/*      */         
-/*      */         }
-/*      */       }
-/*  634 */       else if (isOwner((EntityLivingBase)par1EntityPlayer)) {
-/*      */         
-/*  636 */         if (this.worldObj.isRemote) {
-/*  637 */           playTameEffect(true);
-/*  638 */           this.worldObj.setEntityState((Entity)this, (byte)7);
-/*      */         } 
-/*      */         
-/*  641 */         if (mygetMaxHealth() > getHealth()) {
-/*  642 */           heal(mygetMaxHealth() - getHealth());
-/*      */         }
-/*      */       } 
-/*      */       
-/*  646 */       if (!par1EntityPlayer.capabilities.isCreativeMode) {
-/*      */         
-/*  648 */         var2.stackSize--;
-/*  649 */         if (var2.stackSize <= 0)
-/*      */         {
-/*  651 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*      */         }
-/*      */       } 
-/*  654 */       return true;
-/*      */     } 
-/*  656 */     if (isTamed() && var2 != null && var2.getItem() == Item.getItemFromBlock((Block)Blocks.deadbush) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D && isOwner((EntityLivingBase)par1EntityPlayer)) {
-/*      */ 
-/*      */       
-/*  659 */       if (!this.worldObj.isRemote) {
-/*      */         
-/*  661 */         setTamed(false);
-/*  662 */         func_152115_b("");
-/*  663 */         playTameEffect(false);
-/*  664 */         this.worldObj.setEntityState((Entity)this, (byte)6);
-/*      */       } 
-/*      */       
-/*  667 */       if (!par1EntityPlayer.capabilities.isCreativeMode) {
-/*      */         
-/*  669 */         var2.stackSize--;
-/*  670 */         if (var2.stackSize <= 0)
-/*      */         {
-/*  672 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*      */         }
-/*      */       } 
-/*  675 */       return true;
-/*      */     } 
-/*      */     
-/*  678 */     if (isTamed() && var2 != null && var2.getItem() == OreSpawnMain.MyRuby && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D && isOwner((EntityLivingBase)par1EntityPlayer)) {
-/*      */ 
-/*      */       
-/*  681 */       if (!this.worldObj.isRemote) {
-/*      */         
-/*  683 */         this.voice_enable = 0;
-/*  684 */         this.dataWatcher.updateObject(23, Integer.valueOf(this.voice_enable));
-/*  685 */         playTameEffect(true);
-/*  686 */         this.worldObj.setEntityState((Entity)this, (byte)7);
-/*      */       } 
-/*      */       
-/*  689 */       if (!par1EntityPlayer.capabilities.isCreativeMode) {
-/*      */         
-/*  691 */         var2.stackSize--;
-/*  692 */         if (var2.stackSize <= 0)
-/*      */         {
-/*  694 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*      */         }
-/*      */       } 
-/*  697 */       return true;
-/*      */     } 
-/*  699 */     if (isTamed() && var2 != null && var2.getItem() == OreSpawnMain.MyAmethyst && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D && isOwner((EntityLivingBase)par1EntityPlayer)) {
-/*      */ 
-/*      */       
-/*  702 */       if (!this.worldObj.isRemote) {
-/*      */         
-/*  704 */         this.voice_enable = 1;
-/*  705 */         this.dataWatcher.updateObject(23, Integer.valueOf(this.voice_enable));
-/*  706 */         playTameEffect(true);
-/*  707 */         this.worldObj.setEntityState((Entity)this, (byte)7);
-/*      */       } 
-/*      */       
-/*  710 */       if (!par1EntityPlayer.capabilities.isCreativeMode) {
-/*      */         
-/*  712 */         var2.stackSize--;
-/*  713 */         if (var2.stackSize <= 0)
-/*      */         {
-/*  715 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*      */         }
-/*      */       } 
-/*  718 */       return true;
-/*      */     } 
-/*  720 */     if (isTamed() && var2 != null && (var2.getItem() == Item.getItemFromBlock((Block)Blocks.yellow_flower) || var2.getItem() == Item.getItemFromBlock(OreSpawnMain.CrystalFlowerYellowBlock)) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D && isOwner((EntityLivingBase)par1EntityPlayer)) {
-/*      */ 
-/*      */       
-/*  723 */       if (!this.worldObj.isRemote)
-/*      */       {
-/*  725 */         if (this.wet_count > 0 || isInWater() || handleLavaMovement()) {
-/*  726 */           this.which_wet_girl++;
-/*  727 */           if (this.which_wet_girl > 17) this.which_wet_girl = 0; 
-/*  728 */           setWetTameSkin(this.which_wet_girl);
-/*  729 */           this.worldObj.setEntityState((Entity)this, (byte)7);
-/*  730 */           if (isInWater() || handleLavaMovement()) {
-/*  731 */             this.wet_count = 500;
-/*      */           }
-/*      */         } else {
-/*  734 */           this.which_girl++;
-/*  735 */           if (this.which_girl > 40) this.which_girl = 0; 
-/*  736 */           setTameSkin(this.which_girl);
-/*  737 */           this.worldObj.setEntityState((Entity)this, (byte)7);
-/*      */         } 
-/*      */       }
-/*      */       
-/*  741 */       if (!par1EntityPlayer.capabilities.isCreativeMode) {
-/*      */         
-/*  743 */         var2.stackSize--;
-/*  744 */         if (var2.stackSize <= 0)
-/*      */         {
-/*  746 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*      */         }
-/*      */       } 
-/*  749 */       return true;
-/*  750 */     }  if (isTamed() && var2 != null && isOwner((EntityLivingBase)par1EntityPlayer) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D) {
-/*      */ 
-/*      */       
-/*  753 */       if (var2.getItem() instanceof ItemFood) {
-/*      */         
-/*  755 */         if (!this.worldObj.isRemote) {
-/*      */ 
-/*      */           
-/*  758 */           ItemFood var3 = (ItemFood)var2.getItem();
-/*      */           
-/*  760 */           if (mygetMaxHealth() > getHealth())
-/*      */           {
-/*  762 */             heal((var3.getHealAmount(var2) * 5));
-/*      */           }
-/*      */           
-/*  765 */           playTameEffect(true);
-/*  766 */           this.worldObj.setEntityState((Entity)this, (byte)7);
-/*      */         } 
-/*      */         
-/*  769 */         if (!par1EntityPlayer.capabilities.isCreativeMode) {
-/*      */           
-/*  771 */           var2.stackSize--;
-/*  772 */           if (var2.stackSize <= 0)
-/*      */           {
-/*  774 */             par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*      */           }
-/*      */         } 
-/*      */       } else {
-/*  778 */         if (!this.worldObj.isRemote) {
-/*      */ 
-/*      */ 
-/*      */           
-/*  782 */           playTameEffect(true);
-/*  783 */           this.worldObj.setEntityState((Entity)this, (byte)7);
-/*      */         } 
-/*      */         
-/*  786 */         ItemStack var3 = getCurrentEquippedItem();
-/*  787 */         setCurrentItemOrArmor(0, var2);
-/*  788 */         if (var2.getItem() == Items.diamond) {
-/*  789 */           setSitting(true);
-/*      */         } else {
-/*  791 */           setSitting(false);
-/*      */         } 
-/*      */         
-/*  794 */         if (var3 != null) {
-/*  795 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, var3);
-/*      */         } else {
-/*      */           
-/*  798 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*  799 */           Item itm = var2.getItem();
-/*  800 */           if (itm instanceof ItemOreSpawnArmor) {
-/*  801 */             if (itm == OreSpawnMain.CrystalPinkHelmet || itm == OreSpawnMain.TigersEyeHelmet) {
-/*  802 */               ItemStack v4 = getEquipmentInSlot(4);
-/*  803 */               setCurrentItemOrArmor(4, var2);
-/*  804 */               setCurrentItemOrArmor(0, v4);
-/*      */             } 
-/*  806 */             if (itm == OreSpawnMain.CrystalPinkBody || itm == OreSpawnMain.TigersEyeBody) {
-/*  807 */               ItemStack v4 = getEquipmentInSlot(3);
-/*  808 */               setCurrentItemOrArmor(3, var2);
-/*  809 */               setCurrentItemOrArmor(0, v4);
-/*      */             } 
-/*  811 */             if (itm == OreSpawnMain.CrystalPinkLegs || itm == OreSpawnMain.TigersEyeLegs) {
-/*  812 */               ItemStack v4 = getEquipmentInSlot(2);
-/*  813 */               setCurrentItemOrArmor(2, var2);
-/*  814 */               setCurrentItemOrArmor(0, v4);
-/*      */             } 
-/*  816 */             if (itm == OreSpawnMain.CrystalPinkBoots || itm == OreSpawnMain.TigersEyeBoots) {
-/*  817 */               ItemStack v4 = getEquipmentInSlot(1);
-/*  818 */               setCurrentItemOrArmor(1, var2);
-/*  819 */               setCurrentItemOrArmor(0, v4);
-/*      */             } 
-/*      */           } 
-/*      */         } 
-/*      */       } 
-/*      */       
-/*  825 */       return true;
-/*      */     } 
-/*  827 */     if (isTamed() && var2 != null && var2.getItem() == Item.getItemFromBlock(Blocks.diamond_block) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D) {
-/*      */       
-/*  829 */       setSitting(false);
-/*  830 */       setTamed(true);
-/*  831 */       func_152115_b(par1EntityPlayer.getUniqueID().toString());
-/*  832 */       playTameEffect(true);
-/*  833 */       this.worldObj.setEntityState((Entity)this, (byte)7);
-/*  834 */       if (!par1EntityPlayer.capabilities.isCreativeMode) {
-/*      */         
-/*  836 */         var2.stackSize--;
-/*  837 */         if (var2.stackSize <= 0)
-/*      */         {
-/*  839 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*      */         }
-/*      */       } 
-/*  842 */       return true;
-/*  843 */     }  if (isTamed() && var2 != null && var2.getItem() == Items.name_tag && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D && isOwner((EntityLivingBase)par1EntityPlayer)) {
-/*      */       
-/*  845 */       setCustomNameTag(var2.getDisplayName());
-/*  846 */       if (!par1EntityPlayer.capabilities.isCreativeMode) {
-/*      */         
-/*  848 */         var2.stackSize--;
-/*  849 */         if (var2.stackSize <= 0)
-/*      */         {
-/*  851 */           par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-/*      */         }
-/*      */       } 
-/*  854 */       return true;
-/*      */     } 
-/*  856 */     if (isTamed() && var2 == null && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0D && isOwner((EntityLivingBase)par1EntityPlayer)) {
-/*      */ 
-/*      */       
-/*  859 */       ItemStack var3 = getEquipmentInSlot(0);
-/*  860 */       int it = 0;
-/*  861 */       if (var3 == null) {
-/*  862 */         it++;
-/*  863 */         var3 = getEquipmentInSlot(it);
-/*      */       } 
-/*  865 */       if (var3 == null) {
-/*  866 */         it++;
-/*  867 */         var3 = getEquipmentInSlot(it);
-/*      */       } 
-/*  869 */       if (var3 == null) {
-/*  870 */         it++;
-/*  871 */         var3 = getEquipmentInSlot(it);
-/*      */       } 
-/*  873 */       if (var3 == null) {
-/*  874 */         it++;
-/*  875 */         var3 = getEquipmentInSlot(it);
-/*      */       } 
-/*  877 */       if (var3 != null) {
-/*  878 */         par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, var3);
-/*  879 */         setCurrentItemOrArmor(it, null);
-/*  880 */         setSitting(false);
-/*  881 */         if (!this.worldObj.isRemote)
-/*      */         {
-/*  883 */           this.worldObj.setEntityState((Entity)this, (byte)6);
-/*      */         }
-/*      */       }
-/*  886 */       else if (!this.worldObj.isRemote) {
-/*      */         
-/*  888 */         setSitting(false);
-/*  889 */         playTameEffect(true);
-/*  890 */         this.worldObj.setEntityState((Entity)this, (byte)7);
-/*  891 */         String healthMessage = new String();
-/*  892 */         healthMessage = String.format("I have %d health. Thank you for asking! xoxo", new Object[] { Integer.valueOf(getGirlfriendHealth()) });
-/*      */ 
-/*      */         
-/*  895 */         par1EntityPlayer.addChatComponentMessage((IChatComponent)new ChatComponentText(healthMessage));
-/*      */       } 
-/*      */       
-/*  898 */       return true;
-/*      */     } 
-/*      */     
-/*  901 */     return super.interact(par1EntityPlayer);
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public boolean isWheat(ItemStack par1ItemStack) {
-/*  909 */     return (par1ItemStack != null && par1ItemStack.getItem() == Item.getItemFromBlock((Block)Blocks.red_flower));
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected boolean canDespawn() {
-/*  917 */     return false;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected String getLivingSound() {
-/*  925 */     if (isSitting() || this.voice_enable == 0)
-/*      */     {
-/*  927 */       return null;
-/*      */     }
-/*  929 */     if (this.Dance.is_dancing != 0) return null;
-/*      */     
-/*  931 */     if (this.rand.nextInt(11) == 1) {
-/*      */       
-/*  933 */       EntityLivingBase entityLivingBase = getAttackTarget();
-/*  934 */       if (entityLivingBase != null) {
-/*  935 */         return null;
-/*      */       }
-/*      */       
-/*  938 */       if (isInWater() || handleLavaMovement()) {
-/*  939 */         return "orespawn:o_water";
-/*      */       }
-/*      */       
-/*  942 */       if (this.rand.nextInt(4) != 0) {
-/*      */         
-/*  944 */         if (this.posY < 60.0D) {
-/*  945 */           return null;
-/*      */         }
-/*      */         
-/*  948 */         if (this.worldObj.isThundering()) {
-/*  949 */           return "orespawn:o_thunder";
-/*      */         }
-/*      */         
-/*  952 */         if (this.worldObj.isRaining()) {
-/*  953 */           return "orespawn:o_rain";
-/*      */         }
-/*      */         
-/*  956 */         if (!this.worldObj.isDaytime() && 
-/*  957 */           this.worldObj.canBlockSeeTheSky((int)this.posX, (int)this.posY, (int)this.posZ)) {
-/*  958 */           if (this.worldObj.rand.nextInt(3) == 0) return "orespawn:o_dark"; 
-/*  959 */           return null;
-/*      */         } 
-/*      */       } 
-/*      */ 
-/*      */       
-/*  964 */       if (isTamed()) {
-/*      */         
-/*  966 */         if (mygetMaxHealth() > getHealth() || (OreSpawnMain.valentines_day != 0 && this.feelingBetter == 0)) {
-/*  967 */           return "orespawn:o_hurt";
-/*      */         }
-/*  969 */         return "orespawn:o_happy";
-/*      */       } 
-/*  971 */       return null;
-/*      */     } 
-/*      */ 
-/*      */     
-/*  975 */     return null;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected String getHurtSound() {
-/*  984 */     if (this.voice_enable == 0)
-/*      */     {
-/*  986 */       return null;
-/*      */     }
-/*  988 */     return "orespawn:o_ow";
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected String getDeathSound() {
-/*  996 */     return isTamed() ? "orespawn:o_death_girlfriend" : "orespawn:o_death_single";
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected float getSoundVolume() {
-/* 1004 */     return 0.3F;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected Item getDropItem() {
-/* 1012 */     return Item.getItemFromBlock((Block)Blocks.red_flower);
-/*      */   }
-/*      */ 
-/*      */   
-/*      */   private void dropItemRand(Item index, int par1) {
-/* 1017 */     EntityItem var3 = new EntityItem(this.worldObj, this.posX + OreSpawnMain.OreSpawnRand.nextInt(4) - OreSpawnMain.OreSpawnRand.nextInt(4), this.posY + 1.0D, this.posZ + OreSpawnMain.OreSpawnRand.nextInt(4) - OreSpawnMain.OreSpawnRand.nextInt(4), new ItemStack(index, par1, 0));
-/*      */     
-/* 1019 */     this.worldObj.spawnEntityInWorld((Entity)var3);
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected void dropFewItems(boolean par1, int par2) {
-/* 1027 */     int var3 = 0;
-/*      */     
-/* 1029 */     if (isTamed()) {
-/*      */       
-/* 1031 */       var3 = this.rand.nextInt(5);
-/* 1032 */       var3 += 2;
-/* 1033 */       for (int i = 0; i < var3; i++)
-/*      */       {
-/* 1035 */         dropItem(Item.getItemFromBlock((Block)Blocks.red_flower), 1);
-/*      */       }
-/*      */     } 
-/*      */ 
-/*      */     
-/* 1040 */     Item v6 = OreSpawnMain.MyItemShoes;
-/* 1041 */     Item v7 = OreSpawnMain.MyItemShoes_1;
-/* 1042 */     Item v8 = OreSpawnMain.MyItemShoes_2;
-/* 1043 */     Item v9 = OreSpawnMain.MyItemShoes_3;
-/*      */     
-/* 1045 */     var3 = this.rand.nextInt(16);
-/* 1046 */     var3 += 4; int var4;
-/* 1047 */     for (var4 = 0; var4 < var3; var4++)
-/*      */     {
-/* 1049 */       dropItem(v6, 1);
-/*      */     }
-/*      */     
-/* 1052 */     var3 = this.rand.nextInt(16);
-/* 1053 */     var3 += 4;
-/* 1054 */     for (var4 = 0; var4 < var3; var4++)
-/*      */     {
-/* 1056 */       dropItem(v7, 1);
-/*      */     }
-/*      */     
-/* 1059 */     var3 = this.rand.nextInt(16);
-/* 1060 */     var3 += 4;
-/* 1061 */     for (var4 = 0; var4 < var3; var4++)
-/*      */     {
-/* 1063 */       dropItem(v8, 1);
-/*      */     }
-/*      */     
-/* 1066 */     var3 = this.rand.nextInt(16);
-/* 1067 */     var3 += 4;
-/* 1068 */     for (var4 = 0; var4 < var3; var4++)
-/*      */     {
-/* 1070 */       dropItem(v9, 1);
-/*      */     }
-/*      */ 
-/*      */     
-/* 1074 */     if (isTamed()) {
-/*      */       
-/* 1076 */       ItemStack var5 = getCurrentEquippedItem();
-/* 1077 */       if (var5 != null && 
-/* 1078 */         var5.stackSize > 0) {
-/* 1079 */         dropItem(var5.getItem(), var5.stackSize);
-/*      */       }
-/*      */       
-/* 1082 */       var5 = getEquipmentInSlot(1);
-/* 1083 */       if (var5 != null && 
-/* 1084 */         var5.stackSize > 0) {
-/* 1085 */         dropItem(var5.getItem(), var5.stackSize);
-/*      */       }
-/*      */       
-/* 1088 */       var5 = getEquipmentInSlot(2);
-/* 1089 */       if (var5 != null && 
-/* 1090 */         var5.stackSize > 0) {
-/* 1091 */         dropItem(var5.getItem(), var5.stackSize);
-/*      */       }
-/*      */       
-/* 1094 */       var5 = getEquipmentInSlot(3);
-/* 1095 */       if (var5 != null && 
-/* 1096 */         var5.stackSize > 0) {
-/* 1097 */         dropItem(var5.getItem(), var5.stackSize);
-/*      */       }
-/*      */       
-/* 1100 */       var5 = getEquipmentInSlot(4);
-/* 1101 */       if (var5 != null && 
-/* 1102 */         var5.stackSize > 0) {
-/* 1103 */         dropItem(var5.getItem(), var5.stackSize);
-/*      */       }
-/*      */     } 
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLiving) {
-/* 1113 */     ItemStack it = null;
-/* 1114 */     if (this.isSwingInProgress) {
-/*      */       return;
-/*      */     }
-/*      */     
-/* 1118 */     it = getCurrentEquippedItem();
-/* 1119 */     if (it != null && it.getItem() == OreSpawnMain.MyUltimateBow) {
-/*      */       
-/* 1121 */       EntityArrow var8 = new UltimateArrow(this.worldObj, (EntityLiving)this, par1EntityLiving, 2.0F, 10.0F);
-/*      */ 
-/*      */       
-/* 1124 */       if (this.worldObj.rand.nextInt(4) == 1) var8.setIsCritical(true);
-/*      */       
-/* 1126 */       int var10 = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, it);
-/* 1127 */       if (var10 > 0)
-/*      */       {
-/* 1129 */         var8.setKnockbackStrength(var10);
-/*      */       }
-/*      */       
-/* 1132 */       if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, it) > 0)
-/*      */       {
-/* 1134 */         var8.setFire(100);
-/*      */       }
-/*      */       
-/* 1137 */       it.damageItem(1, (EntityLivingBase)this);
-/* 1138 */       this.worldObj.playSoundAtEntity((Entity)this, "random.bow", 1.0F, 1.0F / (this.worldObj.rand.nextFloat() * 0.4F + 1.2F) + 0.5F);
-/*      */       
-/* 1140 */       var8.canBePickedUp = 2;
-/*      */       
-/* 1142 */       this.worldObj.spawnEntityInWorld((Entity)var8);
-/*      */     } else {
-/*      */       
-/* 1145 */       Shoes var2 = new Shoes(this.worldObj, (EntityLivingBase)this, 2 + this.rand.nextInt(4));
-/* 1146 */       double var3 = par1EntityLiving.posX - this.posX;
-/* 1147 */       double var5 = par1EntityLiving.posY + par1EntityLiving.getEyeHeight() - 1.1D - var2.posY;
-/* 1148 */       double var7 = par1EntityLiving.posZ - this.posZ;
-/* 1149 */       float var9 = MathHelper.sqrt_double(var3 * var3 + var7 * var7) * 0.2F;
-/* 1150 */       var2.setThrowableHeading(var3, var5 + var9, var7, 1.8F, 4.0F);
-/* 1151 */       this.worldObj.playSoundAtEntity((Entity)this, "random.bow", 0.75F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
-/* 1152 */       this.worldObj.spawnEntityInWorld((Entity)var2);
-/*      */     } 
-/* 1154 */     swingItem();
-/*      */   }
-/*      */ 
-/*      */   
-/*      */   public ItemStack getCurrentEquippedItem() {
-/* 1159 */     return getEquipmentInSlot(0);
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public void attackTargetEntityWithCurrentItem(Entity par1Entity) {
-/* 1167 */     ItemStack stack = getCurrentEquippedItem();
-/*      */ 
-/*      */     
-/* 1170 */     if (stack != null) {
-/*      */       
-/* 1172 */       float var2 = 0.0F;
-/*      */       
-/* 1174 */       if (isPotionActive(Potion.damageBoost))
-/*      */       {
-/* 1176 */         var2 += (3 << getActivePotionEffect(Potion.damageBoost).getAmplifier());
-/*      */       }
-/*      */       
-/* 1179 */       if (isPotionActive(Potion.weakness))
-/*      */       {
-/* 1181 */         var2 -= (2 << getActivePotionEffect(Potion.weakness).getAmplifier());
-/*      */       }
-/*      */       
-/* 1184 */       int var3 = 0;
-/* 1185 */       float var4 = (float)getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
-/*      */       
-/* 1187 */       if (par1Entity instanceof EntityLiving) {
-/*      */         
-/* 1189 */         var4 += EnchantmentHelper.getEnchantmentModifierLiving((EntityLivingBase)this, (EntityLivingBase)par1Entity);
-/* 1190 */         var3 += EnchantmentHelper.getKnockbackModifier((EntityLivingBase)this, (EntityLivingBase)par1Entity);
-/*      */       } 
-/*      */       
-/* 1193 */       if (isSprinting())
-/*      */       {
-/* 1195 */         var3++;
-/*      */       }
-/*      */       
-/* 1198 */       if (var2 > 0.0F || var4 > 0.0F) {
-/*      */         
-/* 1200 */         boolean var5 = (this.fallDistance > 0.0F && !this.onGround && !isOnLadder() && !isInWater() && !handleLavaMovement() && !isPotionActive(Potion.blindness) && this.ridingEntity == null && par1Entity instanceof EntityLiving);
-/*      */         
-/* 1202 */         if (var5)
-/*      */         {
-/* 1204 */           var2 += this.rand.nextInt((int)var2 / 2 + 2);
-/*      */         }
-/*      */         
-/* 1207 */         var2 += var4;
-/* 1208 */         boolean var6 = par1Entity.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase)this), var2);
-/*      */         
-/* 1210 */         if (var6)
-/*      */         {
-/* 1212 */           if (var3 > 0) {
-/*      */             
-/* 1214 */             par1Entity.addVelocity((-MathHelper.sin(this.rotationYaw * 3.1415927F / 180.0F) * var3 * 0.5F), 0.1D, (MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F) * var3 * 0.5F));
-/* 1215 */             this.motionX *= 0.6D;
-/* 1216 */             this.motionZ *= 0.6D;
-/* 1217 */             setSprinting(false);
-/*      */           } 
-/*      */         }
-/*      */ 
-/*      */ 
-/*      */         
-/* 1223 */         ItemStack var7 = getCurrentEquippedItem();
-/*      */ 
-/*      */         
-/* 1226 */         if (par1Entity instanceof EntityLiving) {
-/*      */ 
-/*      */           
-/* 1229 */           int var8 = EnchantmentHelper.getEnchantmentLevel(Enchantment.fireAspect.effectId, var7);
-/*      */           
-/* 1231 */           if (var8 > 0 && var6)
-/*      */           {
-/* 1233 */             par1Entity.setFire(var8 * 4);
-/*      */           }
-/*      */         } 
-/*      */       } 
-/*      */     } 
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected float getSoundPitch() {
-/* 1249 */     return (this.voice - 5) * 0.02F + 1.0F;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public EntityAgeable createChild(EntityAgeable var1) {
-/* 1255 */     return null;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public void attackEntityWithRangedAttack(EntityLivingBase entityliving, float f) {
-/* 1261 */     attackEntityWithRangedAttack(entityliving);
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-/* 1269 */     boolean ret = false;
-/* 1270 */     float p2 = par2;
-/* 1271 */     if (p2 > 10.0F) p2 = 10.0F; 
-/* 1272 */     if (!par1DamageSource.getDamageType().equals("cactus")) {
-/* 1273 */       if (par1DamageSource.getDamageType().equals("inWall") && 
-/* 1274 */         OreSpawnMain.valentines_day != 0) {
-/* 1275 */         return ret;
-/*      */       }
-/*      */       
-/* 1278 */       if (OreSpawnMain.valentines_day != 0 && !this.worldObj.isRemote && this.feelingBetter == 0) {
-/* 1279 */         Entity e = par1DamageSource.getEntity();
-/* 1280 */         if (e != null && e instanceof EntityPlayer) {
-/* 1281 */           EntityPlayer eb = (EntityPlayer)e;
-/* 1282 */           ItemStack ist = eb.getCurrentEquippedItem();
-/* 1283 */           if (ist != null) {
-/* 1284 */             Item it = ist.getItem();
-/* 1285 */             if (it == OreSpawnMain.MyRoseSword) {
-/* 1286 */               if (this.worldObj.rand.nextInt(4) == 1) {
-/* 1287 */                 this.feelingBetter = 1;
-/* 1288 */                 setAttackTarget(null);
-/* 1289 */                 setSize(0.5F, 1.6F);
-/* 1290 */                 getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(mygetMaxHealth());
-/* 1291 */                 int morelove = this.worldObj.rand.nextInt(10);
-/* 1292 */                 for (int i = 0; i < 10 + morelove; i++) {
-/* 1293 */                   dropItemRand(OreSpawnMain.MyLove, 1);
-/*      */                 }
-/*      */               } else {
-/* 1296 */                 dropItemRand(OreSpawnMain.MyLove, 1);
-/*      */               } 
-/*      */             }
-/*      */           } 
-/*      */         } 
-/*      */       } 
-/*      */       
-/* 1303 */       ret = super.attackEntityFrom(par1DamageSource, p2);
-/*      */     } 
-/*      */     
-/* 1306 */     return ret;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public boolean getCanSpawnHere() {
-/* 1315 */     for (int k = -3; k < 3; k++) {
-/*      */       
-/* 1317 */       for (int j = -3; j < 3; j++) {
-/*      */         
-/* 1319 */         for (int i = 0; i < 5; i++) {
-/*      */           
-/* 1321 */           Block bid = this.worldObj.getBlock((int)this.posX + j, (int)this.posY + i, (int)this.posZ + k);
-/* 1322 */           if (bid == Blocks.mob_spawner) {
-/* 1323 */             TileEntityMobSpawner tileentitymobspawner = null;
-/* 1324 */             tileentitymobspawner = (TileEntityMobSpawner)this.worldObj.getTileEntity((int)this.posX + j, (int)this.posY + i, (int)this.posZ + k);
-/* 1325 */             String s = tileentitymobspawner.getSpawnerBaseLogic().getEntityNameToSpawn();
-/* 1326 */             if (s != null && 
-/* 1327 */               s.equals("Girlfriend")) {
-/* 1328 */               return true;
-/*      */             }
-/*      */           } 
-/*      */         } 
-/*      */       } 
-/*      */     } 
-/*      */ 
-/*      */     
-/* 1336 */     return super.getCanSpawnHere();
-/*      */   }
-/*      */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\Girlfriend.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.entity.passive.*;
+import net.minecraft.world.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.entity.ai.*;
+import net.minecraft.entity.monster.*;
+import net.minecraft.nbt.*;
+import net.minecraft.item.*;
+import net.minecraft.init.*;
+import net.minecraft.util.*;
+import net.minecraft.entity.item.*;
+import net.minecraft.enchantment.*;
+import net.minecraft.entity.projectile.*;
+import net.minecraft.potion.*;
+import net.minecraft.entity.*;
+import net.minecraft.tileentity.*;
+
+public class Girlfriend extends EntityTameable implements IRangedAttackMob
+{
+    public int which_girl;
+    public int which_wet_girl;
+    public int wet_count;
+    private int auto_heal;
+    private int force_sync;
+    private int fight_sound_ticker;
+    private int taunt_sound_ticker;
+    private int had_target;
+    private int voice;
+    private int is_princess;
+    public MyEntityAIDance Dance;
+    private float moveSpeed;
+    private int voice_enable;
+    public int passenger;
+    public int feelingBetter;
+    private static final ResourceLocation DryTexture0;
+    private static final ResourceLocation DryTexture1;
+    private static final ResourceLocation DryTexture2;
+    private static final ResourceLocation DryTexture3;
+    private static final ResourceLocation DryTexture4;
+    private static final ResourceLocation DryTexture5;
+    private static final ResourceLocation DryTexture6;
+    private static final ResourceLocation DryTexture7;
+    private static final ResourceLocation DryTexture8;
+    private static final ResourceLocation DryTexture9;
+    private static final ResourceLocation DryTexture10;
+    private static final ResourceLocation DryTexture11;
+    private static final ResourceLocation DryTexture12;
+    private static final ResourceLocation DryTexture13;
+    private static final ResourceLocation DryTexture14;
+    private static final ResourceLocation DryTexture15;
+    private static final ResourceLocation DryTexture16;
+    private static final ResourceLocation DryTexture17;
+    private static final ResourceLocation DryTexture18;
+    private static final ResourceLocation DryTexture19;
+    private static final ResourceLocation DryTexture20;
+    private static final ResourceLocation DryTexture21;
+    private static final ResourceLocation DryTexture22;
+    private static final ResourceLocation DryTexture23;
+    private static final ResourceLocation DryTexture24;
+    private static final ResourceLocation DryTexture25;
+    private static final ResourceLocation DryTexture26;
+    private static final ResourceLocation DryTexture27;
+    private static final ResourceLocation DryTexture28;
+    private static final ResourceLocation DryTexture29;
+    private static final ResourceLocation DryTexture30;
+    private static final ResourceLocation DryTexture31;
+    private static final ResourceLocation DryTexture32;
+    private static final ResourceLocation DryTexture33;
+    private static final ResourceLocation DryTexture34;
+    private static final ResourceLocation DryTexture35;
+    private static final ResourceLocation DryTexture36;
+    private static final ResourceLocation DryTexture37;
+    private static final ResourceLocation DryTexture38;
+    private static final ResourceLocation DryTexture39;
+    private static final ResourceLocation DryTexture40;
+    private static final ResourceLocation ValentineTexture;
+    private static final ResourceLocation WetTexture0;
+    private static final ResourceLocation WetTexture1;
+    private static final ResourceLocation WetTexture2;
+    private static final ResourceLocation WetTexture3;
+    private static final ResourceLocation WetTexture4;
+    private static final ResourceLocation WetTexture5;
+    private static final ResourceLocation WetTexture6;
+    private static final ResourceLocation WetTexture7;
+    private static final ResourceLocation WetTexture8;
+    private static final ResourceLocation WetTexture9;
+    private static final ResourceLocation WetTexture10;
+    private static final ResourceLocation WetTexture11;
+    private static final ResourceLocation WetTexture12;
+    private static final ResourceLocation WetTexture13;
+    private static final ResourceLocation WetTexture14;
+    private static final ResourceLocation WetTexture15;
+    private static final ResourceLocation WetTexture16;
+    private static final ResourceLocation WetTexture17;
+    private static final ResourceLocation PrincessTexture1;
+    private static final ResourceLocation PrincessTexture2;
+    
+    public Girlfriend(final World par1World) {
+        super(par1World);
+        this.which_girl = 0;
+        this.which_wet_girl = 0;
+        this.wet_count = 0;
+        this.auto_heal = 200;
+        this.force_sync = 50;
+        this.fight_sound_ticker = 0;
+        this.taunt_sound_ticker = 0;
+        this.had_target = 0;
+        this.voice = 0;
+        this.is_princess = 0;
+        this.Dance = null;
+        this.moveSpeed = 0.3f;
+        this.voice_enable = 1;
+        this.passenger = 0;
+        this.feelingBetter = 0;
+        this.which_girl = this.rand.nextInt(41);
+        this.which_wet_girl = this.rand.nextInt(18);
+        this.voice = this.rand.nextInt(10);
+        this.setSize(0.5f, 1.6f);
+        if (OreSpawnMain.valentines_day != 0) {
+            this.setSize(2.5f, 8.0f);
+        }
+        this.isImmuneToFire = true;
+        this.fireResistance = 100;
+        this.getNavigator().setAvoidsWater(false);
+        this.setSitting(false);
+        this.tasks.addTask(1, (EntityAIBase)new MyEntityAIFollowOwner(this, 1.4f, 12.0f, 1.5f));
+        this.tasks.addTask(2, (EntityAIBase)new EntityAITempt((EntityCreature)this, 1.25, Item.getItemFromBlock((Block)Blocks.red_flower), false));
+        this.Dance = new MyEntityAIDance(this);
+        this.tasks.addTask(3, (EntityAIBase)this.Dance);
+        this.tasks.addTask(4, (EntityAIBase)new EntityAIArrowAttack((IRangedAttackMob)this, 1.25, 20, 10.0f));
+        this.tasks.addTask(5, (EntityAIBase)new EntityAISwimming((EntityLiving)this));
+        this.tasks.addTask(6, (EntityAIBase)new EntityAIPanic((EntityCreature)this, 1.5));
+        this.tasks.addTask(7, (EntityAIBase)new EntityAIWatchClosest((EntityLiving)this, (Class)EntityPlayer.class, 6.0f));
+        this.tasks.addTask(8, (EntityAIBase)new MyEntityAIWander((EntityCreature)this, 0.75f));
+        this.tasks.addTask(9, (EntityAIBase)new EntityAILookIdle((EntityLiving)this));
+        this.tasks.addTask(10, (EntityAIBase)new EntityAIOpenDoor((EntityLiving)this, true));
+        this.tasks.addTask(11, (EntityAIBase)new EntityAIMoveIndoors((EntityCreature)this));
+        this.targetTasks.addTask(1, (EntityAIBase)new MyValentineTarget((EntityLiving)this, EntityPlayer.class, 16.0f, 0, true, true));
+        this.targetTasks.addTask(2, (EntityAIBase)new MyValentineTarget((EntityLiving)this, Boyfriend.class, 16.0f, 0, true, true));
+        if (OreSpawnMain.PlayNicely == 0) {
+            this.targetTasks.addTask(2, (EntityAIBase)new MyEntityAINearestAttackableTarget((EntityLiving)this, EntityCreeper.class, 20.0f, 0, true, true, IMob.mobSelector));
+        }
+        if (OreSpawnMain.PlayNicely == 0) {
+            this.targetTasks.addTask(3, (EntityAIBase)new MyEntityAINearestAttackableTarget((EntityLiving)this, EntityLiving.class, 15.0f, 0, true, true, IMob.mobSelector));
+        }
+        if (OreSpawnMain.PlayNicely == 0) {
+            this.targetTasks.addTask(4, (EntityAIBase)new MyEntityAIJealousy(this, Girlfriend.class, 6.0f, 5, true));
+        }
+        if (OreSpawnMain.PlayNicely == 0) {
+            this.targetTasks.addTask(5, (EntityAIBase)new MyEntityAIJealousy(this, Girlfriend.class, 3.0f, 15, true));
+        }
+        this.experienceValue = 0;
+    }
+    
+    protected void entityInit() {
+        super.entityInit();
+        this.which_girl = this.rand.nextInt(41);
+        this.dataWatcher.addObject(20, (Object)this.which_girl);
+        this.wet_count = 0;
+        this.which_wet_girl = this.rand.nextInt(18);
+        this.dataWatcher.addObject(22, (Object)this.which_wet_girl);
+        this.voice = this.rand.nextInt(10);
+        this.dataWatcher.addObject(21, (Object)this.voice);
+        this.dataWatcher.addObject(23, (Object)this.voice_enable);
+        this.dataWatcher.addObject(24, (Object)this.is_princess);
+        this.dataWatcher.addObject(25, (Object)this.feelingBetter);
+        this.auto_heal = 200;
+        this.force_sync = 50;
+        this.fight_sound_ticker = 0;
+        this.taunt_sound_ticker = 0;
+        this.had_target = 0;
+        this.setSitting(false);
+    }
+    
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)this.mygetMaxHealth());
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)this.moveSpeed);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(8.0);
+    }
+    
+    public int getTotalArmorValue() {
+        int i = 0;
+        for (final ItemStack itemstack : this.getLastActiveItems()) {
+            if (itemstack != null && itemstack.getItem() instanceof ItemArmor) {
+                final int l = ((ItemArmor)itemstack.getItem()).damageReduceAmount;
+                i += l;
+            }
+        }
+        if (i < 8) {
+            i = 8;
+        }
+        if (i > 23) {
+            i = 23;
+        }
+        return i;
+    }
+    
+    public void onUpdate() {
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)this.moveSpeed);
+        super.onUpdate();
+        this.passenger = 0;
+        if (this.isTamed() && !this.isSitting()) {
+            final Entity e = (Entity)this.getOwner();
+            if (e != null && e instanceof EntityPlayer) {
+                final EntityPlayer p = (EntityPlayer)e;
+                final Entity r = e.ridingEntity;
+                if (r != null && r instanceof Elevator) {
+                    final float f = -0.45f;
+                    this.setPosition(r.posX - f * Math.sin(Math.toRadians(r.rotationYaw)), r.posY, r.posZ + f * Math.cos(Math.toRadians(r.rotationYaw)));
+                    this.rotationYaw = r.rotationYaw;
+                    this.rotationPitch = r.rotationPitch;
+                    final float n = 0.0f;
+                    this.limbSwingAmount = n;
+                    this.limbSwing = n;
+                    this.fallDistance = 0.0f;
+                    this.passenger = 1;
+                }
+            }
+        }
+    }
+    
+    public void writeEntityToNBT(final NBTTagCompound par1NBTTagCompound) {
+        super.writeEntityToNBT(par1NBTTagCompound);
+        par1NBTTagCompound.setInteger("GirlType", this.getTameSkin());
+        par1NBTTagCompound.setInteger("WetGirlType", this.getWetTameSkin());
+        par1NBTTagCompound.setInteger("GirlVoice", this.dataWatcher.getWatchableObjectInt(21));
+        par1NBTTagCompound.setInteger("GirlVoiceEnable", this.dataWatcher.getWatchableObjectInt(23));
+        par1NBTTagCompound.setInteger("IsPrincess", this.dataWatcher.getWatchableObjectInt(24));
+        par1NBTTagCompound.setInteger("feelingBetter", this.dataWatcher.getWatchableObjectInt(25));
+    }
+    
+    public void readEntityFromNBT(final NBTTagCompound par1NBTTagCompound) {
+        super.readEntityFromNBT(par1NBTTagCompound);
+        this.setTameSkin(this.which_girl = par1NBTTagCompound.getInteger("GirlType"));
+        this.setWetTameSkin(this.which_wet_girl = par1NBTTagCompound.getInteger("WetGirlType"));
+        this.voice = par1NBTTagCompound.getInteger("GirlVoice");
+        this.dataWatcher.updateObject(21, (Object)this.voice);
+        this.voice_enable = par1NBTTagCompound.getInteger("GirlVoiceEnable");
+        this.dataWatcher.updateObject(23, (Object)this.voice_enable);
+        this.is_princess = par1NBTTagCompound.getInteger("IsPrincess");
+        this.dataWatcher.updateObject(24, (Object)this.is_princess);
+        this.feelingBetter = par1NBTTagCompound.getInteger("feelingBetter");
+        this.dataWatcher.updateObject(25, (Object)this.feelingBetter);
+        if (OreSpawnMain.valentines_day != 0 && this.feelingBetter != 0) {
+            this.setSize(0.5f, 1.6f);
+        }
+    }
+    
+    protected void updateAITick() {
+        super.updateAITick();
+        final ItemStack stack = this.getCurrentEquippedItem();
+        Entity victim = (Entity)this.getAttackTarget();
+        if (OreSpawnMain.PlayNicely != 0) {
+            victim = null;
+        }
+        if (this.worldObj.rand.nextInt(100) == 1) {
+            this.setRevengeTarget((EntityLivingBase)null);
+        }
+        if (this.worldObj.rand.nextInt(200) == 1) {
+            this.setAttackTarget((EntityLivingBase)null);
+        }
+        if (stack != null && !this.isSitting()) {
+            if (victim != null) {
+                if (victim instanceof EntityLivingBase && this.getHeldItem() != null) {
+                    if (this.getDistanceToEntity(victim) < 4.0f || (stack.getItem() == OreSpawnMain.MyBertha && this.getDistanceToEntity(victim) < 10.0f)) {
+                        --this.attackTime;
+                        if (this.attackTime <= 0) {
+                            this.attackTime = 25;
+                            this.swingItem();
+                            this.attackTargetEntityWithCurrentItem(victim);
+                            --this.fight_sound_ticker;
+                            if (this.fight_sound_ticker <= 0) {
+                                if (!this.worldObj.isRemote && this.voice_enable != 0) {
+                                    this.worldObj.playSoundAtEntity((Entity)this, "orespawn:o_fight", 0.5f, this.getSoundPitch());
+                                }
+                                this.fight_sound_ticker = 3;
+                            }
+                            this.had_target = 1;
+                        }
+                    }
+                    else if (this.getDistanceToEntity(victim) < 7.0f && stack.getItem() != OreSpawnMain.MyUltimateBow) {
+                        --this.taunt_sound_ticker;
+                        if (this.taunt_sound_ticker <= 0) {
+                            if (!this.worldObj.isRemote && this.voice_enable != 0) {
+                                this.worldObj.playSoundAtEntity((Entity)this, "orespawn:o_taunt", 0.5f, this.getSoundPitch());
+                            }
+                            this.taunt_sound_ticker = 300;
+                        }
+                        this.getNavigator().tryMoveToEntityLiving(victim, 1.25);
+                    }
+                }
+            }
+            else {
+                this.fight_sound_ticker = 0;
+                this.attackTime = 0;
+                if (this.had_target != 0) {
+                    this.had_target = 0;
+                    if (!this.worldObj.isRemote && this.voice_enable != 0) {
+                        this.worldObj.playSoundAtEntity((Entity)this, "orespawn:o_woohoo", 0.4f, this.getSoundPitch());
+                    }
+                }
+            }
+        }
+    }
+    
+    public void setPrincess(final int par1) {
+        this.is_princess = par1;
+    }
+    
+    public ResourceLocation getTexture() {
+        if (OreSpawnMain.valentines_day != 0 && this.feelingBetter == 0) {
+            return Girlfriend.ValentineTexture;
+        }
+        if (this.wet_count <= 0) {
+            final int txture = this.getTameSkin();
+            if (this.is_princess == 1) {
+                return Girlfriend.PrincessTexture1;
+            }
+            if (this.is_princess == 2) {
+                return Girlfriend.PrincessTexture2;
+            }
+            if (txture == 0) {
+                return Girlfriend.DryTexture0;
+            }
+            if (txture == 1) {
+                return Girlfriend.DryTexture1;
+            }
+            if (txture == 2) {
+                return Girlfriend.DryTexture2;
+            }
+            if (txture == 3) {
+                return Girlfriend.DryTexture3;
+            }
+            if (txture == 4) {
+                return Girlfriend.DryTexture4;
+            }
+            if (txture == 5) {
+                return Girlfriend.DryTexture5;
+            }
+            if (txture == 6) {
+                return Girlfriend.DryTexture6;
+            }
+            if (txture == 7) {
+                return Girlfriend.DryTexture7;
+            }
+            if (txture == 8) {
+                return Girlfriend.DryTexture8;
+            }
+            if (txture == 9) {
+                return Girlfriend.DryTexture9;
+            }
+            if (txture == 10) {
+                return Girlfriend.DryTexture10;
+            }
+            if (txture == 11) {
+                return Girlfriend.DryTexture11;
+            }
+            if (txture == 12) {
+                return Girlfriend.DryTexture12;
+            }
+            if (txture == 13) {
+                return Girlfriend.DryTexture13;
+            }
+            if (txture == 14) {
+                return Girlfriend.DryTexture14;
+            }
+            if (txture == 15) {
+                return Girlfriend.DryTexture15;
+            }
+            if (txture == 16) {
+                return Girlfriend.DryTexture16;
+            }
+            if (txture == 17) {
+                return Girlfriend.DryTexture17;
+            }
+            if (txture == 18) {
+                return Girlfriend.DryTexture18;
+            }
+            if (txture == 19) {
+                return Girlfriend.DryTexture19;
+            }
+            if (txture == 20) {
+                return Girlfriend.DryTexture20;
+            }
+            if (txture == 21) {
+                return Girlfriend.DryTexture21;
+            }
+            if (txture == 22) {
+                return Girlfriend.DryTexture22;
+            }
+            if (txture == 23) {
+                return Girlfriend.DryTexture23;
+            }
+            if (txture == 24) {
+                return Girlfriend.DryTexture24;
+            }
+            if (txture == 25) {
+                return Girlfriend.DryTexture25;
+            }
+            if (txture == 26) {
+                return Girlfriend.DryTexture26;
+            }
+            if (txture == 27) {
+                return Girlfriend.DryTexture27;
+            }
+            if (txture == 28) {
+                return Girlfriend.DryTexture28;
+            }
+            if (txture == 29) {
+                return Girlfriend.DryTexture29;
+            }
+            if (txture == 30) {
+                return Girlfriend.DryTexture30;
+            }
+            if (txture == 31) {
+                return Girlfriend.DryTexture31;
+            }
+            if (txture == 32) {
+                return Girlfriend.DryTexture32;
+            }
+            if (txture == 33) {
+                return Girlfriend.DryTexture33;
+            }
+            if (txture == 34) {
+                return Girlfriend.DryTexture34;
+            }
+            if (txture == 35) {
+                return Girlfriend.DryTexture35;
+            }
+            if (txture == 36) {
+                return Girlfriend.DryTexture36;
+            }
+            if (txture == 37) {
+                return Girlfriend.DryTexture37;
+            }
+            if (txture == 38) {
+                return Girlfriend.DryTexture38;
+            }
+            if (txture == 39) {
+                return Girlfriend.DryTexture39;
+            }
+            if (txture == 40) {
+                return Girlfriend.DryTexture40;
+            }
+        }
+        else {
+            final int temp = this.getWetTameSkin();
+            if (temp == 0) {
+                return Girlfriend.WetTexture0;
+            }
+            if (temp == 1) {
+                return Girlfriend.WetTexture1;
+            }
+            if (temp == 2) {
+                return Girlfriend.WetTexture2;
+            }
+            if (temp == 3) {
+                return Girlfriend.WetTexture3;
+            }
+            if (temp == 4) {
+                return Girlfriend.WetTexture4;
+            }
+            if (temp == 5) {
+                return Girlfriend.WetTexture5;
+            }
+            if (temp == 6) {
+                return Girlfriend.WetTexture6;
+            }
+            if (temp == 7) {
+                return Girlfriend.WetTexture7;
+            }
+            if (temp == 8) {
+                return Girlfriend.WetTexture8;
+            }
+            if (temp == 9) {
+                return Girlfriend.WetTexture9;
+            }
+            if (temp == 10) {
+                return Girlfriend.WetTexture10;
+            }
+            if (temp == 11) {
+                return Girlfriend.WetTexture11;
+            }
+            if (temp == 12) {
+                return Girlfriend.WetTexture12;
+            }
+            if (temp == 13) {
+                return Girlfriend.WetTexture13;
+            }
+            if (temp == 14) {
+                return Girlfriend.WetTexture14;
+            }
+            if (temp == 15) {
+                return Girlfriend.WetTexture15;
+            }
+            if (temp == 16) {
+                return Girlfriend.WetTexture16;
+            }
+            if (temp == 17) {
+                return Girlfriend.WetTexture17;
+            }
+        }
+        return null;
+    }
+    
+    public int getTameSkin() {
+        return this.dataWatcher.getWatchableObjectInt(20);
+    }
+    
+    public int getVoice() {
+        return this.dataWatcher.getWatchableObjectInt(21);
+    }
+    
+    public void setTameSkin(final int par1) {
+        this.dataWatcher.updateObject(20, (Object)par1);
+        this.which_girl = par1;
+    }
+    
+    public int getWetTameSkin() {
+        return this.dataWatcher.getWatchableObjectInt(22);
+    }
+    
+    public void setWetTameSkin(final int par1) {
+        this.dataWatcher.updateObject(22, (Object)par1);
+        this.which_wet_girl = par1;
+    }
+    
+    public boolean isAIEnabled() {
+        return true;
+    }
+    
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+    
+    protected void fall(final float par1) {
+        float i = (float)MathHelper.ceiling_float_int(par1 - 3.0f);
+        if (i > 0.0f) {
+            if (i > 3.0f) {
+                this.playSound("damage.fallbig", 1.0f, 1.0f);
+                i = 3.0f;
+            }
+            else {
+                this.playSound("damage.fallsmall", 1.0f, 1.0f);
+            }
+            this.attackEntityFrom(DamageSource.fall, i);
+        }
+    }
+    
+    public int mygetMaxHealth() {
+        if (OreSpawnMain.valentines_day != 0 && this.feelingBetter == 0) {
+            return 800;
+        }
+        return 80;
+    }
+    
+    public void onLivingUpdate() {
+        this.updateArmSwingProgress();
+        super.onLivingUpdate();
+        if (this.isInWater() || this.handleLavaMovement()) {
+            this.wet_count = 500;
+        }
+        else if (this.wet_count > 0) {
+            --this.wet_count;
+        }
+        --this.auto_heal;
+        if (this.auto_heal <= 0) {
+            if (this.mygetMaxHealth() > this.getGirlfriendHealth()) {
+                this.heal(1.0f);
+            }
+            this.auto_heal = 100;
+        }
+        --this.force_sync;
+        if (this.force_sync <= 0) {
+            this.force_sync = 20;
+            if (!this.worldObj.isRemote) {
+                this.dataWatcher.updateObject(21, (Object)this.voice);
+                this.dataWatcher.updateObject(23, (Object)this.voice_enable);
+                this.dataWatcher.updateObject(24, (Object)this.is_princess);
+                this.dataWatcher.updateObject(25, (Object)this.feelingBetter);
+                this.setSitting(this.isSitting());
+            }
+            else {
+                this.voice = this.getVoice();
+                this.voice_enable = this.dataWatcher.getWatchableObjectInt(23);
+                final int nowfeeling = this.dataWatcher.getWatchableObjectInt(25);
+                if (nowfeeling != this.feelingBetter && nowfeeling != 0) {
+                    this.feelingBetter = nowfeeling;
+                    this.setSize(0.5f, 1.6f);
+                }
+            }
+        }
+    }
+    
+    public int getGirlfriendHealth() {
+        return (int)this.getHealth();
+    }
+    
+    public boolean interact(final EntityPlayer par1EntityPlayer) {
+        ItemStack var2 = par1EntityPlayer.inventory.getCurrentItem();
+        if (var2 != null && var2.stackSize <= 0) {
+            par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+            var2 = null;
+        }
+        if (var2 != null && (var2.getItem() == Item.getItemFromBlock((Block)Blocks.red_flower) || var2.getItem() == Item.getItemFromBlock(OreSpawnMain.CrystalFlowerRedBlock)) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0) {
+            if (!this.isTamed()) {
+                if (!this.worldObj.isRemote) {
+                    if (this.rand.nextInt(3) == 0) {
+                        this.setTamed(true);
+                        this.func_152115_b(par1EntityPlayer.getUniqueID().toString());
+                        this.playTameEffect(true);
+                        this.worldObj.setEntityState((Entity)this, (byte)7);
+                        this.heal(this.mygetMaxHealth() - this.getHealth());
+                    }
+                    else {
+                        this.playTameEffect(false);
+                        this.worldObj.setEntityState((Entity)this, (byte)6);
+                    }
+                }
+            }
+            else if (this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
+                if (this.worldObj.isRemote) {
+                    this.playTameEffect(true);
+                    this.worldObj.setEntityState((Entity)this, (byte)7);
+                }
+                if (this.mygetMaxHealth() > this.getHealth()) {
+                    this.heal(this.mygetMaxHealth() - this.getHealth());
+                }
+            }
+            if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                final ItemStack itemStack = var2;
+                --itemStack.stackSize;
+                if (var2.stackSize <= 0) {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
+            }
+            return true;
+        }
+        if (this.isTamed() && var2 != null && var2.getItem() == Item.getItemFromBlock((Block)Blocks.deadbush) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0 && this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
+            if (!this.worldObj.isRemote) {
+                this.setTamed(false);
+                this.func_152115_b("");
+                this.playTameEffect(false);
+                this.worldObj.setEntityState((Entity)this, (byte)6);
+            }
+            if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                final ItemStack itemStack2 = var2;
+                --itemStack2.stackSize;
+                if (var2.stackSize <= 0) {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
+            }
+            return true;
+        }
+        if (this.isTamed() && var2 != null && var2.getItem() == OreSpawnMain.MyRuby && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0 && this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
+            if (!this.worldObj.isRemote) {
+                this.voice_enable = 0;
+                this.dataWatcher.updateObject(23, (Object)this.voice_enable);
+                this.playTameEffect(true);
+                this.worldObj.setEntityState((Entity)this, (byte)7);
+            }
+            if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                final ItemStack itemStack3 = var2;
+                --itemStack3.stackSize;
+                if (var2.stackSize <= 0) {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
+            }
+            return true;
+        }
+        if (this.isTamed() && var2 != null && var2.getItem() == OreSpawnMain.MyAmethyst && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0 && this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
+            if (!this.worldObj.isRemote) {
+                this.voice_enable = 1;
+                this.dataWatcher.updateObject(23, (Object)this.voice_enable);
+                this.playTameEffect(true);
+                this.worldObj.setEntityState((Entity)this, (byte)7);
+            }
+            if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                final ItemStack itemStack4 = var2;
+                --itemStack4.stackSize;
+                if (var2.stackSize <= 0) {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
+            }
+            return true;
+        }
+        if (this.isTamed() && var2 != null && (var2.getItem() == Item.getItemFromBlock((Block)Blocks.yellow_flower) || var2.getItem() == Item.getItemFromBlock(OreSpawnMain.CrystalFlowerYellowBlock)) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0 && this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
+            if (!this.worldObj.isRemote) {
+                if (this.wet_count > 0 || this.isInWater() || this.handleLavaMovement()) {
+                    ++this.which_wet_girl;
+                    if (this.which_wet_girl > 17) {
+                        this.which_wet_girl = 0;
+                    }
+                    this.setWetTameSkin(this.which_wet_girl);
+                    this.worldObj.setEntityState((Entity)this, (byte)7);
+                    if (this.isInWater() || this.handleLavaMovement()) {
+                        this.wet_count = 500;
+                    }
+                }
+                else {
+                    ++this.which_girl;
+                    if (this.which_girl > 40) {
+                        this.which_girl = 0;
+                    }
+                    this.setTameSkin(this.which_girl);
+                    this.worldObj.setEntityState((Entity)this, (byte)7);
+                }
+            }
+            if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                final ItemStack itemStack5 = var2;
+                --itemStack5.stackSize;
+                if (var2.stackSize <= 0) {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
+            }
+            return true;
+        }
+        if (this.isTamed() && var2 != null && this.func_152114_e((EntityLivingBase)par1EntityPlayer) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0) {
+            if (var2.getItem() instanceof ItemFood) {
+                if (!this.worldObj.isRemote) {
+                    final ItemFood var3 = (ItemFood)var2.getItem();
+                    if (this.mygetMaxHealth() > this.getHealth()) {
+                        this.heal((float)(var3.func_150905_g(var2) * 5));
+                    }
+                    this.playTameEffect(true);
+                    this.worldObj.setEntityState((Entity)this, (byte)7);
+                }
+                if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                    final ItemStack itemStack6 = var2;
+                    --itemStack6.stackSize;
+                    if (var2.stackSize <= 0) {
+                        par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                    }
+                }
+            }
+            else {
+                if (!this.worldObj.isRemote) {
+                    this.playTameEffect(true);
+                    this.worldObj.setEntityState((Entity)this, (byte)7);
+                }
+                final ItemStack var4 = this.getCurrentEquippedItem();
+                this.setCurrentItemOrArmor(0, var2);
+                if (var2.getItem() == Items.diamond) {
+                    this.setSitting(true);
+                }
+                else {
+                    this.setSitting(false);
+                }
+                if (var4 != null) {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, var4);
+                }
+                else {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                    final Item itm = var2.getItem();
+                    if (itm instanceof ItemOreSpawnArmor) {
+                        if (itm == OreSpawnMain.CrystalPinkHelmet || itm == OreSpawnMain.TigersEyeHelmet) {
+                            final ItemStack v4 = this.getEquipmentInSlot(4);
+                            this.setCurrentItemOrArmor(4, var2);
+                            this.setCurrentItemOrArmor(0, v4);
+                        }
+                        if (itm == OreSpawnMain.CrystalPinkBody || itm == OreSpawnMain.TigersEyeBody) {
+                            final ItemStack v4 = this.getEquipmentInSlot(3);
+                            this.setCurrentItemOrArmor(3, var2);
+                            this.setCurrentItemOrArmor(0, v4);
+                        }
+                        if (itm == OreSpawnMain.CrystalPinkLegs || itm == OreSpawnMain.TigersEyeLegs) {
+                            final ItemStack v4 = this.getEquipmentInSlot(2);
+                            this.setCurrentItemOrArmor(2, var2);
+                            this.setCurrentItemOrArmor(0, v4);
+                        }
+                        if (itm == OreSpawnMain.CrystalPinkBoots || itm == OreSpawnMain.TigersEyeBoots) {
+                            final ItemStack v4 = this.getEquipmentInSlot(1);
+                            this.setCurrentItemOrArmor(1, var2);
+                            this.setCurrentItemOrArmor(0, v4);
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        if (this.isTamed() && var2 != null && var2.getItem() == Item.getItemFromBlock(Blocks.diamond_block) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0) {
+            this.setSitting(false);
+            this.setTamed(true);
+            this.func_152115_b(par1EntityPlayer.getUniqueID().toString());
+            this.playTameEffect(true);
+            this.worldObj.setEntityState((Entity)this, (byte)7);
+            if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                final ItemStack itemStack7 = var2;
+                --itemStack7.stackSize;
+                if (var2.stackSize <= 0) {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
+            }
+            return true;
+        }
+        if (this.isTamed() && var2 != null && var2.getItem() == Items.name_tag && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0 && this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
+            this.setCustomNameTag(var2.getDisplayName());
+            if (!par1EntityPlayer.capabilities.isCreativeMode) {
+                final ItemStack itemStack8 = var2;
+                --itemStack8.stackSize;
+                if (var2.stackSize <= 0) {
+                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                }
+            }
+            return true;
+        }
+        if (this.isTamed() && var2 == null && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0 && this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
+            ItemStack var4 = this.getEquipmentInSlot(0);
+            int it = 0;
+            if (var4 == null) {
+                ++it;
+                var4 = this.getEquipmentInSlot(it);
+            }
+            if (var4 == null) {
+                ++it;
+                var4 = this.getEquipmentInSlot(it);
+            }
+            if (var4 == null) {
+                ++it;
+                var4 = this.getEquipmentInSlot(it);
+            }
+            if (var4 == null) {
+                ++it;
+                var4 = this.getEquipmentInSlot(it);
+            }
+            if (var4 != null) {
+                par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, var4);
+                this.setCurrentItemOrArmor(it, (ItemStack)null);
+                this.setSitting(false);
+                if (!this.worldObj.isRemote) {
+                    this.worldObj.setEntityState((Entity)this, (byte)6);
+                }
+            }
+            else if (!this.worldObj.isRemote) {
+                this.setSitting(false);
+                this.playTameEffect(true);
+                this.worldObj.setEntityState((Entity)this, (byte)7);
+                String healthMessage = new String();
+                healthMessage = String.format("I have %d health. Thank you for asking! xoxo", this.getGirlfriendHealth());
+                par1EntityPlayer.addChatComponentMessage((IChatComponent)new ChatComponentText(healthMessage));
+            }
+            return true;
+        }
+        return super.interact(par1EntityPlayer);
+    }
+    
+    public boolean isWheat(final ItemStack par1ItemStack) {
+        return par1ItemStack != null && par1ItemStack.getItem() == Item.getItemFromBlock((Block)Blocks.red_flower);
+    }
+    
+    protected boolean canDespawn() {
+        return false;
+    }
+    
+    protected String getLivingSound() {
+        if (this.isSitting() || this.voice_enable == 0) {
+            return null;
+        }
+        if (this.Dance.is_dancing != 0) {
+            return null;
+        }
+        if (this.rand.nextInt(11) != 1) {
+            return null;
+        }
+        final Entity victim = (Entity)this.getAttackTarget();
+        if (victim != null) {
+            return null;
+        }
+        if (this.isInWater() || this.handleLavaMovement()) {
+            return "orespawn:o_water";
+        }
+        if (this.rand.nextInt(4) != 0) {
+            if (this.posY < 60.0) {
+                return null;
+            }
+            if (this.worldObj.isThundering()) {
+                return "orespawn:o_thunder";
+            }
+            if (this.worldObj.isRaining()) {
+                return "orespawn:o_rain";
+            }
+            if (!this.worldObj.isDaytime() && this.worldObj.canBlockSeeTheSky((int)this.posX, (int)this.posY, (int)this.posZ)) {
+                if (this.worldObj.rand.nextInt(3) == 0) {
+                    return "orespawn:o_dark";
+                }
+                return null;
+            }
+        }
+        if (!this.isTamed()) {
+            return null;
+        }
+        if (this.mygetMaxHealth() > this.getHealth() || (OreSpawnMain.valentines_day != 0 && this.feelingBetter == 0)) {
+            return "orespawn:o_hurt";
+        }
+        return "orespawn:o_happy";
+    }
+    
+    protected String getHurtSound() {
+        if (this.voice_enable == 0) {
+            return null;
+        }
+        return "orespawn:o_ow";
+    }
+    
+    protected String getDeathSound() {
+        return this.isTamed() ? "orespawn:o_death_girlfriend" : "orespawn:o_death_single";
+    }
+    
+    protected float getSoundVolume() {
+        return 0.3f;
+    }
+    
+    protected Item getDropItem() {
+        return Item.getItemFromBlock((Block)Blocks.red_flower);
+    }
+    
+    private void dropItemRand(final Item index, final int par1) {
+        final EntityItem var3 = new EntityItem(this.worldObj, this.posX + OreSpawnMain.OreSpawnRand.nextInt(4) - OreSpawnMain.OreSpawnRand.nextInt(4), this.posY + 1.0, this.posZ + OreSpawnMain.OreSpawnRand.nextInt(4) - OreSpawnMain.OreSpawnRand.nextInt(4), new ItemStack(index, par1, 0));
+        this.worldObj.spawnEntityInWorld((Entity)var3);
+    }
+    
+    protected void dropFewItems(final boolean par1, final int par2) {
+        int var3 = 0;
+        if (this.isTamed()) {
+            var3 = this.rand.nextInt(5);
+            var3 += 2;
+            for (int var4 = 0; var4 < var3; ++var4) {
+                this.dropItem(Item.getItemFromBlock((Block)Blocks.red_flower), 1);
+            }
+        }
+        final Item v6 = OreSpawnMain.MyItemShoes;
+        final Item v7 = OreSpawnMain.MyItemShoes_1;
+        final Item v8 = OreSpawnMain.MyItemShoes_2;
+        final Item v9 = OreSpawnMain.MyItemShoes_3;
+        var3 = this.rand.nextInt(16);
+        var3 += 4;
+        for (int var5 = 0; var5 < var3; ++var5) {
+            this.dropItem(v6, 1);
+        }
+        var3 = this.rand.nextInt(16);
+        var3 += 4;
+        for (int var5 = 0; var5 < var3; ++var5) {
+            this.dropItem(v7, 1);
+        }
+        var3 = this.rand.nextInt(16);
+        var3 += 4;
+        for (int var5 = 0; var5 < var3; ++var5) {
+            this.dropItem(v8, 1);
+        }
+        var3 = this.rand.nextInt(16);
+        var3 += 4;
+        for (int var5 = 0; var5 < var3; ++var5) {
+            this.dropItem(v9, 1);
+        }
+        if (this.isTamed()) {
+            ItemStack var6 = this.getCurrentEquippedItem();
+            if (var6 != null && var6.stackSize > 0) {
+                this.dropItem(var6.getItem(), var6.stackSize);
+            }
+            var6 = this.getEquipmentInSlot(1);
+            if (var6 != null && var6.stackSize > 0) {
+                this.dropItem(var6.getItem(), var6.stackSize);
+            }
+            var6 = this.getEquipmentInSlot(2);
+            if (var6 != null && var6.stackSize > 0) {
+                this.dropItem(var6.getItem(), var6.stackSize);
+            }
+            var6 = this.getEquipmentInSlot(3);
+            if (var6 != null && var6.stackSize > 0) {
+                this.dropItem(var6.getItem(), var6.stackSize);
+            }
+            var6 = this.getEquipmentInSlot(4);
+            if (var6 != null && var6.stackSize > 0) {
+                this.dropItem(var6.getItem(), var6.stackSize);
+            }
+        }
+    }
+    
+    public void attackEntityWithRangedAttack(final EntityLivingBase par1EntityLiving) {
+        ItemStack it = null;
+        if (this.isSwingInProgress) {
+            return;
+        }
+        it = this.getCurrentEquippedItem();
+        if (it != null && it.getItem() == OreSpawnMain.MyUltimateBow) {
+            final EntityArrow var8 = new UltimateArrow(this.worldObj, (EntityLiving)this, par1EntityLiving, 2.0f, 10.0f);
+            if (this.worldObj.rand.nextInt(4) == 1) {
+                var8.setIsCritical(true);
+            }
+            final int var9 = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, it);
+            if (var9 > 0) {
+                var8.setKnockbackStrength(var9);
+            }
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, it) > 0) {
+                var8.setFire(100);
+            }
+            it.damageItem(1, (EntityLivingBase)this);
+            this.worldObj.playSoundAtEntity((Entity)this, "random.bow", 1.0f, 1.0f / (this.worldObj.rand.nextFloat() * 0.4f + 1.2f) + 0.5f);
+            var8.canBePickedUp = 2;
+            this.worldObj.spawnEntityInWorld((Entity)var8);
+        }
+        else {
+            final Shoes var10 = new Shoes(this.worldObj, (EntityLivingBase)this, 2 + this.rand.nextInt(4));
+            final double var11 = par1EntityLiving.posX - this.posX;
+            final double var12 = par1EntityLiving.posY + par1EntityLiving.getEyeHeight() - 1.1 - var10.posY;
+            final double var13 = par1EntityLiving.posZ - this.posZ;
+            final float var14 = MathHelper.sqrt_double(var11 * var11 + var13 * var13) * 0.2f;
+            var10.setThrowableHeading(var11, var12 + var14, var13, 1.8f, 4.0f);
+            this.worldObj.playSoundAtEntity((Entity)this, "random.bow", 0.75f, 1.0f / (this.getRNG().nextFloat() * 0.4f + 0.8f));
+            this.worldObj.spawnEntityInWorld((Entity)var10);
+        }
+        this.swingItem();
+    }
+    
+    public ItemStack getCurrentEquippedItem() {
+        return this.getEquipmentInSlot(0);
+    }
+    
+    public void attackTargetEntityWithCurrentItem(final Entity par1Entity) {
+        final ItemStack stack = this.getCurrentEquippedItem();
+        if (stack != null) {
+            float var2 = 0.0f;
+            if (this.isPotionActive(Potion.damageBoost)) {
+                var2 += 3 << this.getActivePotionEffect(Potion.damageBoost).getAmplifier();
+            }
+            if (this.isPotionActive(Potion.weakness)) {
+                var2 -= 2 << this.getActivePotionEffect(Potion.weakness).getAmplifier();
+            }
+            int var3 = 0;
+            float var4 = (float)this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+            if (par1Entity instanceof EntityLiving) {
+                var4 += EnchantmentHelper.getEnchantmentModifierLiving((EntityLivingBase)this, (EntityLivingBase)par1Entity);
+                var3 += EnchantmentHelper.getKnockbackModifier((EntityLivingBase)this, (EntityLivingBase)par1Entity);
+            }
+            if (this.isSprinting()) {
+                ++var3;
+            }
+            if (var2 > 0.0f || var4 > 0.0f) {
+                final boolean var5 = this.fallDistance > 0.0f && !this.onGround && !this.isOnLadder() && !this.isInWater() && !this.handleLavaMovement() && !this.isPotionActive(Potion.blindness) && this.ridingEntity == null && par1Entity instanceof EntityLiving;
+                if (var5) {
+                    var2 += this.rand.nextInt((int)var2 / 2 + 2);
+                }
+                var2 += var4;
+                final boolean var6 = par1Entity.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase)this), var2);
+                if (var6 && var3 > 0) {
+                    par1Entity.addVelocity((double)(-MathHelper.sin(this.rotationYaw * 3.1415927f / 180.0f) * var3 * 0.5f), 0.1, (double)(MathHelper.cos(this.rotationYaw * 3.1415927f / 180.0f) * var3 * 0.5f));
+                    this.motionX *= 0.6;
+                    this.motionZ *= 0.6;
+                    this.setSprinting(false);
+                }
+                final ItemStack var7 = this.getCurrentEquippedItem();
+                if (par1Entity instanceof EntityLiving) {
+                    final int var8 = EnchantmentHelper.getEnchantmentLevel(Enchantment.fireAspect.effectId, var7);
+                    if (var8 > 0 && var6) {
+                        par1Entity.setFire(var8 * 4);
+                    }
+                }
+            }
+        }
+    }
+    
+    protected float getSoundPitch() {
+        return (this.voice - 5) * 0.02f + 1.0f;
+    }
+    
+    public EntityAgeable createChild(final EntityAgeable var1) {
+        return null;
+    }
+    
+    public void attackEntityWithRangedAttack(final EntityLivingBase entityliving, final float f) {
+        this.attackEntityWithRangedAttack(entityliving);
+    }
+    
+    public boolean attackEntityFrom(final DamageSource par1DamageSource, final float par2) {
+        boolean ret = false;
+        float p2 = par2;
+        if (p2 > 10.0f) {
+            p2 = 10.0f;
+        }
+        if (!par1DamageSource.getDamageType().equals("cactus")) {
+            if (par1DamageSource.getDamageType().equals("inWall") && OreSpawnMain.valentines_day != 0) {
+                return ret;
+            }
+            if (OreSpawnMain.valentines_day != 0 && !this.worldObj.isRemote && this.feelingBetter == 0) {
+                final Entity e = par1DamageSource.getEntity();
+                if (e != null && e instanceof EntityPlayer) {
+                    final EntityPlayer eb = (EntityPlayer)e;
+                    final ItemStack ist = eb.getCurrentEquippedItem();
+                    if (ist != null) {
+                        final Item it = ist.getItem();
+                        if (it == OreSpawnMain.MyRoseSword) {
+                            if (this.worldObj.rand.nextInt(4) == 1) {
+                                this.feelingBetter = 1;
+                                this.setAttackTarget((EntityLivingBase)null);
+                                this.setSize(0.5f, 1.6f);
+                                this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)this.mygetMaxHealth());
+                                for (int morelove = this.worldObj.rand.nextInt(10), i = 0; i < 10 + morelove; ++i) {
+                                    this.dropItemRand(OreSpawnMain.MyLove, 1);
+                                }
+                            }
+                            else {
+                                this.dropItemRand(OreSpawnMain.MyLove, 1);
+                            }
+                        }
+                    }
+                }
+            }
+            ret = super.attackEntityFrom(par1DamageSource, p2);
+        }
+        return ret;
+    }
+    
+    public boolean getCanSpawnHere() {
+        for (int k = -3; k < 3; ++k) {
+            for (int j = -3; j < 3; ++j) {
+                for (int i = 0; i < 5; ++i) {
+                    final Block bid = this.worldObj.getBlock((int)this.posX + j, (int)this.posY + i, (int)this.posZ + k);
+                    if (bid == Blocks.mob_spawner) {
+                        TileEntityMobSpawner tileentitymobspawner = null;
+                        tileentitymobspawner = (TileEntityMobSpawner)this.worldObj.getTileEntity((int)this.posX + j, (int)this.posY + i, (int)this.posZ + k);
+                        final String s = tileentitymobspawner.func_145881_a().getEntityNameToSpawn();
+                        if (s != null && s.equals("Girlfriend")) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return super.getCanSpawnHere();
+    }
+    
+    static {
+        DryTexture0 = new ResourceLocation("orespawn", "girlfriend0.png");
+        DryTexture1 = new ResourceLocation("orespawn", "girlfriend1.png");
+        DryTexture2 = new ResourceLocation("orespawn", "girlfriend2.png");
+        DryTexture3 = new ResourceLocation("orespawn", "girlfriend3.png");
+        DryTexture4 = new ResourceLocation("orespawn", "girlfriend4.png");
+        DryTexture5 = new ResourceLocation("orespawn", "girlfriend5.png");
+        DryTexture6 = new ResourceLocation("orespawn", "girlfriend6.png");
+        DryTexture7 = new ResourceLocation("orespawn", "girlfriend7.png");
+        DryTexture8 = new ResourceLocation("orespawn", "girlfriend8.png");
+        DryTexture9 = new ResourceLocation("orespawn", "girlfriend9.png");
+        DryTexture10 = new ResourceLocation("orespawn", "girlfriend10.png");
+        DryTexture11 = new ResourceLocation("orespawn", "girlfriend11.png");
+        DryTexture12 = new ResourceLocation("orespawn", "girlfriend12.png");
+        DryTexture13 = new ResourceLocation("orespawn", "girlfriend13.png");
+        DryTexture14 = new ResourceLocation("orespawn", "girlfriend14.png");
+        DryTexture15 = new ResourceLocation("orespawn", "girlfriend15.png");
+        DryTexture16 = new ResourceLocation("orespawn", "girlfriend16.png");
+        DryTexture17 = new ResourceLocation("orespawn", "girlfriend17.png");
+        DryTexture18 = new ResourceLocation("orespawn", "girlfriend18.png");
+        DryTexture19 = new ResourceLocation("orespawn", "girlfriend19.png");
+        DryTexture20 = new ResourceLocation("orespawn", "girlfriend20.png");
+        DryTexture21 = new ResourceLocation("orespawn", "girlfriend21.png");
+        DryTexture22 = new ResourceLocation("orespawn", "girlfriend22.png");
+        DryTexture23 = new ResourceLocation("orespawn", "girlfriend23.png");
+        DryTexture24 = new ResourceLocation("orespawn", "girlfriend24.png");
+        DryTexture25 = new ResourceLocation("orespawn", "girlfriend25.png");
+        DryTexture26 = new ResourceLocation("orespawn", "girlfriend26.png");
+        DryTexture27 = new ResourceLocation("orespawn", "girlfriend27.png");
+        DryTexture28 = new ResourceLocation("orespawn", "girlfriend28.png");
+        DryTexture29 = new ResourceLocation("orespawn", "girlfriend29.png");
+        DryTexture30 = new ResourceLocation("orespawn", "girlfriend30.png");
+        DryTexture31 = new ResourceLocation("orespawn", "girlfriend31.png");
+        DryTexture32 = new ResourceLocation("orespawn", "girlfriend32.png");
+        DryTexture33 = new ResourceLocation("orespawn", "girlfriend33.png");
+        DryTexture34 = new ResourceLocation("orespawn", "girlfriend34.png");
+        DryTexture35 = new ResourceLocation("orespawn", "girlfriend35.png");
+        DryTexture36 = new ResourceLocation("orespawn", "girlfriend36.png");
+        DryTexture37 = new ResourceLocation("orespawn", "girlfriend37.png");
+        DryTexture38 = new ResourceLocation("orespawn", "girlfriend38.png");
+        DryTexture39 = new ResourceLocation("orespawn", "girlfriend39.png");
+        DryTexture40 = new ResourceLocation("orespawn", "girlfriend40.png");
+        ValentineTexture = new ResourceLocation("orespawn", "girlfriendv.png");
+        WetTexture0 = new ResourceLocation("orespawn", "bikini0.png");
+        WetTexture1 = new ResourceLocation("orespawn", "bikini1.png");
+        WetTexture2 = new ResourceLocation("orespawn", "bikini2.png");
+        WetTexture3 = new ResourceLocation("orespawn", "bikini3.png");
+        WetTexture4 = new ResourceLocation("orespawn", "bikini4.png");
+        WetTexture5 = new ResourceLocation("orespawn", "bikini5.png");
+        WetTexture6 = new ResourceLocation("orespawn", "bikini6.png");
+        WetTexture7 = new ResourceLocation("orespawn", "bikini7.png");
+        WetTexture8 = new ResourceLocation("orespawn", "bikini8.png");
+        WetTexture9 = new ResourceLocation("orespawn", "bikini9.png");
+        WetTexture10 = new ResourceLocation("orespawn", "bikini10.png");
+        WetTexture11 = new ResourceLocation("orespawn", "bikini11.png");
+        WetTexture12 = new ResourceLocation("orespawn", "bikini12.png");
+        WetTexture13 = new ResourceLocation("orespawn", "bikini13.png");
+        WetTexture14 = new ResourceLocation("orespawn", "bikini14.png");
+        WetTexture15 = new ResourceLocation("orespawn", "bikini15.png");
+        WetTexture16 = new ResourceLocation("orespawn", "bikini16.png");
+        WetTexture17 = new ResourceLocation("orespawn", "bikini17.png");
+        PrincessTexture1 = new ResourceLocation("orespawn", "FrogPrincess.png");
+        PrincessTexture2 = new ResourceLocation("orespawn", "FrogPrincess2.png");
+    }
+}

@@ -1,48 +1,44 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import java.util.Comparator;
-/*    */ import net.minecraft.entity.Entity;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class GenericTargetSorter
-/*    */   implements Comparator
-/*    */ {
-/*    */   private Entity theEntity;
-/*    */   
-/*    */   public GenericTargetSorter(Entity par2Entity) {
-/* 15 */     this.theEntity = par2Entity;
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public int compareDistanceSq(Entity par1Entity, Entity par2Entity) {
-/* 20 */     double weight = 0.0D;
-/* 21 */     double var3 = this.theEntity.getDistanceSqToEntity(par1Entity);
-/* 22 */     if (par1Entity instanceof net.minecraft.entity.monster.EntityCreeper) {
-/* 23 */       var3 /= 2.0D;
-/*    */     }
-/* 25 */     weight = (par1Entity.height * par1Entity.width);
-/* 26 */     if (weight > 1.0D) var3 /= weight;
-/*    */     
-/* 28 */     double var5 = this.theEntity.getDistanceSqToEntity(par2Entity);
-/* 29 */     if (par2Entity instanceof net.minecraft.entity.monster.EntityCreeper) {
-/* 30 */       var5 /= 2.0D;
-/*    */     }
-/* 32 */     weight = (par2Entity.height * par2Entity.width);
-/* 33 */     if (weight > 1.0D) var5 /= weight;
-/*    */     
-/* 35 */     return (var3 < var5) ? -1 : ((var3 > var5) ? 1 : 0);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public int compare(Object par1Obj, Object par2Obj) {
-/* 40 */     return compareDistanceSq((Entity)par1Obj, (Entity)par2Obj);
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\GenericTargetSorter.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import java.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.monster.*;
+
+public class GenericTargetSorter implements Comparator
+{
+    private Entity theEntity;
+    
+    public GenericTargetSorter(final Entity par2Entity) {
+        this.theEntity = par2Entity;
+    }
+    
+    public int compareDistanceSq(final Entity par1Entity, final Entity par2Entity) {
+        double weight = 0.0;
+        double var3 = this.theEntity.getDistanceSqToEntity(par1Entity);
+        if (par1Entity instanceof EntityCreeper) {
+            var3 /= 2.0;
+        }
+        weight = par1Entity.height * par1Entity.width;
+        if (weight > 1.0) {
+            var3 /= weight;
+        }
+        double var4 = this.theEntity.getDistanceSqToEntity(par2Entity);
+        if (par2Entity instanceof EntityCreeper) {
+            var4 /= 2.0;
+        }
+        weight = par2Entity.height * par2Entity.width;
+        if (weight > 1.0) {
+            var4 /= weight;
+        }
+        return (var3 < var4) ? -1 : ((var3 > var4) ? 1 : 0);
+    }
+    
+    @Override
+    public int compare(final Object par1Obj, final Object par2Obj) {
+        return this.compareDistanceSq((Entity)par1Obj, (Entity)par2Obj);
+    }
+}

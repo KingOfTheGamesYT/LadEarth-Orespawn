@@ -1,184 +1,120 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.relauncher.Side;
-/*     */ import cpw.mods.fml.relauncher.SideOnly;
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*     */ import net.minecraft.creativetab.CreativeTabs;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.init.Blocks;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.item.ItemStack;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class ItemMinersDream
-/*     */   extends Item
-/*     */ {
-/*     */   public ItemMinersDream(int i) {
-/*  32 */     this.maxStackSize = 16;
-/*  33 */     setCreativeTab(CreativeTabs.tabRedstone);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer Player, World world, int cposx, int cposy, int cposz, int par7, float par8, float par9, float par10) {
-/*  47 */     int deltax = 0, deltaz = 0;
-/*     */ 
-/*     */     
-/*  50 */     int dirx = 0, dirz = 0;
-/*  51 */     int height = 5, width = 5, length = 64;
-/*  52 */     int torches = 5;
-/*  53 */     int solid_count = 0;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */     
-/*  63 */     if (cposx < 0) dirx = -1; 
-/*  64 */     if (cposz < 0) dirz = -1; 
-/*  65 */     int pposx = (int)(Player.posX + 0.99D * dirx);
-/*  66 */     int pposy = (int)Player.posY;
-/*  67 */     int pposz = (int)(Player.posZ + 0.99D * dirz);
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */     
-/*  72 */     if (cposx - pposx == 0 || cposz - pposz == 0) {
-/*     */ 
-/*     */       
-/*  75 */       int x = cposx, y = pposy, z = cposz;
-/*  76 */       if (x - pposx < 0) deltax = -1; 
-/*  77 */       if (x - pposx > 0) deltax = 1; 
-/*  78 */       if (z - pposz < 0) deltaz = -1; 
-/*  79 */       if (z - pposz > 0) deltaz = 1; 
-/*  80 */       if (deltax == 0 && deltaz == 0) return false; 
-/*  81 */       if (deltax != 0 && deltaz != 0) return false;
-/*     */       
-/*  83 */       Player.worldObj.playSoundAtEntity((Entity)Player, "random.explode", 1.0F, 1.5F);
-/*     */       
-/*  85 */       if (world.isRemote)
-/*     */       {
-/*     */         
-/*  88 */         return true;
-/*     */       }
-/*     */ 
-/*     */       
-/*  92 */       for (int i = 0; i < height; i++) {
-/*     */ 
-/*     */         
-/*  95 */         for (int j = 0; j < length; j++) {
-/*     */           
-/*  97 */           solid_count = 0; int m;
-/*  98 */           for (m = -width; m <= width; m++) {
-/*     */             
-/* 100 */             Block bid = world.getBlock(x + j * deltax + m * deltaz, y + i, z + j * deltaz + m * deltax);
-/* 101 */             if (bid == Blocks.stone || bid == Blocks.dirt || bid == Blocks.gravel || bid == Blocks.flowing_water || bid == Blocks.water || bid == Blocks.flowing_lava || bid == Blocks.lava || bid == Blocks.netherrack || bid == Blocks.end_stone || bid == OreSpawnMain.CrystalStone)
-/*     */             {
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */               
-/* 107 */               world.setBlock(x + j * deltax + m * deltaz, y + i, z + j * deltaz + m * deltax, Blocks.air, 0, 2);
-/*     */             }
-/*     */             
-/* 110 */             if (i == height - 1) {
-/*     */               
-/* 112 */               bid = world.getBlock(x + j * deltax + m * deltaz, y + i + 1, z + j * deltaz + m * deltax);
-/* 113 */               if (bid != Blocks.air) solid_count++; 
-/* 114 */               if (bid == Blocks.air || bid == Blocks.gravel || bid == Blocks.sand || bid == Blocks.flowing_water || bid == Blocks.water || bid == Blocks.flowing_lava || bid == Blocks.lava)
-/*     */               {
-/*     */ 
-/*     */                 
-/* 118 */                 if (world.provider.dimensionId == OreSpawnMain.DimensionID5) {
-/* 119 */                   world.setBlock(x + j * deltax + m * deltaz, y + i + 1, z + j * deltaz + m * deltax, OreSpawnMain.CrystalStone, 0, 2);
-/*     */                 } else {
-/* 121 */                   world.setBlock(x + j * deltax + m * deltaz, y + i + 1, z + j * deltaz + m * deltax, Blocks.cobblestone, 0, 2);
-/*     */                 } 
-/*     */               }
-/*     */             } 
-/*     */           } 
-/*     */ 
-/*     */           
-/* 128 */           if (i == height - 1 && solid_count == 0)
-/*     */           {
-/*     */             
-/* 131 */             for (m = -width; m <= width; m++)
-/*     */             {
-/* 133 */               world.setBlock(x + j * deltax + m * deltaz, y + i + 1, z + j * deltaz + m * deltax, Blocks.air, 0, 2);
-/*     */             }
-/*     */           }
-/*     */         } 
-/*     */       } 
-/*     */       
-/*     */       int k;
-/*     */       
-/* 141 */       for (k = 0; k < length; k += torches) {
-/*     */         
-/* 143 */         Block bid = world.getBlock(x + k * deltax, y - 1, z + k * deltaz);
-/* 144 */         if (bid == Blocks.stone || bid == Blocks.dirt || bid == Blocks.gravel || bid == Blocks.netherrack || bid == Blocks.end_stone || bid == Blocks.bedrock)
-/*     */         {
-/*     */           
-/* 147 */           if (world.isAirBlock(x + k * deltax, y, z + k * deltaz))
-/*     */           {
-/* 149 */             world.setBlock(x + k * deltax, y, z + k * deltaz, OreSpawnMain.ExtremeTorch, 0, 2);
-/*     */           }
-/*     */         }
-/* 152 */         if (bid == OreSpawnMain.CrystalStone)
-/*     */         {
-/* 154 */           if (world.isAirBlock(x + k * deltax, y, z + k * deltaz))
-/*     */           {
-/* 156 */             world.setBlock(x + k * deltax, y, z + k * deltaz, OreSpawnMain.CrystalTorch, 0, 2);
-/*     */           }
-/*     */         }
-/*     */       } 
-/*     */ 
-/*     */       
-/* 162 */       if (!Player.capabilities.isCreativeMode)
-/*     */       {
-/* 164 */         par1ItemStack.stackSize--;
-/*     */       }
-/*     */       
-/* 167 */       return true;
-/*     */     } 
-/* 169 */     return false;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void registerIcons(IIconRegister iconRegister) {
-/* 176 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\ItemMinersDream.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.creativetab.*;
+import net.minecraft.item.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.world.*;
+import net.minecraft.entity.*;
+import net.minecraft.init.*;
+import net.minecraft.block.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class ItemMinersDream extends Item
+{
+    public ItemMinersDream(final int i) {
+        this.maxStackSize = 16;
+        this.setCreativeTab(CreativeTabs.tabRedstone);
+    }
+    
+    public boolean onItemUse(final ItemStack par1ItemStack, final EntityPlayer Player, final World world, final int cposx, final int cposy, final int cposz, final int par7, final float par8, final float par9, final float par10) {
+        int deltax = 0;
+        int deltaz = 0;
+        int dirx = 0;
+        int dirz = 0;
+        final int height = 5;
+        final int width = 5;
+        final int length = 64;
+        final int torches = 5;
+        int solid_count = 0;
+        if (cposx < 0) {
+            dirx = -1;
+        }
+        if (cposz < 0) {
+            dirz = -1;
+        }
+        final int pposx = (int)(Player.posX + 0.99 * dirx);
+        final int pposy = (int)Player.posY;
+        final int pposz = (int)(Player.posZ + 0.99 * dirz);
+        if (cposx - pposx != 0 && cposz - pposz != 0) {
+            return false;
+        }
+        final int x = cposx;
+        final int y = pposy;
+        final int z = cposz;
+        if (x - pposx < 0) {
+            deltax = -1;
+        }
+        if (x - pposx > 0) {
+            deltax = 1;
+        }
+        if (z - pposz < 0) {
+            deltaz = -1;
+        }
+        if (z - pposz > 0) {
+            deltaz = 1;
+        }
+        if (deltax == 0 && deltaz == 0) {
+            return false;
+        }
+        if (deltax != 0 && deltaz != 0) {
+            return false;
+        }
+        Player.worldObj.playSoundAtEntity((Entity)Player, "random.explode", 1.0f, 1.5f);
+        if (world.isRemote) {
+            return true;
+        }
+        for (int i = 0; i < height; ++i) {
+            for (int k = 0; k < length; ++k) {
+                solid_count = 0;
+                for (int j = -width; j <= width; ++j) {
+                    Block bid = world.getBlock(x + k * deltax + j * deltaz, y + i, z + k * deltaz + j * deltax);
+                    if (bid == Blocks.stone || bid == Blocks.dirt || bid == Blocks.gravel || bid == Blocks.flowing_water || bid == Blocks.water || bid == Blocks.flowing_lava || bid == Blocks.lava || bid == Blocks.netherrack || bid == Blocks.end_stone || bid == OreSpawnMain.CrystalStone) {
+                        world.setBlock(x + k * deltax + j * deltaz, y + i, z + k * deltaz + j * deltax, Blocks.air, 0, 2);
+                    }
+                    if (i == height - 1) {
+                        bid = world.getBlock(x + k * deltax + j * deltaz, y + i + 1, z + k * deltaz + j * deltax);
+                        if (bid != Blocks.air) {
+                            ++solid_count;
+                        }
+                        if (bid == Blocks.air || bid == Blocks.gravel || bid == Blocks.sand || bid == Blocks.flowing_water || bid == Blocks.water || bid == Blocks.flowing_lava || bid == Blocks.lava) {
+                            if (world.provider.dimensionId == OreSpawnMain.DimensionID5) {
+                                world.setBlock(x + k * deltax + j * deltaz, y + i + 1, z + k * deltaz + j * deltax, OreSpawnMain.CrystalStone, 0, 2);
+                            }
+                            else {
+                                world.setBlock(x + k * deltax + j * deltaz, y + i + 1, z + k * deltaz + j * deltax, Blocks.cobblestone, 0, 2);
+                            }
+                        }
+                    }
+                }
+                if (i == height - 1 && solid_count == 0) {
+                    for (int j = -width; j <= width; ++j) {
+                        world.setBlock(x + k * deltax + j * deltaz, y + i + 1, z + k * deltaz + j * deltax, Blocks.air, 0, 2);
+                    }
+                }
+            }
+        }
+        for (int k = 0; k < length; k += torches) {
+            final Block bid = world.getBlock(x + k * deltax, y - 1, z + k * deltaz);
+            if ((bid == Blocks.stone || bid == Blocks.dirt || bid == Blocks.gravel || bid == Blocks.netherrack || bid == Blocks.end_stone || bid == Blocks.bedrock) && world.isAirBlock(x + k * deltax, y, z + k * deltaz)) {
+                world.setBlock(x + k * deltax, y, z + k * deltaz, OreSpawnMain.ExtremeTorch, 0, 2);
+            }
+            if (bid == OreSpawnMain.CrystalStone && world.isAirBlock(x + k * deltax, y, z + k * deltaz)) {
+                world.setBlock(x + k * deltax, y, z + k * deltaz, OreSpawnMain.CrystalTorch, 0, 2);
+            }
+        }
+        if (!Player.capabilities.isCreativeMode) {
+            --par1ItemStack.stackSize;
+        }
+        return true;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

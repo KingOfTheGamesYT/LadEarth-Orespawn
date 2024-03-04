@@ -1,52 +1,29 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import java.util.Random;
-/*    */ import net.minecraft.block.BlockPortal;
-/*    */ import net.minecraft.entity.Entity;
-/*    */ import net.minecraft.world.World;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class PortalBlock
-/*    */   extends BlockPortal
-/*    */ {
-/*    */   public PortalBlock(int i, int j) {}
-/*    */   
-/*    */   public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random) {}
-/*    */   
-/*    */   public boolean tryToCreatePortal(World par1World, int par2, int par3, int par4) {
-/* 40 */     return false;
-/*    */   }
-/*    */   
-/*    */   public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5) {}
-/*    */   
-/*    */   public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity entity) {}
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\PortalBlock.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.block.*;
+import net.minecraft.world.*;
+import java.util.*;
+import net.minecraft.entity.*;
+
+public class PortalBlock extends BlockPortal
+{
+    public PortalBlock(final int i, final int j) {
+    }
+    
+    public void updateTick(final World par1World, final int par2, final int par3, final int par4, final Random par5Random) {
+    }
+    
+    public boolean tryToCreatePortal(final World par1World, final int par2, final int par3, final int par4) {
+        return false;
+    }
+    
+    public void onNeighborBlockChange(final World par1World, final int par2, final int par3, final int par4, final int par5) {
+    }
+    
+    public void onEntityCollidedWithBlock(final World par1World, final int par2, final int par3, final int par4, final Entity entity) {
+    }
+}

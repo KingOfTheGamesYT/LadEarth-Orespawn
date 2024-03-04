@@ -1,54 +1,36 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-/*    */ import cpw.mods.fml.common.gameevent.TickEvent;
-/*    */ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class RiderControl
-/*    */ {
-/* 28 */   private final RiderControlMessage rcm = new RiderControlMessage();
-/*    */   private final SimpleNetworkWrapper network;
-/* 30 */   private int keystate = 0;
-/*    */   
-/*    */   public RiderControl(SimpleNetworkWrapper network) {
-/* 33 */     this.network = network;
-/*    */   }
-/*    */   
-/*    */   @SubscribeEvent
-/*    */   public void onTick(TickEvent.ClientTickEvent evt) {
-/* 38 */     int newkeystate = 0;
-/* 39 */     if (KeyHandler.KEY_FLY_UP.getIsKeyPressed()) newkeystate = 1;
-/*    */ 
-/*    */     
-/* 42 */     if (this.keystate != newkeystate) {
-/* 43 */       this.rcm.keystate = newkeystate;
-/* 44 */       this.network.sendToServer(this.rcm);
-/* 45 */       this.keystate = newkeystate;
-/*    */     } 
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\RiderControl.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import cpw.mods.fml.common.gameevent.*;
+import cpw.mods.fml.common.network.simpleimpl.*;
+import cpw.mods.fml.common.eventhandler.*;
+
+public class RiderControl
+{
+    private final RiderControlMessage rcm;
+    private final SimpleNetworkWrapper network;
+    private int keystate;
+    
+    public RiderControl(final SimpleNetworkWrapper network) {
+        this.rcm = new RiderControlMessage();
+        this.keystate = 0;
+        this.network = network;
+    }
+    
+    @SubscribeEvent
+    public void onTick(final TickEvent.ClientTickEvent evt) {
+        int newkeystate = 0;
+        final KeyHandler myKeyhandler = OreSpawnMain.MyKeyhandler;
+        if (KeyHandler.KEY_FLY_UP.getIsKeyPressed()) {
+            newkeystate = 1;
+        }
+        if (this.keystate != newkeystate) {
+            this.rcm.keystate = newkeystate;
+            this.network.sendToServer((IMessage)this.rcm);
+            this.keystate = newkeystate;
+        }
+    }
+}

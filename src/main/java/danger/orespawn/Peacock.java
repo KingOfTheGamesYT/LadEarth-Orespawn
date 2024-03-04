@@ -1,373 +1,239 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import java.util.Collections;
-/*     */ import java.util.Iterator;
-/*     */ import java.util.List;
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityAgeable;
-/*     */ import net.minecraft.entity.EntityCreature;
-/*     */ import net.minecraft.entity.EntityLiving;
-/*     */ import net.minecraft.entity.EntityLivingBase;
-/*     */ import net.minecraft.entity.SharedMonsterAttributes;
-/*     */ import net.minecraft.entity.ai.EntityAIAvoidEntity;
-/*     */ import net.minecraft.entity.ai.EntityAIBase;
-/*     */ import net.minecraft.entity.ai.EntityAILookIdle;
-/*     */ import net.minecraft.entity.ai.EntityAIMate;
-/*     */ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-/*     */ import net.minecraft.entity.ai.EntityAIPanic;
-/*     */ import net.minecraft.entity.ai.EntityAISwimming;
-/*     */ import net.minecraft.entity.item.EntityItem;
-/*     */ import net.minecraft.entity.monster.EntityMob;
-/*     */ import net.minecraft.entity.passive.EntityAnimal;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.init.Blocks;
-/*     */ import net.minecraft.init.Items;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.item.ItemStack;
-/*     */ import net.minecraft.util.DamageSource;
-/*     */ import net.minecraft.world.EnumDifficulty;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class Peacock
-/*     */   extends EntityAnimal
-/*     */ {
-/*  51 */   private float moveSpeed = 0.38F;
-/*  52 */   int my_blink = 0;
-/*  53 */   int blinkcount = 0;
-/*  54 */   int blinker = 0;
-/*  55 */   private GenericTargetSorter TargetSorter = null;
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public Peacock(World par1World) {
-/*  60 */     super(par1World);
-/*     */     
-/*  62 */     setSize(0.65F, 1.2F);
-/*  63 */     this.fireResistance = 100;
-/*  64 */     this.experienceValue = 8;
-/*  65 */     this.my_blink = 20 + this.rand.nextInt(50);
-/*  66 */     this.blinkcount = 0;
-/*  67 */     this.blinker = 0;
-/*  68 */     this.TargetSorter = new GenericTargetSorter((Entity)this);
-/*  69 */     getNavigator().setAvoidsWater(true);
-/*  70 */     this.tasks.addTask(0, (EntityAIBase)new EntityAISwimming((EntityLiving)this));
-/*  71 */     this.tasks.addTask(1, (EntityAIBase)new EntityAIMate(this, 1.0D));
-/*  72 */     this.tasks.addTask(2, (EntityAIBase)new EntityAIAvoidEntity((EntityCreature)this, EntityMob.class, 8.0F, 1.0D, 1.399999976158142D));
-/*  73 */     this.tasks.addTask(3, (EntityAIBase)new EntityAIAvoidEntity((EntityCreature)this, EntityPlayer.class, 12.0F, 1.2000000476837158D, 1.600000023841858D));
-/*  74 */     this.tasks.addTask(4, (EntityAIBase)new EntityAIPanic((EntityCreature)this, 1.5D));
-/*  75 */     this.tasks.addTask(5, new MyEntityAIWander((EntityCreature)this, 1.0F));
-/*  76 */     this.tasks.addTask(6, (EntityAIBase)new EntityAILookIdle((EntityLiving)this));
-/*  77 */     if (OreSpawnMain.PlayNicely == 0) this.targetTasks.addTask(1, (EntityAIBase)new EntityAINearestAttackableTarget((EntityCreature)this, Termite.class, 6, true));
-/*     */   
-/*     */   }
-/*     */   
-/*     */   protected void applyEntityAttributes() {
-/*  82 */     super.applyEntityAttributes();
-/*  83 */     getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(mygetMaxHealth());
-/*  84 */     getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(this.moveSpeed);
-/*  85 */     getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
-/*  86 */     getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0D);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   protected void entityInit() {
-/*  91 */     super.entityInit();
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public int getBlink() {
-/*  96 */     return this.blinker;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onUpdate() {
-/* 103 */     getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(this.moveSpeed);
-/* 104 */     super.onUpdate();
-/* 105 */     this.blinkcount++;
-/* 106 */     if (this.blinkcount > this.my_blink) {
-/* 107 */       this.blinkcount = 0;
-/*     */       
-/* 109 */       if (this.blinker > 0) {
-/* 110 */         this.blinker = 0;
-/* 111 */         this.my_blink = 50 + this.worldObj.rand.nextInt(300);
-/*     */       } else {
-/* 113 */         this.blinker = 1;
-/* 114 */         this.my_blink = 25 + this.worldObj.rand.nextInt(100);
-/*     */       } 
-/*     */     } 
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean getCanSpawnHere() {
-/* 126 */     for (int k = -1; k < 1; k++) {
-/*     */       
-/* 128 */       for (int j = -1; j < 1; j++) {
-/*     */         
-/* 130 */         for (int i = 1; i < 3; i++) {
-/*     */           
-/* 132 */           Block bid = this.worldObj.getBlock((int)this.posX + j, (int)this.posY + i, (int)this.posZ + k);
-/* 133 */           if (bid != Blocks.air) return false; 
-/*     */         } 
-/*     */       } 
-/*     */     } 
-/* 137 */     long t = this.worldObj.getWorldTime();
-/* 138 */     t %= 24000L;
-/* 139 */     if (t > 12000L) return false; 
-/* 140 */     if (this.posY < 50.0D || this.posY > 100.0D) return false; 
-/* 141 */     if (findBuddies() > 2) return false; 
-/* 142 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean isAIEnabled() {
-/* 150 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean canBreatheUnderwater() {
-/* 156 */     return false;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public int mygetMaxHealth() {
-/* 161 */     return 15;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected String getLivingSound() {
-/* 169 */     if (this.worldObj.rand.nextInt(8) != 1) return null; 
-/* 170 */     return "orespawn:peacocklive";
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected String getHurtSound() {
-/* 178 */     return "orespawn:peacockhit";
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected String getDeathSound() {
-/* 186 */     return "orespawn:peacockdead";
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected float getSoundVolume() {
-/* 194 */     return 0.4F;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected Item getDropItem() {
-/* 202 */     return OreSpawnMain.MyRawPeacock;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected void dropFewItems(boolean par1, int par2) {
-/* 211 */     dropItem(OreSpawnMain.MyRawPeacock, 1);
-/* 212 */     if (this.worldObj.rand.nextInt(3) == 1) {
-/* 213 */       dropItem(OreSpawnMain.MyRawPeacock, 1);
-/*     */     }
-/* 215 */     if (this.worldObj.rand.nextInt(2) == 1) {
-/* 216 */       dropItem(OreSpawnMain.MyPeacockFeather, 1);
-/*     */     }
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean attackEntityAsMob(Entity par1Entity) {
-/* 225 */     boolean var4 = par1Entity.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase)this), 6.0F);
-/* 226 */     return var4;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   private ItemStack LayAnEgg(Item index, int par1) {
-/* 231 */     EntityItem var3 = null;
-/* 232 */     ItemStack is = new ItemStack(index, par1, 0);
-/*     */     
-/* 234 */     var3 = new EntityItem(this.worldObj, this.posX + OreSpawnMain.OreSpawnRand.nextInt(2) - OreSpawnMain.OreSpawnRand.nextInt(2), this.posY + 1.0D, this.posZ + OreSpawnMain.OreSpawnRand.nextInt(2) - OreSpawnMain.OreSpawnRand.nextInt(2), is);
-/*     */     
-/* 236 */     if (var3 != null) this.worldObj.spawnEntityInWorld((Entity)var3); 
-/* 237 */     return is;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected void updateAITasks() {
-/* 245 */     if (this.worldObj.rand.nextInt(200) == 1) setRevengeTarget(null); 
-/* 246 */     super.updateAITasks();
-/*     */     
-/* 248 */     if (this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
-/*     */       return; 
-/* 250 */     if (this.worldObj.rand.nextInt(10) == 1) {
-/*     */       
-/* 252 */       EntityLivingBase e = findSomethingToAttack();
-/* 253 */       if (e != null) {
-/* 254 */         if (getDistanceSqToEntity((Entity)e) < 4.0D) {
-/* 255 */           attackEntityAsMob((Entity)e);
-/*     */         } else {
-/* 257 */           getNavigator().tryMoveToEntityLiving((Entity)e, 1.2D);
-/*     */         } 
-/*     */       }
-/*     */     } 
-/* 261 */     if (this.worldObj.rand.nextInt(5000) == 1) LayAnEgg(OreSpawnMain.PeacockEgg, 1 + this.worldObj.rand.nextInt(3));
-/*     */   
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   private boolean isSuitableTarget(EntityLivingBase par1EntityLiving, boolean par2) {
-/* 269 */     if (this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL) return false;
-/*     */     
-/* 271 */     if (par1EntityLiving == null)
-/*     */     {
-/* 273 */       return false;
-/*     */     }
-/* 275 */     if (par1EntityLiving == this)
-/*     */     {
-/* 277 */       return false;
-/*     */     }
-/* 279 */     if (!par1EntityLiving.isEntityAlive())
-/*     */     {
-/*     */       
-/* 282 */       return false;
-/*     */     }
-/* 284 */     if (!getEntitySenses().canSee((Entity)par1EntityLiving))
-/*     */     {
-/*     */       
-/* 287 */       return false;
-/*     */     }
-/*     */     
-/* 290 */     if (par1EntityLiving instanceof Termite)
-/*     */     {
-/* 292 */       return true;
-/*     */     }
-/*     */ 
-/*     */     
-/* 296 */     return false;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   private EntityLivingBase findSomethingToAttack() {
-/* 301 */     if (OreSpawnMain.PlayNicely != 0) return null; 
-/* 302 */     List<?> var5 = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, this.boundingBox.expand(10.0D, 2.0D, 10.0D));
-/* 303 */     Collections.sort(var5, this.TargetSorter);
-/* 304 */     Iterator<?> var2 = var5.iterator();
-/* 305 */     Entity var3 = null;
-/* 306 */     EntityLivingBase var4 = null;
-/*     */     
-/* 308 */     while (var2.hasNext()) {
-/*     */       
-/* 310 */       var3 = (Entity)var2.next();
-/* 311 */       var4 = (EntityLivingBase)var3;
-/*     */       
-/* 313 */       if (isSuitableTarget(var4, false))
-/*     */       {
-/* 315 */         return var4;
-/*     */       }
-/*     */     } 
-/* 318 */     return null;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected boolean canDespawn() {
-/* 326 */     if (isChild()) {
-/* 327 */       enablePersistence();
-/* 328 */       return false;
-/*     */     } 
-/* 330 */     if (isNoDespawnRequired()) return false; 
-/* 331 */     return true;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public EntityAgeable createChild(EntityAgeable entityageable) {
-/* 336 */     return (EntityAgeable)spawnBabyAnimal(entityageable);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public Peacock spawnBabyAnimal(EntityAgeable par1EntityAgeable) {
-/* 342 */     return new Peacock(this.worldObj);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean isWheat(ItemStack par1ItemStack) {
-/* 350 */     return (par1ItemStack != null && par1ItemStack.getItem() == Items.apple);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean isBreedingItem(ItemStack par1ItemStack) {
-/* 359 */     return (par1ItemStack.getItem() == OreSpawnMain.MyCrystalApple);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   private int findBuddies() {
-/* 364 */     List var5 = this.worldObj.getEntitiesWithinAABB(Peacock.class, this.boundingBox.expand(16.0D, 10.0D, 16.0D));
-/* 365 */     return var5.size();
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\Peacock.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.entity.ai.*;
+import net.minecraft.block.*;
+import net.minecraft.util.*;
+import net.minecraft.item.*;
+import net.minecraft.entity.item.*;
+import net.minecraft.world.*;
+import java.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.init.*;
+
+public class Peacock extends EntityAnimal
+{
+    private float moveSpeed;
+    int my_blink;
+    int blinkcount;
+    int blinker;
+    private GenericTargetSorter TargetSorter;
+    
+    public Peacock(final World par1World) {
+        super(par1World);
+        this.moveSpeed = 0.38f;
+        this.my_blink = 0;
+        this.blinkcount = 0;
+        this.blinker = 0;
+        this.TargetSorter = null;
+        this.setSize(0.65f, 1.2f);
+        this.fireResistance = 100;
+        this.experienceValue = 8;
+        this.my_blink = 20 + this.rand.nextInt(50);
+        this.blinkcount = 0;
+        this.blinker = 0;
+        this.TargetSorter = new GenericTargetSorter((Entity)this);
+        this.getNavigator().setAvoidsWater(true);
+        this.tasks.addTask(0, (EntityAIBase)new EntityAISwimming((EntityLiving)this));
+        this.tasks.addTask(1, (EntityAIBase)new EntityAIMate((EntityAnimal)this, 1.0));
+        this.tasks.addTask(2, (EntityAIBase)new EntityAIAvoidEntity((EntityCreature)this, (Class)EntityMob.class, 8.0f, 1.0, 1.399999976158142));
+        this.tasks.addTask(3, (EntityAIBase)new EntityAIAvoidEntity((EntityCreature)this, (Class)EntityPlayer.class, 12.0f, 1.2000000476837158, 1.600000023841858));
+        this.tasks.addTask(4, (EntityAIBase)new EntityAIPanic((EntityCreature)this, 1.5));
+        this.tasks.addTask(5, (EntityAIBase)new MyEntityAIWander((EntityCreature)this, 1.0f));
+        this.tasks.addTask(6, (EntityAIBase)new EntityAILookIdle((EntityLiving)this));
+        if (OreSpawnMain.PlayNicely == 0) {
+            this.targetTasks.addTask(1, (EntityAIBase)new EntityAINearestAttackableTarget((EntityCreature)this, (Class)Termite.class, 6, true));
+        }
+    }
+    
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)this.mygetMaxHealth());
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)this.moveSpeed);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0);
+    }
+    
+    protected void entityInit() {
+        super.entityInit();
+    }
+    
+    public int getBlink() {
+        return this.blinker;
+    }
+    
+    public void onUpdate() {
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)this.moveSpeed);
+        super.onUpdate();
+        ++this.blinkcount;
+        if (this.blinkcount > this.my_blink) {
+            this.blinkcount = 0;
+            if (this.blinker > 0) {
+                this.blinker = 0;
+                this.my_blink = 50 + this.worldObj.rand.nextInt(300);
+            }
+            else {
+                this.blinker = 1;
+                this.my_blink = 25 + this.worldObj.rand.nextInt(100);
+            }
+        }
+    }
+    
+    public boolean getCanSpawnHere() {
+        for (int k = -1; k < 1; ++k) {
+            for (int j = -1; j < 1; ++j) {
+                for (int i = 1; i < 3; ++i) {
+                    final Block bid = this.worldObj.getBlock((int)this.posX + j, (int)this.posY + i, (int)this.posZ + k);
+                    if (bid != Blocks.air) {
+                        return false;
+                    }
+                }
+            }
+        }
+        long t = this.worldObj.getWorldTime();
+        t %= 24000L;
+        return t <= 12000L && this.posY >= 50.0 && this.posY <= 100.0 && this.findBuddies() <= 2;
+    }
+    
+    public boolean isAIEnabled() {
+        return true;
+    }
+    
+    public boolean canBreatheUnderwater() {
+        return false;
+    }
+    
+    public int mygetMaxHealth() {
+        return 15;
+    }
+    
+    protected String getLivingSound() {
+        if (this.worldObj.rand.nextInt(8) != 1) {
+            return null;
+        }
+        return "orespawn:peacocklive";
+    }
+    
+    protected String getHurtSound() {
+        return "orespawn:peacockhit";
+    }
+    
+    protected String getDeathSound() {
+        return "orespawn:peacockdead";
+    }
+    
+    protected float getSoundVolume() {
+        return 0.4f;
+    }
+    
+    protected Item getDropItem() {
+        return OreSpawnMain.MyRawPeacock;
+    }
+    
+    protected void dropFewItems(final boolean par1, final int par2) {
+        this.dropItem(OreSpawnMain.MyRawPeacock, 1);
+        if (this.worldObj.rand.nextInt(3) == 1) {
+            this.dropItem(OreSpawnMain.MyRawPeacock, 1);
+        }
+        if (this.worldObj.rand.nextInt(2) == 1) {
+            this.dropItem(OreSpawnMain.MyPeacockFeather, 1);
+        }
+    }
+    
+    public boolean attackEntityAsMob(final Entity par1Entity) {
+        final boolean var4 = par1Entity.attackEntityFrom(DamageSource.causeMobDamage((EntityLivingBase)this), 6.0f);
+        return var4;
+    }
+    
+    private ItemStack LayAnEgg(final Item index, final int par1) {
+        EntityItem var3 = null;
+        final ItemStack is = new ItemStack(index, par1, 0);
+        var3 = new EntityItem(this.worldObj, this.posX + OreSpawnMain.OreSpawnRand.nextInt(2) - OreSpawnMain.OreSpawnRand.nextInt(2), this.posY + 1.0, this.posZ + OreSpawnMain.OreSpawnRand.nextInt(2) - OreSpawnMain.OreSpawnRand.nextInt(2), is);
+        if (var3 != null) {
+            this.worldObj.spawnEntityInWorld((Entity)var3);
+        }
+        return is;
+    }
+    
+    protected void updateAITasks() {
+        if (this.worldObj.rand.nextInt(200) == 1) {
+            this.setRevengeTarget((EntityLivingBase)null);
+        }
+        super.updateAITasks();
+        if (this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL) {
+            return;
+        }
+        if (this.worldObj.rand.nextInt(10) == 1) {
+            final EntityLivingBase e = this.findSomethingToAttack();
+            if (e != null) {
+                if (this.getDistanceSqToEntity((Entity)e) < 4.0) {
+                    this.attackEntityAsMob((Entity)e);
+                }
+                else {
+                    this.getNavigator().tryMoveToEntityLiving((Entity)e, 1.2);
+                }
+            }
+        }
+        if (this.worldObj.rand.nextInt(5000) == 1) {
+            this.LayAnEgg(OreSpawnMain.PeacockEgg, 1 + this.worldObj.rand.nextInt(3));
+        }
+    }
+    
+    private boolean isSuitableTarget(final EntityLivingBase par1EntityLiving, final boolean par2) {
+        return this.worldObj.difficultySetting != EnumDifficulty.PEACEFUL && par1EntityLiving != null && par1EntityLiving != this && par1EntityLiving.isEntityAlive() && this.getEntitySenses().canSee((Entity)par1EntityLiving) && par1EntityLiving instanceof Termite;
+    }
+    
+    private EntityLivingBase findSomethingToAttack() {
+        if (OreSpawnMain.PlayNicely != 0) {
+            return null;
+        }
+        final List var5 = this.worldObj.getEntitiesWithinAABB((Class)EntityLivingBase.class, this.boundingBox.expand(10.0, 2.0, 10.0));
+        Collections.sort((List<Object>)var5, (Comparator<? super Object>)this.TargetSorter);
+        final Iterator var6 = var5.iterator();
+        Entity var7 = null;
+        EntityLivingBase var8 = null;
+        while (var6.hasNext()) {
+            var7 = (Entity)var6.next();
+            var8 = (EntityLivingBase)var7;
+            if (this.isSuitableTarget(var8, false)) {
+                return var8;
+            }
+        }
+        return null;
+    }
+    
+    protected boolean canDespawn() {
+        if (this.isChild()) {
+            this.func_110163_bv();
+            return false;
+        }
+        return !this.isNoDespawnRequired();
+    }
+    
+    public EntityAgeable createChild(final EntityAgeable entityageable) {
+        return (EntityAgeable)this.spawnBabyAnimal(entityageable);
+    }
+    
+    public Peacock spawnBabyAnimal(final EntityAgeable par1EntityAgeable) {
+        return new Peacock(this.worldObj);
+    }
+    
+    public boolean isWheat(final ItemStack par1ItemStack) {
+        return par1ItemStack != null && par1ItemStack.getItem() == Items.apple;
+    }
+    
+    public boolean isBreedingItem(final ItemStack par1ItemStack) {
+        return par1ItemStack.getItem() == OreSpawnMain.MyCrystalApple;
+    }
+    
+    private int findBuddies() {
+        final List var5 = this.worldObj.getEntitiesWithinAABB((Class)Peacock.class, this.boundingBox.expand(16.0, 10.0, 16.0));
+        return var5.size();
+    }
+}

@@ -1,192 +1,134 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import net.minecraft.client.model.ModelBase;
-/*     */ import net.minecraft.client.model.ModelRenderer;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.util.MathHelper;
-/*     */ 
-/*     */ public class ModelRubberDucky
-/*     */   extends ModelBase {
-/*  10 */   private float wingspeed = 1.0F;
-/*     */   
-/*     */   ModelRenderer bottom;
-/*     */   
-/*     */   ModelRenderer body;
-/*     */   
-/*     */   ModelRenderer back;
-/*     */   ModelRenderer neck;
-/*     */   ModelRenderer head;
-/*     */   ModelRenderer beak;
-/*     */   ModelRenderer Lwing;
-/*     */   ModelRenderer Rwing;
-/*     */   
-/*     */   public ModelRubberDucky(float f1) {
-/*  24 */     this.wingspeed = f1;
-/*     */     
-/*  26 */     this.textureWidth = 64;
-/*  27 */     this.textureHeight = 64;
-/*     */     
-/*  29 */     this.bottom = new ModelRenderer(this, 0, 56);
-/*  30 */     this.bottom.addBox(-2.0F, 0.0F, -2.0F, 4, 1, 4);
-/*  31 */     this.bottom.setRotationPoint(0.0F, 23.0F, 0.0F);
-/*  32 */     this.bottom.setTextureSize(64, 64);
-/*  33 */     this.bottom.mirror = true;
-/*  34 */     setRotation(this.bottom, 0.0F, 0.0F, 0.0F);
-/*  35 */     this.body = new ModelRenderer(this, 0, 45);
-/*  36 */     this.body.addBox(-3.0F, 0.0F, -3.0F, 6, 2, 8);
-/*  37 */     this.body.setRotationPoint(0.0F, 21.0F, 0.0F);
-/*  38 */     this.body.setTextureSize(64, 64);
-/*  39 */     this.body.mirror = true;
-/*  40 */     setRotation(this.body, 0.0F, 0.0F, 0.0F);
-/*  41 */     this.back = new ModelRenderer(this, 0, 33);
-/*  42 */     this.back.addBox(-3.0F, 0.0F, -3.0F, 6, 1, 10);
-/*  43 */     this.back.setRotationPoint(0.0F, 20.0F, 0.0F);
-/*  44 */     this.back.setTextureSize(64, 64);
-/*  45 */     this.back.mirror = true;
-/*  46 */     setRotation(this.back, 0.0F, 0.0F, 0.0F);
-/*  47 */     this.neck = new ModelRenderer(this, 17, 27);
-/*  48 */     this.neck.addBox(-1.0F, 0.0F, -1.0F, 2, 1, 2);
-/*  49 */     this.neck.setRotationPoint(0.0F, 19.0F, -1.0F);
-/*  50 */     this.neck.setTextureSize(64, 64);
-/*  51 */     this.neck.mirror = true;
-/*  52 */     setRotation(this.neck, 0.0F, 0.0F, 0.0F);
-/*  53 */     this.head = new ModelRenderer(this, 13, 18);
-/*  54 */     this.head.addBox(-2.0F, -4.0F, -2.0F, 4, 4, 4);
-/*  55 */     this.head.setRotationPoint(0.0F, 19.0F, -1.0F);
-/*  56 */     this.head.setTextureSize(64, 64);
-/*  57 */     this.head.mirror = true;
-/*  58 */     setRotation(this.head, 0.0F, 0.0F, 0.0F);
-/*  59 */     this.beak = new ModelRenderer(this, 0, 21);
-/*  60 */     this.beak.addBox(-1.5F, -1.0F, -5.0F, 3, 1, 3);
-/*  61 */     this.beak.setRotationPoint(0.0F, 19.0F, -1.0F);
-/*  62 */     this.beak.setTextureSize(64, 64);
-/*  63 */     this.beak.mirror = true;
-/*  64 */     setRotation(this.beak, 0.0F, 0.0F, 0.0F);
-/*  65 */     this.Lwing = new ModelRenderer(this, 0, 0);
-/*  66 */     this.Lwing.addBox(0.0F, -0.5F, 0.0F, 2, 1, 5);
-/*  67 */     this.Lwing.setRotationPoint(3.0F, 21.0F, -2.0F);
-/*  68 */     this.Lwing.setTextureSize(64, 64);
-/*  69 */     this.Lwing.mirror = true;
-/*  70 */     setRotation(this.Lwing, 0.0F, 0.0F, 0.0F);
-/*  71 */     this.Rwing = new ModelRenderer(this, 17, 0);
-/*  72 */     this.Rwing.addBox(-2.0F, -0.5F, 0.0F, 2, 1, 5);
-/*  73 */     this.Rwing.setRotationPoint(-3.0F, 21.0F, -2.0F);
-/*  74 */     this.Rwing.setTextureSize(64, 64);
-/*  75 */     this.Rwing.mirror = true;
-/*  76 */     setRotation(this.Rwing, 0.0F, 0.0F, 0.0F);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-/*  83 */     RubberDucky c = (RubberDucky)entity;
-/*  84 */     RenderInfo r = null;
-/*  85 */     float hf = 0.0F;
-/*  86 */     float newangle = 0.0F;
-/*  87 */     float nextangle = 0.0F;
-/*     */     
-/*  89 */     super.render(entity, f, f1, f2, f3, f4, f5);
-/*  90 */     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-/*     */ 
-/*     */     
-/*  93 */     if (f1 > 0.1D) {
-/*  94 */       newangle = MathHelper.cos(f2 * 2.3F * this.wingspeed) * 3.1415927F * 0.25F * f1;
-/*     */     } else {
-/*  96 */       newangle = 0.0F;
-/*     */     } 
-/*     */     
-/*  99 */     this.head.rotateAngleY = (float)Math.toRadians(f3) * 0.45F;
-/* 100 */     this.beak.rotateAngleY = this.head.rotateAngleY;
-/* 101 */     this.head.rotateAngleX = (float)Math.toRadians(f4) * 0.65F;
-/* 102 */     this.beak.rotateAngleX = this.head.rotateAngleX;
-/*     */ 
-/*     */     
-/* 105 */     r = c.getRenderInfo();
-/*     */     
-/* 107 */     newangle = MathHelper.cos(f2 * 1.0F * this.wingspeed) * 3.1415927F * 0.15F;
-/* 108 */     nextangle = MathHelper.cos((f2 + 0.3F) * 1.0F * this.wingspeed) * 3.1415927F * 0.15F;
-/*     */ 
-/*     */     
-/* 111 */     if (nextangle > 0.0F && newangle < 0.0F) {
-/*     */       
-/* 113 */       r.ri1 = 0;
-/* 114 */       if (c.worldObj.rand.nextInt(3) == 1) {
-/* 115 */         r.ri1 = 1;
-/*     */       }
-/* 117 */       if (c.getKillCount() >= 5) {
-/* 118 */         if (c.worldObj.rand.nextInt(2) == 1) {
-/* 119 */           r.ri1 = 1;
-/*     */         }
-/* 121 */         newangle *= 4.0F;
-/*     */       } 
-/*     */     } 
-/*     */     
-/* 125 */     if (r.ri1 == 0) {
-/* 126 */       newangle = 0.0F;
-/*     */     }
-/* 128 */     if (c.isSitting()) {
-/* 129 */       newangle = 0.0F;
-/*     */     }
-/* 131 */     newangle = Math.abs(newangle);
-/* 132 */     this.Lwing.rotateAngleZ = -newangle;
-/* 133 */     this.Lwing.rotateAngleY = newangle / 2.0F;
-/* 134 */     this.Rwing.rotateAngleZ = newangle;
-/* 135 */     this.Rwing.rotateAngleY = -newangle / 2.0F;
-/*     */ 
-/*     */     
-/* 138 */     c.setRenderInfo(r);
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */     
-/* 164 */     this.bottom.render(f5);
-/* 165 */     this.body.render(f5);
-/* 166 */     this.back.render(f5);
-/* 167 */     this.neck.render(f5);
-/* 168 */     this.head.render(f5);
-/* 169 */     this.beak.render(f5);
-/* 170 */     this.Lwing.render(f5);
-/* 171 */     this.Rwing.render(f5);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   private void setRotation(ModelRenderer model, float x, float y, float z) {
-/* 177 */     model.rotateAngleX = x;
-/* 178 */     model.rotateAngleY = y;
-/* 179 */     model.rotateAngleZ = z;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity) {
-/* 184 */     super.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity);
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\ModelRubberDucky.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.client.model.*;
+import net.minecraft.entity.*;
+import net.minecraft.util.*;
+
+public class ModelRubberDucky extends ModelBase
+{
+    private float wingspeed;
+    ModelRenderer bottom;
+    ModelRenderer body;
+    ModelRenderer back;
+    ModelRenderer neck;
+    ModelRenderer head;
+    ModelRenderer beak;
+    ModelRenderer Lwing;
+    ModelRenderer Rwing;
+    
+    public ModelRubberDucky(final float f1) {
+        this.wingspeed = 1.0f;
+        this.wingspeed = f1;
+        this.textureWidth = 64;
+        this.textureHeight = 64;
+        (this.bottom = new ModelRenderer((ModelBase)this, 0, 56)).addBox(-2.0f, 0.0f, -2.0f, 4, 1, 4);
+        this.bottom.setRotationPoint(0.0f, 23.0f, 0.0f);
+        this.bottom.setTextureSize(64, 64);
+        this.bottom.mirror = true;
+        this.setRotation(this.bottom, 0.0f, 0.0f, 0.0f);
+        (this.body = new ModelRenderer((ModelBase)this, 0, 45)).addBox(-3.0f, 0.0f, -3.0f, 6, 2, 8);
+        this.body.setRotationPoint(0.0f, 21.0f, 0.0f);
+        this.body.setTextureSize(64, 64);
+        this.body.mirror = true;
+        this.setRotation(this.body, 0.0f, 0.0f, 0.0f);
+        (this.back = new ModelRenderer((ModelBase)this, 0, 33)).addBox(-3.0f, 0.0f, -3.0f, 6, 1, 10);
+        this.back.setRotationPoint(0.0f, 20.0f, 0.0f);
+        this.back.setTextureSize(64, 64);
+        this.back.mirror = true;
+        this.setRotation(this.back, 0.0f, 0.0f, 0.0f);
+        (this.neck = new ModelRenderer((ModelBase)this, 17, 27)).addBox(-1.0f, 0.0f, -1.0f, 2, 1, 2);
+        this.neck.setRotationPoint(0.0f, 19.0f, -1.0f);
+        this.neck.setTextureSize(64, 64);
+        this.neck.mirror = true;
+        this.setRotation(this.neck, 0.0f, 0.0f, 0.0f);
+        (this.head = new ModelRenderer((ModelBase)this, 13, 18)).addBox(-2.0f, -4.0f, -2.0f, 4, 4, 4);
+        this.head.setRotationPoint(0.0f, 19.0f, -1.0f);
+        this.head.setTextureSize(64, 64);
+        this.head.mirror = true;
+        this.setRotation(this.head, 0.0f, 0.0f, 0.0f);
+        (this.beak = new ModelRenderer((ModelBase)this, 0, 21)).addBox(-1.5f, -1.0f, -5.0f, 3, 1, 3);
+        this.beak.setRotationPoint(0.0f, 19.0f, -1.0f);
+        this.beak.setTextureSize(64, 64);
+        this.beak.mirror = true;
+        this.setRotation(this.beak, 0.0f, 0.0f, 0.0f);
+        (this.Lwing = new ModelRenderer((ModelBase)this, 0, 0)).addBox(0.0f, -0.5f, 0.0f, 2, 1, 5);
+        this.Lwing.setRotationPoint(3.0f, 21.0f, -2.0f);
+        this.Lwing.setTextureSize(64, 64);
+        this.Lwing.mirror = true;
+        this.setRotation(this.Lwing, 0.0f, 0.0f, 0.0f);
+        (this.Rwing = new ModelRenderer((ModelBase)this, 17, 0)).addBox(-2.0f, -0.5f, 0.0f, 2, 1, 5);
+        this.Rwing.setRotationPoint(-3.0f, 21.0f, -2.0f);
+        this.Rwing.setTextureSize(64, 64);
+        this.Rwing.mirror = true;
+        this.setRotation(this.Rwing, 0.0f, 0.0f, 0.0f);
+    }
+    
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+        final RubberDucky c = (RubberDucky)entity;
+        RenderInfo r = null;
+        final float hf = 0.0f;
+        float newangle = 0.0f;
+        float nextangle = 0.0f;
+        super.render(entity, f, f1, f2, f3, f4, f5);
+        this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        if (f1 > 0.1) {
+            newangle = MathHelper.cos(f2 * 2.3f * this.wingspeed) * 3.1415927f * 0.25f * f1;
+        }
+        else {
+            newangle = 0.0f;
+        }
+        this.head.rotateAngleY = (float)Math.toRadians(f3) * 0.45f;
+        this.beak.rotateAngleY = this.head.rotateAngleY;
+        this.head.rotateAngleX = (float)Math.toRadians(f4) * 0.65f;
+        this.beak.rotateAngleX = this.head.rotateAngleX;
+        r = c.getRenderInfo();
+        newangle = MathHelper.cos(f2 * 1.0f * this.wingspeed) * 3.1415927f * 0.15f;
+        nextangle = MathHelper.cos((f2 + 0.3f) * 1.0f * this.wingspeed) * 3.1415927f * 0.15f;
+        if (nextangle > 0.0f && newangle < 0.0f) {
+            r.ri1 = 0;
+            if (c.worldObj.rand.nextInt(3) == 1) {
+                r.ri1 = 1;
+            }
+            if (c.getKillCount() >= 5) {
+                if (c.worldObj.rand.nextInt(2) == 1) {
+                    r.ri1 = 1;
+                }
+                newangle *= 4.0f;
+            }
+        }
+        if (r.ri1 == 0) {
+            newangle = 0.0f;
+        }
+        if (c.isSitting()) {
+            newangle = 0.0f;
+        }
+        newangle = Math.abs(newangle);
+        this.Lwing.rotateAngleZ = -newangle;
+        this.Lwing.rotateAngleY = newangle / 2.0f;
+        this.Rwing.rotateAngleZ = newangle;
+        this.Rwing.rotateAngleY = -newangle / 2.0f;
+        c.setRenderInfo(r);
+        this.bottom.render(f5);
+        this.body.render(f5);
+        this.back.render(f5);
+        this.neck.render(f5);
+        this.head.render(f5);
+        this.beak.render(f5);
+        this.Lwing.render(f5);
+        this.Rwing.render(f5);
+    }
+    
+    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
+    
+    public void setRotationAngles(final float par1, final float par2, final float par3, final float par4, final float par5, final float par6, final Entity par7Entity) {
+        super.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity);
+    }
+}

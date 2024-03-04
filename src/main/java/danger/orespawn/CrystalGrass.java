@@ -1,127 +1,80 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.relauncher.Side;
-/*     */ import cpw.mods.fml.relauncher.SideOnly;
-/*     */ import java.util.Random;
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.block.material.Material;
-/*     */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*     */ import net.minecraft.creativetab.CreativeTabs;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.util.IIcon;
-/*     */ import net.minecraft.world.IBlockAccess;
-/*     */ import net.minecraft.world.World;
-/*     */ import net.minecraftforge.common.IPlantable;
-/*     */ import net.minecraftforge.common.util.ForgeDirection;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class CrystalGrass
-/*     */   extends Block
-/*     */ {
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   private IIcon[] field_94364_a;
-/*     */   
-/*     */   protected CrystalGrass(int par1, float f1, float f2) {
-/*  33 */     super(Material.grass);
-/*  34 */     setHardness(f1);
-/*  35 */     setResistance(f2);
-/*  36 */     setTickRandomly(false);
-/*  37 */     setCreativeTab(CreativeTabs.tabBlock);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
-/*  42 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public IIcon getIcon(int par1, int par2) {
-/*  51 */     if (this.field_94364_a == null) return null; 
-/*  52 */     return (par1 == 1) ? this.field_94364_a[0] : ((par1 == 0) ? this.field_94364_a[1] : this.field_94364_a[2]);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public IIcon getBlockTexture(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
-/*  62 */     if (this.field_94364_a == null) return null; 
-/*  63 */     if (par5 == 1)
-/*     */     {
-/*  65 */       return this.field_94364_a[0];
-/*     */     }
-/*  67 */     if (par5 == 0)
-/*     */     {
-/*  69 */       return this.field_94364_a[1];
-/*     */     }
-/*     */ 
-/*     */     
-/*  73 */     return this.field_94364_a[2];
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public Item getItemDropped(int par1, Random par2Random, int par3) {
-/*  83 */     return Item.getItemFromBlock(this);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
-/*  88 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean isOpaqueCube() {
-/*  97 */     if (OreSpawnMain.current_dimension != OreSpawnMain.DimensionID5) return false; 
-/*  98 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean renderAsNormalBlock() {
-/* 107 */     if (OreSpawnMain.current_dimension != OreSpawnMain.DimensionID5) return false; 
-/* 108 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void registerBlockIcons(IIconRegister par1IIconRegister) {
-/* 115 */     this.field_94364_a = new IIcon[3];
-/*     */     
-/* 117 */     this.field_94364_a[0] = par1IIconRegister.registerIcon("OreSpawn:crystalgrass_top");
-/* 118 */     this.field_94364_a[1] = par1IIconRegister.registerIcon("OreSpawn:crystalgrass_bottom");
-/* 119 */     this.field_94364_a[2] = par1IIconRegister.registerIcon("OreSpawn:crystalgrass_side");
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\CrystalGrass.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.block.*;
+import net.minecraft.util.*;
+import cpw.mods.fml.relauncher.*;
+import net.minecraft.block.material.*;
+import net.minecraft.creativetab.*;
+import net.minecraftforge.common.util.*;
+import net.minecraft.world.*;
+import java.util.*;
+import net.minecraft.item.*;
+import net.minecraftforge.common.*;
+import net.minecraft.client.renderer.texture.*;
+
+public class CrystalGrass extends Block
+{
+    @SideOnly(Side.CLIENT)
+    private IIcon[] field_94364_a;
+    
+    protected CrystalGrass(final int par1, final float f1, final float f2) {
+        super(Material.grass);
+        this.setHardness(f1);
+        this.setResistance(f2);
+        this.setTickRandomly(false);
+        this.setCreativeTab(CreativeTabs.tabBlock);
+    }
+    
+    public boolean isBlockSolidOnSide(final World world, final int x, final int y, final int z, final ForgeDirection side) {
+        return true;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(final int par1, final int par2) {
+        if (this.field_94364_a == null) {
+            return null;
+        }
+        return (par1 == 1) ? this.field_94364_a[0] : ((par1 == 0) ? this.field_94364_a[1] : this.field_94364_a[2]);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public IIcon getBlockTexture(final IBlockAccess par1IBlockAccess, final int par2, final int par3, final int par4, final int par5) {
+        if (this.field_94364_a == null) {
+            return null;
+        }
+        if (par5 == 1) {
+            return this.field_94364_a[0];
+        }
+        if (par5 == 0) {
+            return this.field_94364_a[1];
+        }
+        return this.field_94364_a[2];
+    }
+    
+    public Item getItemDropped(final int par1, final Random par2Random, final int par3) {
+        return Item.getItemFromBlock((Block)this);
+    }
+    
+    public boolean canSustainPlant(final IBlockAccess world, final int x, final int y, final int z, final ForgeDirection direction, final IPlantable plant) {
+        return true;
+    }
+    
+    public boolean isOpaqueCube() {
+        return OreSpawnMain.current_dimension == OreSpawnMain.DimensionID5;
+    }
+    
+    public boolean renderAsNormalBlock() {
+        return OreSpawnMain.current_dimension == OreSpawnMain.DimensionID5;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(final IIconRegister par1IIconRegister) {
+        (this.field_94364_a = new IIcon[3])[0] = par1IIconRegister.registerIcon("OreSpawn:crystalgrass_top");
+        this.field_94364_a[1] = par1IIconRegister.registerIcon("OreSpawn:crystalgrass_bottom");
+        this.field_94364_a[2] = par1IIconRegister.registerIcon("OreSpawn:crystalgrass_side");
+    }
+}

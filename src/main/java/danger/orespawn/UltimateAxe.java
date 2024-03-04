@@ -1,100 +1,77 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import cpw.mods.fml.relauncher.Side;
-/*    */ import cpw.mods.fml.relauncher.SideOnly;
-/*    */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*    */ import net.minecraft.creativetab.CreativeTabs;
-/*    */ import net.minecraft.enchantment.Enchantment;
-/*    */ import net.minecraft.enchantment.EnchantmentHelper;
-/*    */ import net.minecraft.entity.Entity;
-/*    */ import net.minecraft.entity.passive.EntityTameable;
-/*    */ import net.minecraft.entity.player.EntityPlayer;
-/*    */ import net.minecraft.item.Item;
-/*    */ import net.minecraft.item.ItemAxe;
-/*    */ import net.minecraft.item.ItemStack;
-/*    */ import net.minecraft.world.World;
-/*    */ 
-/*    */ 
-/*    */ public class UltimateAxe
-/*    */   extends ItemAxe
-/*    */ {
-/* 21 */   private int weaponDamage = 15;
-/*    */ 
-/*    */   
-/*    */   public UltimateAxe(int par1, Item.ToolMaterial par2) {
-/* 25 */     super(par2);
-/* 26 */     this.maxStackSize = 1;
-/* 27 */     setMaxDamage(3000);
-/* 28 */     setCreativeTab(CreativeTabs.tabTools);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-/* 33 */     par1ItemStack.addEnchantment(Enchantment.efficiency, 5);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-/* 44 */     int lvl = EnchantmentHelper.getEnchantmentLevel(Enchantment.efficiency.effectId, stack);
-/* 45 */     if (lvl <= 0) {
-/* 46 */       stack.addEnchantment(Enchantment.efficiency, 5);
-/*    */     }
-/*    */   }
-/*    */   
-/*    */   public void onUpdate(ItemStack stack, World par2World, Entity par3Entity, int par4, boolean par5) {
-/* 51 */     onUsingTick(stack, (EntityPlayer)null, 0);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-/* 56 */     if (entity != null && OreSpawnMain.ultimate_sword_pvp == 0) {
-/* 57 */       if (entity instanceof EntityPlayer || entity instanceof Girlfriend || entity instanceof Boyfriend) {
-/* 58 */         return true;
-/*    */       }
-/* 60 */       if (entity instanceof EntityTameable) {
-/* 61 */         EntityTameable t = (EntityTameable)entity;
-/* 62 */         if (t.isTamed()) {
-/* 63 */           return true;
-/*    */         }
-/*    */       } 
-/*    */     } 
-/* 67 */     return false;
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public int getDamageVsEntity(Entity par1Entity) {
-/* 75 */     if (par1Entity instanceof Girlfriend) {
-/* 76 */       return 1;
-/*    */     }
-/* 78 */     if (par1Entity instanceof EntityPlayer) {
-/* 79 */       return 1;
-/*    */     }
-/* 81 */     return this.weaponDamage;
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public String getMaterialName() {
-/* 87 */     return "Uranium/Titanium";
-/*    */   }
-/*    */   
-/*    */   @SideOnly(Side.CLIENT)
-/*    */   public void registerIcons(IIconRegister iconRegister) {
-/* 92 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\UltimateAxe.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.creativetab.*;
+import net.minecraft.item.*;
+import net.minecraft.world.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.enchantment.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.passive.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class UltimateAxe extends ItemAxe
+{
+    private int weaponDamage;
+    
+    public UltimateAxe(final int par1, final Item.ToolMaterial par2) {
+        super(par2);
+        this.weaponDamage = 15;
+        this.maxStackSize = 1;
+        this.setMaxDamage(3000);
+        this.setCreativeTab(CreativeTabs.tabTools);
+    }
+    
+    public void onCreated(final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer) {
+        par1ItemStack.addEnchantment(Enchantment.efficiency, 5);
+    }
+    
+    public void onUsingTick(final ItemStack stack, final EntityPlayer player, final int count) {
+        final int lvl = EnchantmentHelper.getEnchantmentLevel(Enchantment.efficiency.effectId, stack);
+        if (lvl <= 0) {
+            stack.addEnchantment(Enchantment.efficiency, 5);
+        }
+    }
+    
+    public void onUpdate(final ItemStack stack, final World par2World, final Entity par3Entity, final int par4, final boolean par5) {
+        this.onUsingTick(stack, null, 0);
+    }
+    
+    public boolean onLeftClickEntity(final ItemStack stack, final EntityPlayer player, final Entity entity) {
+        if (entity != null && OreSpawnMain.ultimate_sword_pvp == 0) {
+            if (entity instanceof EntityPlayer || entity instanceof Girlfriend || entity instanceof Boyfriend) {
+                return true;
+            }
+            if (entity instanceof EntityTameable) {
+                final EntityTameable t = (EntityTameable)entity;
+                if (t.isTamed()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public int getDamageVsEntity(final Entity par1Entity) {
+        if (par1Entity instanceof Girlfriend) {
+            return 1;
+        }
+        if (par1Entity instanceof EntityPlayer) {
+            return 1;
+        }
+        return this.weaponDamage;
+    }
+    
+    public String getMaterialName() {
+        return "Uranium/Titanium";
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

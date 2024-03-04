@@ -1,63 +1,49 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import cpw.mods.fml.relauncher.Side;
-/*    */ import cpw.mods.fml.relauncher.SideOnly;
-/*    */ import java.util.Random;
-/*    */ import net.minecraft.block.Block;
-/*    */ import net.minecraft.block.material.Material;
-/*    */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*    */ import net.minecraft.creativetab.CreativeTabs;
-/*    */ import net.minecraft.entity.Entity;
-/*    */ import net.minecraft.init.Blocks;
-/*    */ import net.minecraft.util.AxisAlignedBB;
-/*    */ import net.minecraft.world.World;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class MoleDirtBlock
-/*    */   extends Block
-/*    */ {
-/*    */   public MoleDirtBlock(int i) {
-/* 28 */     super(Material.ground);
-/* 29 */     setCreativeTab(CreativeTabs.tabBlock);
-/* 30 */     setTickRandomly(true);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random) {
-/* 35 */     if (par1World.isRemote)
-/* 36 */       return;  par1World.setBlock(par2, par3, par4, Blocks.air, 0, 2);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
-/* 41 */     float f = 0.125F;
-/* 42 */     return AxisAlignedBB.getBoundingBox(par2, par3, par4, (par2 + 1), ((par3 + 1) - f), (par4 + 1));
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity) {
-/* 47 */     if (par5Entity != null) {
-/* 48 */       par5Entity.motionX *= 0.3D;
-/* 49 */       par5Entity.motionZ *= 0.3D;
-/*    */     } 
-/*    */   }
-/*    */   
-/*    */   @SideOnly(Side.CLIENT)
-/*    */   public void registerBlockIcons(IIconRegister iconRegister) {
-/* 55 */     this.blockIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\MoleDirtBlock.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.creativetab.*;
+import net.minecraft.world.*;
+import java.util.*;
+import net.minecraft.init.*;
+import net.minecraft.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class MoleDirtBlock extends Block
+{
+    public MoleDirtBlock(final int i) {
+        super(Material.ground);
+        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setTickRandomly(true);
+    }
+    
+    public void updateTick(final World par1World, final int par2, final int par3, final int par4, final Random par5Random) {
+        if (par1World.isRemote) {
+            return;
+        }
+        par1World.setBlock(par2, par3, par4, Blocks.air, 0, 2);
+    }
+    
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(final World par1World, final int par2, final int par3, final int par4) {
+        final float f = 0.125f;
+        return AxisAlignedBB.getBoundingBox((double)par2, (double)par3, (double)par4, (double)(par2 + 1), (double)(par3 + 1 - f), (double)(par4 + 1));
+    }
+    
+    public void onEntityCollidedWithBlock(final World par1World, final int par2, final int par3, final int par4, final Entity par5Entity) {
+        if (par5Entity != null) {
+            par5Entity.motionX *= 0.3;
+            par5Entity.motionZ *= 0.3;
+        }
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(final IIconRegister iconRegister) {
+        this.blockIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

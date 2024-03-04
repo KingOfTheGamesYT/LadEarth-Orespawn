@@ -1,219 +1,108 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityAgeable;
-/*     */ import net.minecraft.entity.SharedMonsterAttributes;
-/*     */ import net.minecraft.entity.passive.EntityAnimal;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.init.Items;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class Tshirt
-/*     */   extends EntityAnimal
-/*     */ {
-/*  52 */   private float moveSpeed = 0.0F;
-/*     */ 
-/*     */   
-/*     */   public Tshirt(World par1World) {
-/*  56 */     super(par1World);
-/*  57 */     setSize(4.0F, 4.0F);
-/*     */     
-/*  59 */     this.experienceValue = 40;
-/*  60 */     this.fireResistance = 100;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected void applyEntityAttributes() {
-/*  68 */     super.applyEntityAttributes();
-/*  69 */     getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(mygetMaxHealth());
-/*  70 */     getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(this.moveSpeed);
-/*  71 */     getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
-/*  72 */     getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(0.0D);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected void entityInit() {
-/*  78 */     super.entityInit();
-/*     */   }
-/*     */   
-/*     */   protected boolean canDespawn() {
-/*  82 */     if (isNoDespawnRequired()) return false; 
-/*  83 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onUpdate() {
-/*  92 */     super.onUpdate();
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public int mygetMaxHealth() {
-/*  97 */     return 1;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public int getTotalArmorValue() {
-/* 105 */     return 0;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected boolean isAIEnabled() {
-/* 113 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onLivingUpdate() {
-/* 122 */     super.onLivingUpdate();
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected String getLivingSound() {
-/* 131 */     return null;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected String getHurtSound() {
-/* 140 */     return null;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected String getDeathSound() {
-/* 148 */     return null;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected float getSoundVolume() {
-/* 155 */     return 1.0F;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected float getSoundPitch() {
-/* 162 */     return 1.0F;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected Item getDropItem() {
-/* 172 */     return Items.emerald;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void initCreature() {}
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean interact(EntityPlayer par1EntityPlayer) {
-/* 188 */     return false;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean getCanSpawnHere() {
-/* 197 */     if ((!this.worldObj.isDaytime() ? true : false) == true) return false; 
-/* 198 */     if (this.posY < 50.0D) return false; 
-/* 199 */     Tshirt target = null;
-/* 200 */     target = (Tshirt)this.worldObj.findNearestEntityWithinAABB(Tshirt.class, this.boundingBox.expand(20.0D, 8.0D, 20.0D), (Entity)this);
-/* 201 */     if (target != null)
-/*     */     {
-/* 203 */       return false;
-/*     */     }
-/* 205 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public EntityAgeable createChild(EntityAgeable entityageable) {
-/* 211 */     return null;
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\Tshirt.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.entity.passive.*;
+import net.minecraft.world.*;
+import net.minecraft.item.*;
+import net.minecraft.init.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.entity.*;
+
+public class Tshirt extends EntityAnimal
+{
+    private float moveSpeed;
+    
+    public Tshirt(final World par1World) {
+        super(par1World);
+        this.moveSpeed = 0.0f;
+        this.setSize(4.0f, 4.0f);
+        this.experienceValue = 40;
+        this.fireResistance = 100;
+    }
+    
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)this.mygetMaxHealth());
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue((double)this.moveSpeed);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(0.0);
+    }
+    
+    protected void entityInit() {
+        super.entityInit();
+    }
+    
+    protected boolean canDespawn() {
+        return !this.isNoDespawnRequired();
+    }
+    
+    public void onUpdate() {
+        super.onUpdate();
+    }
+    
+    public int mygetMaxHealth() {
+        return 1;
+    }
+    
+    public int getTotalArmorValue() {
+        return 0;
+    }
+    
+    protected boolean isAIEnabled() {
+        return true;
+    }
+    
+    public void onLivingUpdate() {
+        super.onLivingUpdate();
+    }
+    
+    protected String getLivingSound() {
+        return null;
+    }
+    
+    protected String getHurtSound() {
+        return null;
+    }
+    
+    protected String getDeathSound() {
+        return null;
+    }
+    
+    protected float getSoundVolume() {
+        return 1.0f;
+    }
+    
+    protected float getSoundPitch() {
+        return 1.0f;
+    }
+    
+    protected Item getDropItem() {
+        return Items.emerald;
+    }
+    
+    public void initCreature() {
+    }
+    
+    public boolean interact(final EntityPlayer par1EntityPlayer) {
+        return false;
+    }
+    
+    public boolean getCanSpawnHere() {
+        if (!this.worldObj.isDaytime()) {
+            return false;
+        }
+        if (this.posY < 50.0) {
+            return false;
+        }
+        Tshirt target = null;
+        target = (Tshirt)this.worldObj.findNearestEntityWithinAABB((Class)Tshirt.class, this.boundingBox.expand(20.0, 8.0, 20.0), (Entity)this);
+        return target == null;
+    }
+    
+    public EntityAgeable createChild(final EntityAgeable entityageable) {
+        return null;
+    }
+}

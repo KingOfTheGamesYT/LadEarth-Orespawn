@@ -1,108 +1,69 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import java.util.Collections;
-/*     */ import java.util.Iterator;
-/*     */ import java.util.List;
-/*     */ import net.minecraft.command.IEntitySelector;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityLiving;
-/*     */ import net.minecraft.entity.EntityLivingBase;
-/*     */ import net.minecraft.entity.passive.EntityTameable;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class MyEntityAINearestAttackableTarget
-/*     */   extends MyEntityAITarget
-/*     */ {
-/*     */   EntityLiving targetEntity;
-/*     */   Class targetClass;
-/*     */   int targetChance;
-/*     */   private final IEntitySelector targetEntitySelector;
-/*     */   private MyEntityAINearestAttackableTargetSorter theNearestAttackableTargetSorter;
-/*     */   
-/*     */   public MyEntityAINearestAttackableTarget(EntityLiving par1EntityLiving, Class par2Class, float par3, int par4, boolean par5) {
-/*  25 */     this(par1EntityLiving, par2Class, par3, par4, par5, false);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public MyEntityAINearestAttackableTarget(EntityLiving par1EntityLiving, Class par2Class, float par3, int par4, boolean par5, boolean par6) {
-/*  30 */     this(par1EntityLiving, par2Class, par3, par4, par5, par6, (IEntitySelector)null);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public MyEntityAINearestAttackableTarget(EntityLiving par1, Class par2, float par3, int par4, boolean par5, boolean par6, IEntitySelector par7IEntitySelector) {
-/*  35 */     super(par1, par3, par5, par6);
-/*  36 */     this.targetClass = par2;
-/*  37 */     this.targetDistance = par3;
-/*  38 */     this.targetChance = par4;
-/*  39 */     this.theNearestAttackableTargetSorter = new MyEntityAINearestAttackableTargetSorter(this, (Entity)par1);
-/*  40 */     this.targetEntitySelector = par7IEntitySelector;
-/*  41 */     setMutexBits(1);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean shouldExecute() {
-/*  51 */     if (this.taskOwner instanceof EntityTameable && !((EntityTameable)this.taskOwner).isTamed())
-/*     */     {
-/*  53 */       return false;
-/*     */     }
-/*     */     
-/*  56 */     if (this.taskOwner instanceof Girlfriend && !((Girlfriend)this.taskOwner).isTamed())
-/*     */     {
-/*  58 */       return false;
-/*     */     }
-/*     */     
-/*  61 */     if (this.taskOwner instanceof Girlfriend && ((Girlfriend)this.taskOwner).isSitting())
-/*     */     {
-/*  63 */       return false;
-/*     */     }
-/*     */ 
-/*     */     
-/*  67 */     if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(100) > this.targetChance)
-/*     */     {
-/*  69 */       return false;
-/*     */     }
-/*     */ 
-/*     */     
-/*  73 */     List<?> var5 = this.taskOwner.worldObj.selectEntitiesWithinAABB(this.targetClass, this.taskOwner.boundingBox.expand(this.targetDistance, 4.0D, this.targetDistance), this.targetEntitySelector);
-/*  74 */     Collections.sort(var5, this.theNearestAttackableTargetSorter);
-/*  75 */     Iterator<?> var2 = var5.iterator();
-/*     */     
-/*  77 */     while (var2.hasNext()) {
-/*     */       
-/*  79 */       Entity var3 = (Entity)var2.next();
-/*  80 */       EntityLiving var4 = (EntityLiving)var3;
-/*     */       
-/*  82 */       if (isSuitableTarget((EntityLivingBase)var4, false)) {
-/*     */         
-/*  84 */         this.targetEntity = var4;
-/*  85 */         return true;
-/*     */       } 
-/*     */     } 
-/*     */     
-/*  89 */     this.targetEntity = null;
-/*  90 */     return false;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void startExecuting() {
-/*  99 */     this.taskOwner.setAttackTarget((EntityLivingBase)this.targetEntity);
-/* 100 */     super.startExecuting();
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\MyEntityAINearestAttackableTarget.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.command.*;
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.*;
+import java.util.*;
+
+public class MyEntityAINearestAttackableTarget extends MyEntityAITarget
+{
+    EntityLiving targetEntity;
+    Class targetClass;
+    int targetChance;
+    private final IEntitySelector targetEntitySelector;
+    private MyEntityAINearestAttackableTargetSorter theNearestAttackableTargetSorter;
+    
+    public MyEntityAINearestAttackableTarget(final EntityLiving par1EntityLiving, final Class par2Class, final float par3, final int par4, final boolean par5) {
+        this(par1EntityLiving, par2Class, par3, par4, par5, false);
+    }
+    
+    public MyEntityAINearestAttackableTarget(final EntityLiving par1EntityLiving, final Class par2Class, final float par3, final int par4, final boolean par5, final boolean par6) {
+        this(par1EntityLiving, par2Class, par3, par4, par5, par6, null);
+    }
+    
+    public MyEntityAINearestAttackableTarget(final EntityLiving par1, final Class par2, final float par3, final int par4, final boolean par5, final boolean par6, final IEntitySelector par7IEntitySelector) {
+        super(par1, par3, par5, par6);
+        this.targetClass = par2;
+        this.targetDistance = par3;
+        this.targetChance = par4;
+        this.theNearestAttackableTargetSorter = new MyEntityAINearestAttackableTargetSorter(this, (Entity)par1);
+        this.targetEntitySelector = par7IEntitySelector;
+        this.setMutexBits(1);
+    }
+    
+    public boolean shouldExecute() {
+        if (this.taskOwner instanceof EntityTameable && !((EntityTameable)this.taskOwner).isTamed()) {
+            return false;
+        }
+        if (this.taskOwner instanceof Girlfriend && !((Girlfriend)this.taskOwner).isTamed()) {
+            return false;
+        }
+        if (this.taskOwner instanceof Girlfriend && ((Girlfriend)this.taskOwner).isSitting()) {
+            return false;
+        }
+        if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(100) > this.targetChance) {
+            return false;
+        }
+        final List<Entity> var5 = this.taskOwner.worldObj.selectEntitiesWithinAABB(this.targetClass, this.taskOwner.boundingBox.expand((double)this.targetDistance, 4.0, (double)this.targetDistance), this.targetEntitySelector);
+        Collections.sort((List<Entity>)var5, this.theNearestAttackableTargetSorter);
+        for (final Entity var7 : var5) {
+            final EntityLiving var8 = (EntityLiving)var7;
+            if (this.isSuitableTarget((EntityLivingBase)var8, false)) {
+                this.targetEntity = var8;
+                return true;
+            }
+        }
+        this.targetEntity = null;
+        return false;
+    }
+    
+    @Override
+    public void startExecuting() {
+        this.taskOwner.setAttackTarget((EntityLivingBase)this.targetEntity);
+        super.startExecuting();
+    }
+}

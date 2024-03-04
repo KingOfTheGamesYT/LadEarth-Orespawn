@@ -1,29 +1,24 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import cpw.mods.fml.relauncher.Side;
-/*    */ import cpw.mods.fml.relauncher.SideOnly;
-/*    */ import net.minecraft.block.Block;
-/*    */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*    */ import net.minecraft.creativetab.CreativeTabs;
-/*    */ import net.minecraft.item.ItemSeeds;
-/*    */ 
-/*    */ public class ItemMothSeed
-/*    */   extends ItemSeeds
-/*    */ {
-/*    */   public ItemMothSeed(int par1, Block par2, Block par3) {
-/* 14 */     super(par2, par3);
-/* 15 */     setCreativeTab(CreativeTabs.tabDecorations);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   @SideOnly(Side.CLIENT)
-/*    */   public void registerIcons(IIconRegister iconRegister) {
-/* 21 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\ItemMothSeed.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.item.*;
+import net.minecraft.block.*;
+import net.minecraft.creativetab.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class ItemMothSeed extends ItemSeeds
+{
+    public ItemMothSeed(final int par1, final Block par2, final Block par3) {
+        super(par2, par3);
+        this.setCreativeTab(CreativeTabs.tabDecorations);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

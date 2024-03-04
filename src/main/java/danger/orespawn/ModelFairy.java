@@ -1,192 +1,164 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import net.minecraft.client.model.ModelBase;
-/*     */ import net.minecraft.client.model.ModelRenderer;
-/*     */ import net.minecraft.client.renderer.OpenGlHelper;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.util.MathHelper;
-/*     */ import org.lwjgl.opengl.GL11;
-/*     */ 
-/*     */ 
-/*     */ public class ModelFairy
-/*     */   extends ModelBase
-/*     */ {
-/*  14 */   private float wingspeed = 1.0F;
-/*     */   
-/*     */   ModelRenderer head;
-/*     */   ModelRenderer chest;
-/*     */   ModelRenderer waist;
-/*     */   ModelRenderer hips;
-/*     */   ModelRenderer lleg1;
-/*     */   ModelRenderer lleg2;
-/*     */   ModelRenderer rleg;
-/*     */   ModelRenderer b1;
-/*     */   ModelRenderer b2;
-/*     */   ModelRenderer larm;
-/*     */   ModelRenderer rarm;
-/*     */   ModelRenderer lwing2;
-/*     */   ModelRenderer lwing1;
-/*     */   ModelRenderer rwing2;
-/*     */   ModelRenderer rwing1;
-/*     */   
-/*     */   public ModelFairy(float f1) {
-/*  33 */     this.wingspeed = f1;
-/*  34 */     this.textureWidth = 64;
-/*  35 */     this.textureHeight = 64;
-/*     */     
-/*  37 */     this.head = new ModelRenderer(this, 0, 0);
-/*  38 */     this.head.addBox(-2.5F, -5.0F, -2.5F, 5, 5, 5);
-/*  39 */     this.head.setRotationPoint(0.0F, 0.0F, 0.0F);
-/*  40 */     this.head.setTextureSize(64, 64);
-/*  41 */     this.head.mirror = true;
-/*  42 */     setRotation(this.head, 0.0F, 0.0F, 0.0F);
-/*  43 */     this.chest = new ModelRenderer(this, 31, 5);
-/*  44 */     this.chest.addBox(-3.5F, 0.0F, -1.0F, 7, 4, 3);
-/*  45 */     this.chest.setRotationPoint(0.0F, 0.0F, 0.0F);
-/*  46 */     this.chest.setTextureSize(64, 64);
-/*  47 */     this.chest.mirror = true;
-/*  48 */     setRotation(this.chest, 0.0F, 0.0F, 0.0F);
-/*  49 */     this.waist = new ModelRenderer(this, 33, 13);
-/*  50 */     this.waist.addBox(-2.5F, 4.0F, -1.0F, 5, 3, 3);
-/*  51 */     this.waist.setRotationPoint(0.0F, 0.0F, 0.0F);
-/*  52 */     this.waist.setTextureSize(64, 64);
-/*  53 */     this.waist.mirror = true;
-/*  54 */     setRotation(this.waist, 0.0F, 0.0F, 0.0F);
-/*  55 */     this.hips = new ModelRenderer(this, 31, 20);
-/*  56 */     this.hips.addBox(-3.0F, 7.0F, -1.0F, 6, 4, 4);
-/*  57 */     this.hips.setRotationPoint(0.0F, 0.0F, 0.0F);
-/*  58 */     this.hips.setTextureSize(64, 64);
-/*  59 */     this.hips.mirror = true;
-/*  60 */     setRotation(this.hips, 0.0F, 0.0F, 0.0F);
-/*  61 */     this.lleg1 = new ModelRenderer(this, 53, 8);
-/*  62 */     this.lleg1.addBox(0.0F, 0.0F, 0.0F, 2, 7, 2);
-/*  63 */     this.lleg1.setRotationPoint(1.0F, 10.0F, 0.0F);
-/*  64 */     this.lleg1.setTextureSize(64, 64);
-/*  65 */     this.lleg1.mirror = true;
-/*  66 */     setRotation(this.lleg1, -0.7853982F, 0.0F, 0.0F);
-/*  67 */     this.lleg2 = new ModelRenderer(this, 53, 18);
-/*  68 */     this.lleg2.addBox(0.0F, 0.0F, 0.0F, 2, 8, 2);
-/*  69 */     this.lleg2.setRotationPoint(1.0F, 15.0F, -5.0F);
-/*  70 */     this.lleg2.setTextureSize(64, 64);
-/*  71 */     this.lleg2.mirror = true;
-/*  72 */     setRotation(this.lleg2, 0.7679449F, 0.0F, 0.0F);
-/*  73 */     this.rleg = new ModelRenderer(this, 51, 30);
-/*  74 */     this.rleg.addBox(-3.0F, 0.0F, 0.0F, 2, 13, 2);
-/*  75 */     this.rleg.setRotationPoint(0.0F, 11.0F, 0.0F);
-/*  76 */     this.rleg.setTextureSize(64, 64);
-/*  77 */     this.rleg.mirror = true;
-/*  78 */     setRotation(this.rleg, 0.0F, 0.0F, 0.0F);
-/*  79 */     this.b1 = new ModelRenderer(this, 42, 1);
-/*  80 */     this.b1.addBox(1.0F, 1.0F, -2.0F, 2, 2, 1);
-/*  81 */     this.b1.setRotationPoint(0.0F, 1.0F, 0.0F);
-/*  82 */     this.b1.setTextureSize(64, 64);
-/*  83 */     this.b1.mirror = true;
-/*  84 */     setRotation(this.b1, 0.0F, 0.0F, 0.0F);
-/*  85 */     this.b2 = new ModelRenderer(this, 32, 1);
-/*  86 */     this.b2.addBox(-3.0F, 2.0F, -2.0F, 2, 2, 1);
-/*  87 */     this.b2.setRotationPoint(0.0F, 0.0F, 0.0F);
-/*  88 */     this.b2.setTextureSize(64, 64);
-/*  89 */     this.b2.mirror = true;
-/*  90 */     setRotation(this.b2, 0.0F, 0.0F, 0.0F);
-/*  91 */     this.larm = new ModelRenderer(this, 7, 14);
-/*  92 */     this.larm.addBox(0.0F, 0.0F, 0.0F, 1, 10, 1);
-/*  93 */     this.larm.setRotationPoint(3.0F, 0.0F, 0.0F);
-/*  94 */     this.larm.setTextureSize(64, 64);
-/*  95 */     this.larm.mirror = true;
-/*  96 */     setRotation(this.larm, -0.0174533F, 0.0F, -0.122173F);
-/*  97 */     this.rarm = new ModelRenderer(this, 2, 14);
-/*  98 */     this.rarm.addBox(-1.0F, 0.0F, 0.0F, 1, 10, 1);
-/*  99 */     this.rarm.setRotationPoint(-3.0F, 0.0F, 0.0F);
-/* 100 */     this.rarm.setTextureSize(64, 64);
-/* 101 */     this.rarm.mirror = true;
-/* 102 */     setRotation(this.rarm, -0.0174533F, 0.0F, 0.122173F);
-/* 103 */     this.lwing2 = new ModelRenderer(this, 0, 47);
-/* 104 */     this.lwing2.addBox(0.0F, -9.0F, 0.0F, 26, 16, 0);
-/* 105 */     this.lwing2.setRotationPoint(2.0F, 0.0F, 2.0F);
-/* 106 */     this.lwing2.setTextureSize(64, 64);
-/* 107 */     this.lwing2.mirror = true;
-/* 108 */     setRotation(this.lwing2, 0.0F, -0.5934119F, 0.0F);
-/* 109 */     this.lwing1 = new ModelRenderer(this, 0, 30);
-/* 110 */     this.lwing1.addBox(0.0F, -7.0F, 0.0F, 24, 16, 0);
-/* 111 */     this.lwing1.setRotationPoint(2.0F, 3.0F, 2.0F);
-/* 112 */     this.lwing1.setTextureSize(64, 64);
-/* 113 */     this.lwing1.mirror = true;
-/* 114 */     setRotation(this.lwing1, 0.0F, -0.8203047F, 0.0F);
-/* 115 */     this.rwing2 = new ModelRenderer(this, 0, 30);
-/* 116 */     this.rwing2.addBox(0.0F, -7.0F, 0.0F, 24, 16, 0);
-/* 117 */     this.rwing2.setRotationPoint(-2.0F, 3.0F, 2.0F);
-/* 118 */     this.rwing2.setTextureSize(64, 64);
-/* 119 */     this.rwing2.mirror = true;
-/* 120 */     setRotation(this.rwing2, 0.0F, -2.356194F, 0.0F);
-/* 121 */     this.rwing1 = new ModelRenderer(this, 0, 47);
-/* 122 */     this.rwing1.addBox(0.0F, -9.0F, 0.0F, 26, 16, 0);
-/* 123 */     this.rwing1.setRotationPoint(-2.0F, 0.0F, 2.0F);
-/* 124 */     this.rwing1.setTextureSize(64, 64);
-/* 125 */     this.rwing1.mirror = true;
-/* 126 */     setRotation(this.rwing1, 0.0F, -2.548181F, 0.0F);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-/* 132 */     Fairy fly = (Fairy)entity;
-/* 133 */     super.render(entity, f, f1, f2, f3, f4, f5);
-/* 134 */     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-/* 135 */     float onoff = 0.0F;
-/*     */ 
-/*     */     
-/* 138 */     this.lwing1.rotateAngleY = -0.6F + MathHelper.cos(f2 * this.wingspeed) * 3.1415927F * 0.35F;
-/* 139 */     this.rwing1.rotateAngleY = -2.55F - MathHelper.cos(f2 * this.wingspeed) * 3.1415927F * 0.35F;
-/* 140 */     this.lwing2.rotateAngleY = -0.6F + MathHelper.cos(f2 * this.wingspeed * 0.85F) * 3.1415927F * 0.25F;
-/* 141 */     this.rwing2.rotateAngleY = -2.55F - MathHelper.cos(f2 * this.wingspeed * 0.85F) * 3.1415927F * 0.25F;
-/*     */     
-/* 143 */     this.head.rotateAngleY = (float)Math.toRadians(f3) * 0.45F;
-/* 144 */     if (this.head.rotateAngleY > 0.45F) this.head.rotateAngleY = 0.45F; 
-/* 145 */     if (this.head.rotateAngleY < -0.45F) this.head.rotateAngleY = -0.45F; 
-/* 146 */     this.head.rotateAngleX = (float)Math.toRadians(f4);
-/*     */     
-/* 148 */     this.larm.rotateAngleX = -0.2F + MathHelper.cos(f2 * this.wingspeed * 0.15F) * 3.1415927F * 0.05F;
-/* 149 */     this.rarm.rotateAngleX = -0.2F + MathHelper.cos(f2 * this.wingspeed * 0.12F) * 3.1415927F * 0.05F;
-/* 150 */     this.larm.rotateAngleZ = -0.15F + MathHelper.cos(f2 * this.wingspeed * 0.1F) * 3.1415927F * 0.03F;
-/* 151 */     this.rarm.rotateAngleZ = 0.15F + MathHelper.cos(f2 * this.wingspeed * 0.11F) * 3.1415927F * 0.03F;
-/*     */     
-/* 153 */     this.lwing2.render(f5);
-/* 154 */     this.lwing1.render(f5);
-/* 155 */     this.rwing2.render(f5);
-/* 156 */     this.rwing1.render(f5);
-/*     */     
-/* 158 */     onoff = fly.getBlink();
-/* 159 */     OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, onoff, 240.0F);
-/* 160 */     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-/* 161 */     this.head.render(f5);
-/* 162 */     this.chest.render(f5);
-/* 163 */     this.waist.render(f5);
-/* 164 */     this.hips.render(f5);
-/* 165 */     this.lleg1.render(f5);
-/* 166 */     this.lleg2.render(f5);
-/* 167 */     this.rleg.render(f5);
-/* 168 */     this.b1.render(f5);
-/* 169 */     this.b2.render(f5);
-/* 170 */     this.larm.render(f5);
-/* 171 */     this.rarm.render(f5);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   private void setRotation(ModelRenderer model, float x, float y, float z) {
-/* 177 */     model.rotateAngleX = x;
-/* 178 */     model.rotateAngleY = y;
-/* 179 */     model.rotateAngleZ = z;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity) {
-/* 184 */     super.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity);
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\ModelFairy.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.client.model.*;
+import net.minecraft.entity.*;
+import net.minecraft.util.*;
+import net.minecraft.client.renderer.*;
+import org.lwjgl.opengl.*;
+
+public class ModelFairy extends ModelBase
+{
+    private float wingspeed;
+    ModelRenderer head;
+    ModelRenderer chest;
+    ModelRenderer waist;
+    ModelRenderer hips;
+    ModelRenderer lleg1;
+    ModelRenderer lleg2;
+    ModelRenderer rleg;
+    ModelRenderer b1;
+    ModelRenderer b2;
+    ModelRenderer larm;
+    ModelRenderer rarm;
+    ModelRenderer lwing2;
+    ModelRenderer lwing1;
+    ModelRenderer rwing2;
+    ModelRenderer rwing1;
+    
+    public ModelFairy(final float f1) {
+        this.wingspeed = 1.0f;
+        this.wingspeed = f1;
+        this.textureWidth = 64;
+        this.textureHeight = 64;
+        (this.head = new ModelRenderer((ModelBase)this, 0, 0)).addBox(-2.5f, -5.0f, -2.5f, 5, 5, 5);
+        this.head.setRotationPoint(0.0f, 0.0f, 0.0f);
+        this.head.setTextureSize(64, 64);
+        this.head.mirror = true;
+        this.setRotation(this.head, 0.0f, 0.0f, 0.0f);
+        (this.chest = new ModelRenderer((ModelBase)this, 31, 5)).addBox(-3.5f, 0.0f, -1.0f, 7, 4, 3);
+        this.chest.setRotationPoint(0.0f, 0.0f, 0.0f);
+        this.chest.setTextureSize(64, 64);
+        this.chest.mirror = true;
+        this.setRotation(this.chest, 0.0f, 0.0f, 0.0f);
+        (this.waist = new ModelRenderer((ModelBase)this, 33, 13)).addBox(-2.5f, 4.0f, -1.0f, 5, 3, 3);
+        this.waist.setRotationPoint(0.0f, 0.0f, 0.0f);
+        this.waist.setTextureSize(64, 64);
+        this.waist.mirror = true;
+        this.setRotation(this.waist, 0.0f, 0.0f, 0.0f);
+        (this.hips = new ModelRenderer((ModelBase)this, 31, 20)).addBox(-3.0f, 7.0f, -1.0f, 6, 4, 4);
+        this.hips.setRotationPoint(0.0f, 0.0f, 0.0f);
+        this.hips.setTextureSize(64, 64);
+        this.hips.mirror = true;
+        this.setRotation(this.hips, 0.0f, 0.0f, 0.0f);
+        (this.lleg1 = new ModelRenderer((ModelBase)this, 53, 8)).addBox(0.0f, 0.0f, 0.0f, 2, 7, 2);
+        this.lleg1.setRotationPoint(1.0f, 10.0f, 0.0f);
+        this.lleg1.setTextureSize(64, 64);
+        this.lleg1.mirror = true;
+        this.setRotation(this.lleg1, -0.7853982f, 0.0f, 0.0f);
+        (this.lleg2 = new ModelRenderer((ModelBase)this, 53, 18)).addBox(0.0f, 0.0f, 0.0f, 2, 8, 2);
+        this.lleg2.setRotationPoint(1.0f, 15.0f, -5.0f);
+        this.lleg2.setTextureSize(64, 64);
+        this.lleg2.mirror = true;
+        this.setRotation(this.lleg2, 0.7679449f, 0.0f, 0.0f);
+        (this.rleg = new ModelRenderer((ModelBase)this, 51, 30)).addBox(-3.0f, 0.0f, 0.0f, 2, 13, 2);
+        this.rleg.setRotationPoint(0.0f, 11.0f, 0.0f);
+        this.rleg.setTextureSize(64, 64);
+        this.rleg.mirror = true;
+        this.setRotation(this.rleg, 0.0f, 0.0f, 0.0f);
+        (this.b1 = new ModelRenderer((ModelBase)this, 42, 1)).addBox(1.0f, 1.0f, -2.0f, 2, 2, 1);
+        this.b1.setRotationPoint(0.0f, 1.0f, 0.0f);
+        this.b1.setTextureSize(64, 64);
+        this.b1.mirror = true;
+        this.setRotation(this.b1, 0.0f, 0.0f, 0.0f);
+        (this.b2 = new ModelRenderer((ModelBase)this, 32, 1)).addBox(-3.0f, 2.0f, -2.0f, 2, 2, 1);
+        this.b2.setRotationPoint(0.0f, 0.0f, 0.0f);
+        this.b2.setTextureSize(64, 64);
+        this.b2.mirror = true;
+        this.setRotation(this.b2, 0.0f, 0.0f, 0.0f);
+        (this.larm = new ModelRenderer((ModelBase)this, 7, 14)).addBox(0.0f, 0.0f, 0.0f, 1, 10, 1);
+        this.larm.setRotationPoint(3.0f, 0.0f, 0.0f);
+        this.larm.setTextureSize(64, 64);
+        this.larm.mirror = true;
+        this.setRotation(this.larm, -0.0174533f, 0.0f, -0.122173f);
+        (this.rarm = new ModelRenderer((ModelBase)this, 2, 14)).addBox(-1.0f, 0.0f, 0.0f, 1, 10, 1);
+        this.rarm.setRotationPoint(-3.0f, 0.0f, 0.0f);
+        this.rarm.setTextureSize(64, 64);
+        this.rarm.mirror = true;
+        this.setRotation(this.rarm, -0.0174533f, 0.0f, 0.122173f);
+        (this.lwing2 = new ModelRenderer((ModelBase)this, 0, 47)).addBox(0.0f, -9.0f, 0.0f, 26, 16, 0);
+        this.lwing2.setRotationPoint(2.0f, 0.0f, 2.0f);
+        this.lwing2.setTextureSize(64, 64);
+        this.lwing2.mirror = true;
+        this.setRotation(this.lwing2, 0.0f, -0.5934119f, 0.0f);
+        (this.lwing1 = new ModelRenderer((ModelBase)this, 0, 30)).addBox(0.0f, -7.0f, 0.0f, 24, 16, 0);
+        this.lwing1.setRotationPoint(2.0f, 3.0f, 2.0f);
+        this.lwing1.setTextureSize(64, 64);
+        this.lwing1.mirror = true;
+        this.setRotation(this.lwing1, 0.0f, -0.8203047f, 0.0f);
+        (this.rwing2 = new ModelRenderer((ModelBase)this, 0, 30)).addBox(0.0f, -7.0f, 0.0f, 24, 16, 0);
+        this.rwing2.setRotationPoint(-2.0f, 3.0f, 2.0f);
+        this.rwing2.setTextureSize(64, 64);
+        this.rwing2.mirror = true;
+        this.setRotation(this.rwing2, 0.0f, -2.356194f, 0.0f);
+        (this.rwing1 = new ModelRenderer((ModelBase)this, 0, 47)).addBox(0.0f, -9.0f, 0.0f, 26, 16, 0);
+        this.rwing1.setRotationPoint(-2.0f, 0.0f, 2.0f);
+        this.rwing1.setTextureSize(64, 64);
+        this.rwing1.mirror = true;
+        this.setRotation(this.rwing1, 0.0f, -2.548181f, 0.0f);
+    }
+    
+    public void render(final Entity entity, final float f, final float f1, final float f2, final float f3, final float f4, final float f5) {
+        final Fairy fly = (Fairy)entity;
+        super.render(entity, f, f1, f2, f3, f4, f5);
+        this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        float onoff = 0.0f;
+        this.lwing1.rotateAngleY = -0.6f + MathHelper.cos(f2 * this.wingspeed) * 3.1415927f * 0.35f;
+        this.rwing1.rotateAngleY = -2.55f - MathHelper.cos(f2 * this.wingspeed) * 3.1415927f * 0.35f;
+        this.lwing2.rotateAngleY = -0.6f + MathHelper.cos(f2 * this.wingspeed * 0.85f) * 3.1415927f * 0.25f;
+        this.rwing2.rotateAngleY = -2.55f - MathHelper.cos(f2 * this.wingspeed * 0.85f) * 3.1415927f * 0.25f;
+        this.head.rotateAngleY = (float)Math.toRadians(f3) * 0.45f;
+        if (this.head.rotateAngleY > 0.45f) {
+            this.head.rotateAngleY = 0.45f;
+        }
+        if (this.head.rotateAngleY < -0.45f) {
+            this.head.rotateAngleY = -0.45f;
+        }
+        this.head.rotateAngleX = (float)Math.toRadians(f4);
+        this.larm.rotateAngleX = -0.2f + MathHelper.cos(f2 * this.wingspeed * 0.15f) * 3.1415927f * 0.05f;
+        this.rarm.rotateAngleX = -0.2f + MathHelper.cos(f2 * this.wingspeed * 0.12f) * 3.1415927f * 0.05f;
+        this.larm.rotateAngleZ = -0.15f + MathHelper.cos(f2 * this.wingspeed * 0.1f) * 3.1415927f * 0.03f;
+        this.rarm.rotateAngleZ = 0.15f + MathHelper.cos(f2 * this.wingspeed * 0.11f) * 3.1415927f * 0.03f;
+        this.lwing2.render(f5);
+        this.lwing1.render(f5);
+        this.rwing2.render(f5);
+        this.rwing1.render(f5);
+        onoff = fly.getBlink();
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, onoff, 240.0f);
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+        this.head.render(f5);
+        this.chest.render(f5);
+        this.waist.render(f5);
+        this.hips.render(f5);
+        this.lleg1.render(f5);
+        this.lleg2.render(f5);
+        this.rleg.render(f5);
+        this.b1.render(f5);
+        this.b2.render(f5);
+        this.larm.render(f5);
+        this.rarm.render(f5);
+    }
+    
+    private void setRotation(final ModelRenderer model, final float x, final float y, final float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
+    
+    public void setRotationAngles(final float par1, final float par2, final float par3, final float par4, final float par5, final float par6, final Entity par7Entity) {
+        super.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity);
+    }
+}

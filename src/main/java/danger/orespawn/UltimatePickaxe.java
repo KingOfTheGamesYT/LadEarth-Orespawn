@@ -1,172 +1,135 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.relauncher.Side;
-/*     */ import cpw.mods.fml.relauncher.SideOnly;
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*     */ import net.minecraft.creativetab.CreativeTabs;
-/*     */ import net.minecraft.enchantment.Enchantment;
-/*     */ import net.minecraft.enchantment.EnchantmentHelper;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityLivingBase;
-/*     */ import net.minecraft.entity.item.EntityItem;
-/*     */ import net.minecraft.entity.passive.EntityTameable;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.init.Blocks;
-/*     */ import net.minecraft.init.Items;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.item.ItemPickaxe;
-/*     */ import net.minecraft.item.ItemStack;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class UltimatePickaxe
-/*     */   extends ItemPickaxe
-/*     */ {
-/*  27 */   private int weaponDamage = 15;
-/*     */ 
-/*     */   
-/*     */   public UltimatePickaxe(int par1, Item.ToolMaterial par2) {
-/*  31 */     super(par2);
-/*  32 */     this.maxStackSize = 1;
-/*  33 */     setMaxDamage(3000);
-/*  34 */     setCreativeTab(CreativeTabs.tabTools);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-/*  39 */     par1ItemStack.addEnchantment(Enchantment.efficiency, 5);
-/*  40 */     par1ItemStack.addEnchantment(Enchantment.fortune, 5);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-/*  52 */     int lvl = EnchantmentHelper.getEnchantmentLevel(Enchantment.efficiency.effectId, stack);
-/*  53 */     if (lvl <= 0) {
-/*  54 */       stack.addEnchantment(Enchantment.efficiency, 5);
-/*  55 */       stack.addEnchantment(Enchantment.fortune, 5);
-/*     */     } 
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public void onUpdate(ItemStack stack, World par2World, Entity par3Entity, int par4, boolean par5) {
-/*  61 */     onUsingTick(stack, (EntityPlayer)null, 0);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean canHarvestBlock(Block par1Block) {
-/*  69 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public int getDamageVsEntity(Entity par1Entity) {
-/*  77 */     if (par1Entity instanceof Girlfriend) {
-/*  78 */       return 1;
-/*     */     }
-/*  80 */     if (par1Entity instanceof Boyfriend) {
-/*  81 */       return 1;
-/*     */     }
-/*  83 */     if (par1Entity instanceof EntityPlayer) {
-/*  84 */       return 1;
-/*     */     }
-/*  86 */     return this.weaponDamage;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-/*  91 */     if (entity != null && OreSpawnMain.ultimate_sword_pvp == 0) {
-/*  92 */       if (entity instanceof EntityPlayer || entity instanceof Girlfriend || entity instanceof Boyfriend) {
-/*  93 */         return true;
-/*     */       }
-/*  95 */       if (entity instanceof EntityTameable) {
-/*  96 */         EntityTameable t = (EntityTameable)entity;
-/*  97 */         if (t.isTamed()) {
-/*  98 */           return true;
-/*     */         }
-/*     */       } 
-/*     */     } 
-/* 102 */     return false;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   private ItemStack dropItemAnItem(World world, int x, int y, int z, Item index, int par1) {
-/* 107 */     EntityItem var3 = null;
-/* 108 */     ItemStack is = new ItemStack(index, par1, 0);
-/*     */     
-/* 110 */     var3 = new EntityItem(world, x, y, z, is);
-/* 111 */     if (var3 != null) world.spawnEntityInWorld((Entity)var3); 
-/* 112 */     return is;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World, Block par3, int par4, int par5, int par6, EntityLivingBase par7EntityLivingBase) {
-/* 117 */     if (par3.getBlockHardness(par2World, par4, par5, par6) != 0.0D)
-/*     */     {
-/* 119 */       par1ItemStack.damageItem(1, par7EntityLivingBase);
-/*     */     }
-/* 121 */     if (!par2World.isRemote) {
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */       
-/* 133 */       if (par3 == Blocks.iron_ore && 
-/* 134 */         par2World.rand.nextInt(2) != 0) dropItemAnItem(par2World, par4, par5, par6, Items.iron_ingot, 1 + par2World.rand.nextInt(2));
-/*     */       
-/* 136 */       if (par3 == Blocks.gold_ore && 
-/* 137 */         par2World.rand.nextInt(2) != 0) dropItemAnItem(par2World, par4, par5, par6, Items.gold_ingot, 1 + par2World.rand.nextInt(2));
-/*     */ 
-/*     */       
-/* 140 */       if (par3 == Blocks.stone && 
-/* 141 */         par2World.rand.nextInt(100) == 2) {
-/* 142 */         int i = par2World.rand.nextInt(10);
-/* 143 */         if (i == 0) dropItemAnItem(par2World, par4, par5, par6, Items.diamond, 1); 
-/* 144 */         if (i == 1) dropItemAnItem(par2World, par4, par5, par6, Items.emerald, 1); 
-/* 145 */         if (i == 2) dropItemAnItem(par2World, par4, par5, par6, OreSpawnMain.MyAmethyst, 1); 
-/* 146 */         if (i == 3) dropItemAnItem(par2World, par4, par5, par6, OreSpawnMain.MyRuby, 1); 
-/* 147 */         if (i == 4) dropItemAnItem(par2World, par4, par5, par6, OreSpawnMain.UraniumNugget, 1); 
-/* 148 */         if (i == 5) dropItemAnItem(par2World, par4, par5, par6, OreSpawnMain.TitaniumNugget, 1);
-/*     */       
-/*     */       } 
-/*     */     } 
-/*     */     
-/* 153 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public String getMaterialName() {
-/* 159 */     return "Uranium/Titanium";
-/*     */   }
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void registerIcons(IIconRegister iconRegister) {
-/* 164 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\UltimatePickaxe.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.creativetab.*;
+import net.minecraft.item.*;
+import net.minecraft.world.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.enchantment.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.item.*;
+import net.minecraft.entity.*;
+import net.minecraft.init.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class UltimatePickaxe extends ItemPickaxe
+{
+    private int weaponDamage;
+    
+    public UltimatePickaxe(final int par1, final Item.ToolMaterial par2) {
+        super(par2);
+        this.weaponDamage = 15;
+        this.maxStackSize = 1;
+        this.setMaxDamage(3000);
+        this.setCreativeTab(CreativeTabs.tabTools);
+    }
+    
+    public void onCreated(final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer) {
+        par1ItemStack.addEnchantment(Enchantment.efficiency, 5);
+        par1ItemStack.addEnchantment(Enchantment.fortune, 5);
+    }
+    
+    public void onUsingTick(final ItemStack stack, final EntityPlayer player, final int count) {
+        final int lvl = EnchantmentHelper.getEnchantmentLevel(Enchantment.efficiency.effectId, stack);
+        if (lvl <= 0) {
+            stack.addEnchantment(Enchantment.efficiency, 5);
+            stack.addEnchantment(Enchantment.fortune, 5);
+        }
+    }
+    
+    public void onUpdate(final ItemStack stack, final World par2World, final Entity par3Entity, final int par4, final boolean par5) {
+        this.onUsingTick(stack, null, 0);
+    }
+    
+    public boolean canHarvestBlock(final Block par1Block) {
+        return true;
+    }
+    
+    public int getDamageVsEntity(final Entity par1Entity) {
+        if (par1Entity instanceof Girlfriend) {
+            return 1;
+        }
+        if (par1Entity instanceof Boyfriend) {
+            return 1;
+        }
+        if (par1Entity instanceof EntityPlayer) {
+            return 1;
+        }
+        return this.weaponDamage;
+    }
+    
+    public boolean onLeftClickEntity(final ItemStack stack, final EntityPlayer player, final Entity entity) {
+        if (entity != null && OreSpawnMain.ultimate_sword_pvp == 0) {
+            if (entity instanceof EntityPlayer || entity instanceof Girlfriend || entity instanceof Boyfriend) {
+                return true;
+            }
+            if (entity instanceof EntityTameable) {
+                final EntityTameable t = (EntityTameable)entity;
+                if (t.isTamed()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private ItemStack dropItemAnItem(final World world, final int x, final int y, final int z, final Item index, final int par1) {
+        EntityItem var3 = null;
+        final ItemStack is = new ItemStack(index, par1, 0);
+        var3 = new EntityItem(world, (double)x, (double)y, (double)z, is);
+        if (var3 != null) {
+            world.spawnEntityInWorld((Entity)var3);
+        }
+        return is;
+    }
+    
+    public boolean onBlockDestroyed(final ItemStack par1ItemStack, final World par2World, final Block par3, final int par4, final int par5, final int par6, final EntityLivingBase par7EntityLivingBase) {
+        if (par3.getBlockHardness(par2World, par4, par5, par6) != 0.0) {
+            par1ItemStack.damageItem(1, par7EntityLivingBase);
+        }
+        if (!par2World.isRemote) {
+            if (par3 == Blocks.iron_ore && par2World.rand.nextInt(2) != 0) {
+                this.dropItemAnItem(par2World, par4, par5, par6, Items.iron_ingot, 1 + par2World.rand.nextInt(2));
+            }
+            if (par3 == Blocks.gold_ore && par2World.rand.nextInt(2) != 0) {
+                this.dropItemAnItem(par2World, par4, par5, par6, Items.gold_ingot, 1 + par2World.rand.nextInt(2));
+            }
+            if (par3 == Blocks.stone && par2World.rand.nextInt(100) == 2) {
+                final int i = par2World.rand.nextInt(10);
+                if (i == 0) {
+                    this.dropItemAnItem(par2World, par4, par5, par6, Items.diamond, 1);
+                }
+                if (i == 1) {
+                    this.dropItemAnItem(par2World, par4, par5, par6, Items.emerald, 1);
+                }
+                if (i == 2) {
+                    this.dropItemAnItem(par2World, par4, par5, par6, OreSpawnMain.MyAmethyst, 1);
+                }
+                if (i == 3) {
+                    this.dropItemAnItem(par2World, par4, par5, par6, OreSpawnMain.MyRuby, 1);
+                }
+                if (i == 4) {
+                    this.dropItemAnItem(par2World, par4, par5, par6, OreSpawnMain.UraniumNugget, 1);
+                }
+                if (i == 5) {
+                    this.dropItemAnItem(par2World, par4, par5, par6, OreSpawnMain.TitaniumNugget, 1);
+                }
+            }
+        }
+        return true;
+    }
+    
+    public String getMaterialName() {
+        return "Uranium/Titanium";
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

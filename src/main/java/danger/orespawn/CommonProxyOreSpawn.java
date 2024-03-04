@@ -1,60 +1,35 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import cpw.mods.fml.common.network.NetworkRegistry;
-/*    */ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-/*    */ import cpw.mods.fml.relauncher.Side;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class CommonProxyOreSpawn
-/*    */ {
-/*    */   private SimpleNetworkWrapper network;
-/*    */   
-/*    */   public SimpleNetworkWrapper getNetwork() {
-/* 26 */     return this.network;
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void registerRenderThings() {}
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void registerSoundThings() {}
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void registerKeyboardInput() {}
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void registerNetworkStuff() {
-/* 46 */     this.network = NetworkRegistry.INSTANCE.newSimpleChannel("RiderControls");
-/* 47 */     this.network.registerMessage(RiderControlMessageHandler.class, RiderControlMessage.class, 0, Side.SERVER);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public int setArmorPrefix(String string) {
-/* 52 */     return 0;
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\CommonProxyOreSpawn.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import cpw.mods.fml.common.network.simpleimpl.*;
+import cpw.mods.fml.common.network.*;
+import cpw.mods.fml.relauncher.*;
+
+public class CommonProxyOreSpawn
+{
+    private SimpleNetworkWrapper network;
+    
+    public SimpleNetworkWrapper getNetwork() {
+        return this.network;
+    }
+    
+    public void registerRenderThings() {
+    }
+    
+    public void registerSoundThings() {
+    }
+    
+    public void registerKeyboardInput() {
+    }
+    
+    public void registerNetworkStuff() {
+        (this.network = NetworkRegistry.INSTANCE.newSimpleChannel("RiderControls")).registerMessage((Class)RiderControlMessageHandler.class, (Class)RiderControlMessage.class, 0, Side.SERVER);
+    }
+    
+    public int setArmorPrefix(final String string) {
+        return 0;
+    }
+}

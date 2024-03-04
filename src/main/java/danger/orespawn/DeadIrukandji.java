@@ -1,51 +1,47 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import net.minecraft.entity.EntityLivingBase;
-/*    */ import net.minecraft.world.World;
-/*    */ 
-/*    */ public class DeadIrukandji
-/*    */   extends LaserBall {
-/*  8 */   private int my_index = 86;
-/*    */ 
-/*    */   
-/*    */   public DeadIrukandji(World par1World) {
-/* 12 */     super(par1World);
-/* 13 */     setIrukandji();
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public DeadIrukandji(World par1World, int par2) {
-/* 18 */     super(par1World);
-/* 19 */     setIrukandji();
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public DeadIrukandji(World par1World, EntityLivingBase par2EntityLiving) {
-/* 24 */     super(par1World, par2EntityLiving);
-/* 25 */     setIrukandji();
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public DeadIrukandji(World par1World, EntityLivingBase par2EntityLiving, int par3) {
-/* 30 */     super(par1World, par2EntityLiving);
-/* 31 */     setIrukandji();
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public DeadIrukandji(World par1World, double par2, double par4, double par6) {
-/* 36 */     super(par1World, par2, par4, par6);
-/* 37 */     setIrukandji();
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public int getIrukandjiIndex() {
-/* 43 */     return this.my_index;
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\DeadIrukandji.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.world.*;
+import net.minecraft.entity.*;
+
+public class DeadIrukandji extends LaserBall
+{
+    private int my_index;
+    
+    public DeadIrukandji(final World par1World) {
+        super(par1World);
+        this.my_index = 86;
+        super.setIrukandji();
+    }
+    
+    public DeadIrukandji(final World par1World, final int par2) {
+        super(par1World);
+        this.my_index = 86;
+        super.setIrukandji();
+    }
+    
+    public DeadIrukandji(final World par1World, final EntityLivingBase par2EntityLiving) {
+        super(par1World, par2EntityLiving);
+        this.my_index = 86;
+        super.setIrukandji();
+    }
+    
+    public DeadIrukandji(final World par1World, final EntityLivingBase par2EntityLiving, final int par3) {
+        super(par1World, par2EntityLiving);
+        this.my_index = 86;
+        super.setIrukandji();
+    }
+    
+    public DeadIrukandji(final World par1World, final double par2, final double par4, final double par6) {
+        super(par1World, par2, par4, par6);
+        this.my_index = 86;
+        super.setIrukandji();
+    }
+    
+    public int getIrukandjiIndex() {
+        return this.my_index;
+    }
+}

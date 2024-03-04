@@ -1,117 +1,92 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityLivingBase;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.entity.projectile.EntityThrowable;
-/*     */ import net.minecraft.util.DamageSource;
-/*     */ import net.minecraft.util.MovingObjectPosition;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ public class WaterBall
-/*     */   extends EntityThrowable
-/*     */ {
-/*  15 */   private float my_rotation = 0.0F;
-/*  16 */   private int my_index = 49;
-/*     */ 
-/*     */   
-/*     */   public WaterBall(World par1World) {
-/*  20 */     super(par1World);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public WaterBall(World par1World, EntityLivingBase par2EntityLiving) {
-/*  26 */     super(par1World, par2EntityLiving);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public WaterBall(World worldObj, double d, double e, double f) {
-/*  31 */     super(worldObj, d, e, f);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public int getWaterBallIndex() {
-/*  38 */     return this.my_index;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected void onImpact(MovingObjectPosition par1MovingObjectPosition) {
-/*  46 */     if (par1MovingObjectPosition.entityHit != null) {
-/*     */       
-/*  48 */       float var2 = 2.0F;
-/*     */       
-/*  50 */       if (par1MovingObjectPosition.entityHit instanceof net.minecraft.entity.monster.EntityCreeper)
-/*     */       {
-/*  52 */         var2 = 5.0F;
-/*     */       }
-/*  54 */       if (par1MovingObjectPosition.entityHit instanceof WaterDragon) {
-/*     */         return;
-/*     */       }
-/*     */       
-/*  58 */       if (par1MovingObjectPosition.entityHit instanceof AttackSquid) {
-/*     */         return;
-/*     */       }
-/*     */       
-/*  62 */       if (par1MovingObjectPosition.entityHit instanceof Dragon) {
-/*     */         
-/*  64 */         Dragon d = (Dragon)par1MovingObjectPosition.entityHit;
-/*  65 */         if (d.getDragonType() != 0) {
-/*     */           return;
-/*     */         }
-/*     */       } 
-/*  69 */       if (par1MovingObjectPosition.entityHit instanceof EntityPlayer) {
-/*     */         
-/*  71 */         EntityPlayer d = (EntityPlayer)par1MovingObjectPosition.entityHit;
-/*  72 */         if (d.ridingEntity != null) {
-/*     */           return;
-/*     */         }
-/*     */       } 
-/*  76 */       par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((Entity)this, (Entity)getThrower()), var2);
-/*  77 */       if (this.worldObj.rand.nextInt(10) == 1) par1MovingObjectPosition.entityHit.dropItem(OreSpawnMain.MyWaterBall, 1); 
-/*  78 */       par1MovingObjectPosition.entityHit.extinguish();
-/*     */     } 
-/*     */     
-/*  81 */     for (int var3 = 0; var3 < 8; var3++) {
-/*     */       
-/*  83 */       this.worldObj.spawnParticle("bubble", this.posX + this.rand.nextFloat() - this.rand.nextFloat(), this.posY + this.rand.nextFloat() - this.rand.nextFloat(), this.posZ + this.rand.nextFloat(), 0.0D, 0.0D, 0.0D);
-/*  84 */       this.worldObj.spawnParticle("splash", this.posX + this.rand.nextFloat() - this.rand.nextFloat(), this.posY + this.rand.nextFloat() - this.rand.nextFloat(), this.posZ + this.rand.nextFloat() - this.rand.nextFloat(), 0.0D, 0.0D, 0.0D);
-/*     */     } 
-/*  86 */     playSound("random.splash", 0.5F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.5F);
-/*     */     
-/*  88 */     if (!this.worldObj.isRemote)
-/*     */     {
-/*  90 */       setDead();
-/*     */     }
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onUpdate() {
-/* 100 */     super.onUpdate();
-/* 101 */     this.my_rotation += 30.0F;
-/*     */     
-/* 103 */     while (this.my_rotation > 360.0F) {
-/* 104 */       this.my_rotation -= 360.0F;
-/*     */     }
-/*     */     
-/* 107 */     this.rotationPitch = this.prevRotationPitch = this.my_rotation;
-/*     */     
-/* 109 */     this.worldObj.spawnParticle("splash", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\WaterBall.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.entity.projectile.*;
+import net.minecraft.world.*;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import net.minecraft.entity.*;
+
+public class WaterBall extends EntityThrowable
+{
+    private float my_rotation;
+    private int my_index;
+    
+    public WaterBall(final World par1World) {
+        super(par1World);
+        this.my_rotation = 0.0f;
+        this.my_index = 49;
+    }
+    
+    public WaterBall(final World par1World, final EntityLivingBase par2EntityLiving) {
+        super(par1World, par2EntityLiving);
+        this.my_rotation = 0.0f;
+        this.my_index = 49;
+    }
+    
+    public WaterBall(final World worldObj, final double d, final double e, final double f) {
+        super(worldObj, d, e, f);
+        this.my_rotation = 0.0f;
+        this.my_index = 49;
+    }
+    
+    public int getWaterBallIndex() {
+        return this.my_index;
+    }
+    
+    protected void onImpact(final MovingObjectPosition par1MovingObjectPosition) {
+        if (par1MovingObjectPosition.entityHit != null) {
+            float var2 = 2.0f;
+            if (par1MovingObjectPosition.entityHit instanceof EntityCreeper) {
+                var2 = 5.0f;
+            }
+            if (par1MovingObjectPosition.entityHit instanceof WaterDragon) {
+                return;
+            }
+            if (par1MovingObjectPosition.entityHit instanceof AttackSquid) {
+                return;
+            }
+            if (par1MovingObjectPosition.entityHit instanceof Dragon) {
+                final Dragon d = (Dragon)par1MovingObjectPosition.entityHit;
+                if (d.getDragonType() != 0) {
+                    return;
+                }
+            }
+            if (par1MovingObjectPosition.entityHit instanceof EntityPlayer) {
+                final EntityPlayer d2 = (EntityPlayer)par1MovingObjectPosition.entityHit;
+                if (d2.ridingEntity != null) {
+                    return;
+                }
+            }
+            par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((Entity)this, (Entity)this.getThrower()), var2);
+            if (this.worldObj.rand.nextInt(10) == 1) {
+                par1MovingObjectPosition.entityHit.dropItem(OreSpawnMain.MyWaterBall, 1);
+            }
+            par1MovingObjectPosition.entityHit.extinguish();
+        }
+        for (int var3 = 0; var3 < 8; ++var3) {
+            this.worldObj.spawnParticle("bubble", this.posX + this.rand.nextFloat() - this.rand.nextFloat(), this.posY + this.rand.nextFloat() - this.rand.nextFloat(), this.posZ + this.rand.nextFloat(), 0.0, 0.0, 0.0);
+            this.worldObj.spawnParticle("splash", this.posX + this.rand.nextFloat() - this.rand.nextFloat(), this.posY + this.rand.nextFloat() - this.rand.nextFloat(), this.posZ + this.rand.nextFloat() - this.rand.nextFloat(), 0.0, 0.0, 0.0);
+        }
+        this.playSound("random.splash", 0.5f, 1.0f + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.5f);
+        if (!this.worldObj.isRemote) {
+            this.setDead();
+        }
+    }
+    
+    public void onUpdate() {
+        super.onUpdate();
+        this.my_rotation += 30.0f;
+        while (this.my_rotation > 360.0f) {
+            this.my_rotation -= 360.0f;
+        }
+        final float my_rotation = this.my_rotation;
+        this.prevRotationPitch = my_rotation;
+        this.rotationPitch = my_rotation;
+        this.worldObj.spawnParticle("splash", this.posX, this.posY, this.posZ, 0.0, 0.0, 0.0);
+    }
+}

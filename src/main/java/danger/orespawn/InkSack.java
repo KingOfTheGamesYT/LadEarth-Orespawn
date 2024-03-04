@@ -1,114 +1,89 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityLiving;
-/*     */ import net.minecraft.entity.EntityLivingBase;
-/*     */ import net.minecraft.entity.projectile.EntityThrowable;
-/*     */ import net.minecraft.potion.Potion;
-/*     */ import net.minecraft.potion.PotionEffect;
-/*     */ import net.minecraft.util.DamageSource;
-/*     */ import net.minecraft.util.MovingObjectPosition;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ public class InkSack
-/*     */   extends EntityThrowable
-/*     */ {
-/*  17 */   private float my_rotation = 0.0F;
-/*  18 */   private int my_index = 65;
-/*     */ 
-/*     */   
-/*     */   public InkSack(World par1World) {
-/*  22 */     super(par1World);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public InkSack(World par1World, int par2) {
-/*  27 */     super(par1World);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public InkSack(World par1World, EntityLiving par2EntityLiving) {
-/*  32 */     super(par1World, (EntityLivingBase)par2EntityLiving);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public InkSack(World par1World, EntityLiving par2EntityLiving, int par3) {
-/*  37 */     super(par1World, (EntityLivingBase)par2EntityLiving);
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public InkSack(World par1World, double par2, double par4, double par6) {
-/*  42 */     super(par1World, par2, par4, par6);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public int getInkSackIndex() {
-/*  48 */     return this.my_index;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected void onImpact(MovingObjectPosition par1MovingObjectPosition) {
-/*  56 */     if (par1MovingObjectPosition.entityHit != null) {
-/*     */       
-/*  58 */       float var2 = 1.0F;
-/*     */       
-/*  60 */       if (par1MovingObjectPosition.entityHit instanceof net.minecraft.entity.monster.EntityCreeper)
-/*     */       {
-/*  62 */         var2 = 4.0F;
-/*     */       }
-/*  64 */       if (par1MovingObjectPosition.entityHit instanceof WaterDragon) {
-/*     */         return;
-/*     */       }
-/*     */       
-/*  68 */       if (par1MovingObjectPosition.entityHit instanceof AttackSquid) {
-/*     */         return;
-/*     */       }
-/*     */       
-/*  72 */       par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((Entity)this, (Entity)getThrower()), var2);
-/*  73 */       if (par1MovingObjectPosition.entityHit instanceof EntityLivingBase && 
-/*  74 */         this.worldObj.rand.nextInt(2) == 0)
-/*     */       {
-/*  76 */         ((EntityLivingBase)par1MovingObjectPosition.entityHit).addPotionEffect(new PotionEffect(Potion.blindness.id, 100 + 50 * this.worldObj.rand.nextInt(8), 0));
-/*     */       }
-/*     */     } 
-/*     */ 
-/*     */     
-/*  81 */     for (int var3 = 0; var3 < 4; var3++)
-/*     */     {
-/*  83 */       this.worldObj.spawnParticle("smoke", this.posX + this.rand.nextFloat() - this.rand.nextFloat(), this.posY + this.rand.nextFloat() - this.rand.nextFloat(), this.posZ + this.rand.nextFloat(), 0.0D, 0.0D, 0.0D);
-/*     */     }
-/*  85 */     playSound("random.splash", 0.5F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.5F);
-/*     */     
-/*  87 */     if (!this.worldObj.isRemote)
-/*     */     {
-/*  89 */       setDead();
-/*     */     }
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onUpdate() {
-/*  99 */     super.onUpdate();
-/* 100 */     this.my_rotation += 30.0F;
-/*     */     
-/* 102 */     while (this.my_rotation > 360.0F) {
-/* 103 */       this.my_rotation -= 360.0F;
-/*     */     }
-/*     */     
-/* 106 */     this.rotationPitch = this.prevRotationPitch = this.my_rotation;
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\InkSack.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.entity.projectile.*;
+import net.minecraft.world.*;
+import net.minecraft.entity.monster.*;
+import net.minecraft.util.*;
+import net.minecraft.entity.*;
+import net.minecraft.potion.*;
+
+public class InkSack extends EntityThrowable
+{
+    private float my_rotation;
+    private int my_index;
+    
+    public InkSack(final World par1World) {
+        super(par1World);
+        this.my_rotation = 0.0f;
+        this.my_index = 65;
+    }
+    
+    public InkSack(final World par1World, final int par2) {
+        super(par1World);
+        this.my_rotation = 0.0f;
+        this.my_index = 65;
+    }
+    
+    public InkSack(final World par1World, final EntityLiving par2EntityLiving) {
+        super(par1World, (EntityLivingBase)par2EntityLiving);
+        this.my_rotation = 0.0f;
+        this.my_index = 65;
+    }
+    
+    public InkSack(final World par1World, final EntityLiving par2EntityLiving, final int par3) {
+        super(par1World, (EntityLivingBase)par2EntityLiving);
+        this.my_rotation = 0.0f;
+        this.my_index = 65;
+    }
+    
+    public InkSack(final World par1World, final double par2, final double par4, final double par6) {
+        super(par1World, par2, par4, par6);
+        this.my_rotation = 0.0f;
+        this.my_index = 65;
+    }
+    
+    public int getInkSackIndex() {
+        return this.my_index;
+    }
+    
+    protected void onImpact(final MovingObjectPosition par1MovingObjectPosition) {
+        if (par1MovingObjectPosition.entityHit != null) {
+            float var2 = 1.0f;
+            if (par1MovingObjectPosition.entityHit instanceof EntityCreeper) {
+                var2 = 4.0f;
+            }
+            if (par1MovingObjectPosition.entityHit instanceof WaterDragon) {
+                return;
+            }
+            if (par1MovingObjectPosition.entityHit instanceof AttackSquid) {
+                return;
+            }
+            par1MovingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage((Entity)this, (Entity)this.getThrower()), var2);
+            if (par1MovingObjectPosition.entityHit instanceof EntityLivingBase && this.worldObj.rand.nextInt(2) == 0) {
+                ((EntityLivingBase)par1MovingObjectPosition.entityHit).addPotionEffect(new PotionEffect(Potion.blindness.id, 100 + 50 * this.worldObj.rand.nextInt(8), 0));
+            }
+        }
+        for (int var3 = 0; var3 < 4; ++var3) {
+            this.worldObj.spawnParticle("smoke", this.posX + this.rand.nextFloat() - this.rand.nextFloat(), this.posY + this.rand.nextFloat() - this.rand.nextFloat(), this.posZ + this.rand.nextFloat(), 0.0, 0.0, 0.0);
+        }
+        this.playSound("random.splash", 0.5f, 1.0f + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.5f);
+        if (!this.worldObj.isRemote) {
+            this.setDead();
+        }
+    }
+    
+    public void onUpdate() {
+        super.onUpdate();
+        this.my_rotation += 30.0f;
+        while (this.my_rotation > 360.0f) {
+            this.my_rotation -= 360.0f;
+        }
+        final float my_rotation = this.my_rotation;
+        this.prevRotationPitch = my_rotation;
+        this.rotationPitch = my_rotation;
+    }
+}

@@ -1,206 +1,126 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.relauncher.Side;
-/*     */ import cpw.mods.fml.relauncher.SideOnly;
-/*     */ import java.util.Random;
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.block.material.Material;
-/*     */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.util.AxisAlignedBB;
-/*     */ import net.minecraft.util.IIcon;
-/*     */ import net.minecraft.world.IBlockAccess;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ public class BlockPizza
-/*     */   extends Block
-/*     */ {
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   private IIcon pizzaTopIcon;
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   private IIcon pizzaBottomIcon;
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   private IIcon field_94382_c;
-/*     */   
-/*     */   protected BlockPizza(int par1) {
-/*  28 */     super(Material.cake);
-/*  29 */     setTickRandomly(true);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
-/*  37 */     int l = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
-/*  38 */     float f = 0.0625F;
-/*  39 */     float f1 = (1 + l * 2) / 16.0F;
-/*  40 */     float f2 = 0.25F;
-/*  41 */     setBlockBounds(f1, 0.0F, f, 1.0F - f, f2, 1.0F - f);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void setBlockBoundsForItemRender() {
-/*  49 */     float f = 0.0625F;
-/*  50 */     float f1 = 0.25F;
-/*  51 */     setBlockBounds(f, 0.0F, f, 1.0F - f, f1, 1.0F - f);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
-/*  60 */     int l = par1World.getBlockMetadata(par2, par3, par4);
-/*  61 */     float f = 0.0625F;
-/*  62 */     float f1 = (1 + l * 2) / 16.0F;
-/*  63 */     float f2 = 0.25F;
-/*  64 */     return AxisAlignedBB.getBoundingBox((par2 + f1), par3, (par4 + f), ((par2 + 1) - f), (par3 + f2 - f), ((par4 + 1) - f));
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean renderAsNormalBlock() {
-/*  72 */     return false;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
-/*  82 */     int l = par1World.getBlockMetadata(par2, par3, par4);
-/*  83 */     float f = 0.0625F;
-/*  84 */     float f1 = (1 + l * 2) / 16.0F;
-/*  85 */     float f2 = 0.25F;
-/*  86 */     return AxisAlignedBB.getBoundingBox((par2 + f1), par3, (par4 + f), ((par2 + 1) - f), (par3 + f2), ((par4 + 1) - f));
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public IIcon getIcon(int par1, int par2) {
-/*  96 */     return (par1 == 1) ? this.pizzaTopIcon : ((par1 == 0) ? this.pizzaBottomIcon : ((par2 > 0 && par1 == 4) ? this.field_94382_c : this.blockIcon));
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void registerBlockIcons(IIconRegister par1IIconRegister) {
-/* 107 */     this.blockIcon = par1IIconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5) + "_side");
-/* 108 */     this.field_94382_c = par1IIconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5) + "_inner");
-/* 109 */     this.pizzaTopIcon = par1IIconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5) + "_top");
-/* 110 */     this.pizzaBottomIcon = par1IIconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5) + "_bottom");
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean isOpaqueCube() {
-/* 119 */     return false;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-/* 127 */     eatPizzaSlice(par1World, par2, par3, par4, par5EntityPlayer);
-/* 128 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
-/* 136 */     eatPizzaSlice(par1World, par2, par3, par4, par5EntityPlayer);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   private void eatPizzaSlice(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
-/* 144 */     if (par5EntityPlayer.canEat(false)) {
-/*     */       
-/* 146 */       par5EntityPlayer.getFoodStats().addStats(4, 0.2F);
-/* 147 */       int l = par1World.getBlockMetadata(par2, par3, par4) + 1;
-/*     */       
-/* 149 */       if (l >= 6) {
-/*     */         
-/* 151 */         par1World.setBlockToAir(par2, par3, par4);
-/*     */       }
-/*     */       else {
-/*     */         
-/* 155 */         par1World.setBlockMetadataWithNotify(par2, par3, par4, l, 2);
-/*     */       } 
-/*     */     } 
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4) {
-/* 165 */     return !super.canPlaceBlockAt(par1World, par2, par3, par4) ? false : canBlockStay(par1World, par2, par3, par4);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5) {
-/* 174 */     if (!canBlockStay(par1World, par2, par3, par4))
-/*     */     {
-/* 176 */       par1World.setBlockToAir(par2, par3, par4);
-/*     */     }
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean canBlockStay(World par1World, int par2, int par3, int par4) {
-/* 185 */     return par1World.getBlock(par2, par3 - 1, par4).isNormalCube();
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public int quantityDropped(Random par1Random) {
-/* 193 */     return 0;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public Item getItemDropped(int par1, Random par2Random, int par3) {
-/* 198 */     return OreSpawnMain.MyPizzaItem;
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\BlockPizza.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.block.*;
+import cpw.mods.fml.relauncher.*;
+import net.minecraft.block.material.*;
+import net.minecraft.world.*;
+import net.minecraft.util.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.entity.player.*;
+import java.util.*;
+import net.minecraft.item.*;
+
+public class BlockPizza extends Block
+{
+    @SideOnly(Side.CLIENT)
+    private IIcon pizzaTopIcon;
+    @SideOnly(Side.CLIENT)
+    private IIcon pizzaBottomIcon;
+    @SideOnly(Side.CLIENT)
+    private IIcon field_94382_c;
+    
+    protected BlockPizza(final int par1) {
+        super(Material.cake);
+        this.setTickRandomly(true);
+    }
+    
+    public void setBlockBoundsBasedOnState(final IBlockAccess par1IBlockAccess, final int par2, final int par3, final int par4) {
+        final int l = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
+        final float f = 0.0625f;
+        final float f2 = (1 + l * 2) / 16.0f;
+        final float f3 = 0.25f;
+        this.setBlockBounds(f2, 0.0f, f, 1.0f - f, f3, 1.0f - f);
+    }
+    
+    public void setBlockBoundsForItemRender() {
+        final float f = 0.0625f;
+        final float f2 = 0.25f;
+        this.setBlockBounds(f, 0.0f, f, 1.0f - f, f2, 1.0f - f);
+    }
+    
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(final World par1World, final int par2, final int par3, final int par4) {
+        final int l = par1World.getBlockMetadata(par2, par3, par4);
+        final float f = 0.0625f;
+        final float f2 = (1 + l * 2) / 16.0f;
+        final float f3 = 0.25f;
+        return AxisAlignedBB.getBoundingBox((double)(par2 + f2), (double)par3, (double)(par4 + f), (double)(par2 + 1 - f), (double)(par3 + f3 - f), (double)(par4 + 1 - f));
+    }
+    
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(final World par1World, final int par2, final int par3, final int par4) {
+        final int l = par1World.getBlockMetadata(par2, par3, par4);
+        final float f = 0.0625f;
+        final float f2 = (1 + l * 2) / 16.0f;
+        final float f3 = 0.25f;
+        return AxisAlignedBB.getBoundingBox((double)(par2 + f2), (double)par3, (double)(par4 + f), (double)(par2 + 1 - f), (double)(par3 + f3), (double)(par4 + 1 - f));
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(final int par1, final int par2) {
+        return (par1 == 1) ? this.pizzaTopIcon : ((par1 == 0) ? this.pizzaBottomIcon : ((par2 > 0 && par1 == 4) ? this.field_94382_c : this.blockIcon));
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(final IIconRegister par1IIconRegister) {
+        this.blockIcon = par1IIconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5) + "_side");
+        this.field_94382_c = par1IIconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5) + "_inner");
+        this.pizzaTopIcon = par1IIconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5) + "_top");
+        this.pizzaBottomIcon = par1IIconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5) + "_bottom");
+    }
+    
+    public boolean isOpaqueCube() {
+        return false;
+    }
+    
+    public boolean onBlockActivated(final World par1World, final int par2, final int par3, final int par4, final EntityPlayer par5EntityPlayer, final int par6, final float par7, final float par8, final float par9) {
+        this.eatPizzaSlice(par1World, par2, par3, par4, par5EntityPlayer);
+        return true;
+    }
+    
+    public void onBlockClicked(final World par1World, final int par2, final int par3, final int par4, final EntityPlayer par5EntityPlayer) {
+        this.eatPizzaSlice(par1World, par2, par3, par4, par5EntityPlayer);
+    }
+    
+    private void eatPizzaSlice(final World par1World, final int par2, final int par3, final int par4, final EntityPlayer par5EntityPlayer) {
+        if (par5EntityPlayer.canEat(false)) {
+            par5EntityPlayer.getFoodStats().addStats(4, 0.2f);
+            final int l = par1World.getBlockMetadata(par2, par3, par4) + 1;
+            if (l >= 6) {
+                par1World.setBlockToAir(par2, par3, par4);
+            }
+            else {
+                par1World.setBlockMetadataWithNotify(par2, par3, par4, l, 2);
+            }
+        }
+    }
+    
+    public boolean canPlaceBlockAt(final World par1World, final int par2, final int par3, final int par4) {
+        return super.canPlaceBlockAt(par1World, par2, par3, par4) && this.canBlockStay(par1World, par2, par3, par4);
+    }
+    
+    public void onNeighborBlockChange(final World par1World, final int par2, final int par3, final int par4, final int par5) {
+        if (!this.canBlockStay(par1World, par2, par3, par4)) {
+            par1World.setBlockToAir(par2, par3, par4);
+        }
+    }
+    
+    public boolean canBlockStay(final World par1World, final int par2, final int par3, final int par4) {
+        return par1World.getBlock(par2, par3 - 1, par4).isNormalCube();
+    }
+    
+    public int quantityDropped(final Random par1Random) {
+        return 0;
+    }
+    
+    public Item getItemDropped(final int par1, final Random par2Random, final int par3) {
+        return OreSpawnMain.MyPizzaItem;
+    }
+}

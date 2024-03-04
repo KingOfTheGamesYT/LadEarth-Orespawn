@@ -1,118 +1,84 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.relauncher.Side;
-/*     */ import cpw.mods.fml.relauncher.SideOnly;
-/*     */ import java.util.Random;
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.block.material.Material;
-/*     */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*     */ import net.minecraft.creativetab.CreativeTabs;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class OreCrystal
-/*     */   extends Block
-/*     */ {
-/*     */   public OreCrystal(int par1, float lv, float f1, float f2) {
-/*  22 */     super(Material.rock);
-/*  23 */     setHardness(f1);
-/*  24 */     setResistance(f2);
-/*  25 */     setCreativeTab(CreativeTabs.tabBlock);
-/*  26 */     setLightLevel(lv);
-/*  27 */     setTickRandomly(true);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
-/*  36 */     if (par1World.rand.nextInt(5) == 0) {
-/*  37 */       sparkle(par1World, par2, par3, par4);
-/*     */     }
-/*     */   }
-/*     */   
-/*     */   private void sparkle(World par1World, int par2, int par3, int par4) {
-/*  42 */     int which = 0;
-/*  43 */     float dx = 0.5F;
-/*  44 */     float dz = 0.5F;
-/*  45 */     float dy = 0.5F;
-/*     */     
-/*  47 */     for (int j1 = 0; j1 < 5; j1++) {
-/*     */       
-/*  49 */       which = par1World.rand.nextInt(3);
-/*  50 */       if (which == 0) par1World.spawnParticle("flame", (par2 + dx), par3 + dy, (par4 + dz), ((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0F), ((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0F), ((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0F));
-/*     */       
-/*  52 */       if (which == 1) par1World.spawnParticle("smoke", (par2 + dx), par3 + dy, (par4 + dz), ((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0F), ((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0F), ((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0F));
-/*     */       
-/*  54 */       if (which == 2) par1World.spawnParticle("reddust", (par2 + dx), par3 + dy, (par4 + dz), ((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0F), ((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0F), ((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0F));
-/*     */     
-/*     */     } 
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public int getRenderType() {
-/*  62 */     return 1;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean isOpaqueCube() {
-/*  71 */     return false;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean renderAsNormalBlock() {
-/*  79 */     return false;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5) {
-/*  87 */     if (!par1World.isRemote && par1World.rand.nextInt(3) == 1)
-/*     */     {
-/*  89 */       par1World.newExplosion((Entity)null, (par2 + 0.5F), (par3 + 0.5F), (par4 + 0.5F), 1.5F, true, par1World.getGameRules().getGameRuleBooleanValue("mobGriefing"));
-/*     */     }
-/*     */ 
-/*     */     
-/*  93 */     super.onBlockDestroyedByPlayer(par1World, par2, par3, par4, par5);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void dropBlockAsItemWithChance(World par1World, int par2, int par3, int par4, int par5, float par6, int par7) {
-/* 101 */     super.dropBlockAsItemWithChance(par1World, par2, par3, par4, par5, par6, par7);
-/* 102 */     int j1 = 5 + par1World.rand.nextInt(5) + par1World.rand.nextInt(10);
-/* 103 */     if (par3 < 40) {
-/* 104 */       dropXpOnBlockBreak(par1World, par2, par3, par4, j1);
-/*     */     }
-/*     */   }
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void registerBlockIcons(IIconRegister iconRegister) {
-/* 110 */     this.blockIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\OreCrystal.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.creativetab.*;
+import net.minecraft.world.*;
+import java.util.*;
+import cpw.mods.fml.relauncher.*;
+import net.minecraft.entity.*;
+import net.minecraft.client.renderer.texture.*;
+
+public class OreCrystal extends Block
+{
+    public OreCrystal(final int par1, final float lv, final float f1, final float f2) {
+        super(Material.rock);
+        this.setHardness(f1);
+        this.setResistance(f2);
+        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setLightLevel(lv);
+        this.setTickRandomly(true);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(final World par1World, final int par2, final int par3, final int par4, final Random par5Random) {
+        if (par1World.rand.nextInt(5) == 0) {
+            this.sparkle(par1World, par2, par3, par4);
+        }
+    }
+    
+    private void sparkle(final World par1World, final int par2, final int par3, final int par4) {
+        int which = 0;
+        final float dx = 0.5f;
+        final float dz = 0.5f;
+        final float dy = 0.5f;
+        for (int j1 = 0; j1 < 5; ++j1) {
+            which = par1World.rand.nextInt(3);
+            if (which == 0) {
+                par1World.spawnParticle("flame", (double)(par2 + dx), par3 + (double)dy, (double)(par4 + dz), (double)((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0f), (double)((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0f), (double)((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0f));
+            }
+            if (which == 1) {
+                par1World.spawnParticle("smoke", (double)(par2 + dx), par3 + (double)dy, (double)(par4 + dz), (double)((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0f), (double)((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0f), (double)((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0f));
+            }
+            if (which == 2) {
+                par1World.spawnParticle("reddust", (double)(par2 + dx), par3 + (double)dy, (double)(par4 + dz), (double)((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0f), (double)((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0f), (double)((par1World.rand.nextFloat() - par1World.rand.nextFloat()) / 4.0f));
+            }
+        }
+    }
+    
+    public int getRenderType() {
+        return 1;
+    }
+    
+    public boolean isOpaqueCube() {
+        return false;
+    }
+    
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+    
+    public void onBlockDestroyedByPlayer(final World par1World, final int par2, final int par3, final int par4, final int par5) {
+        if (!par1World.isRemote && par1World.rand.nextInt(3) == 1) {
+            par1World.newExplosion((Entity)null, (double)(par2 + 0.5f), (double)(par3 + 0.5f), (double)(par4 + 0.5f), 1.5f, true, par1World.getGameRules().getGameRuleBooleanValue("mobGriefing"));
+        }
+        super.onBlockDestroyedByPlayer(par1World, par2, par3, par4, par5);
+    }
+    
+    public void dropBlockAsItemWithChance(final World par1World, final int par2, final int par3, final int par4, final int par5, final float par6, final int par7) {
+        super.dropBlockAsItemWithChance(par1World, par2, par3, par4, par5, par6, par7);
+        final int j1 = 5 + par1World.rand.nextInt(5) + par1World.rand.nextInt(10);
+        if (par3 < 40) {
+            this.dropXpOnBlockBreak(par1World, par2, par3, par4, j1);
+        }
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(final IIconRegister iconRegister) {
+        this.blockIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

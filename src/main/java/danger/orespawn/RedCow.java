@@ -1,60 +1,43 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import net.minecraft.entity.EntityAgeable;
-/*    */ import net.minecraft.entity.passive.EntityCow;
-/*    */ import net.minecraft.init.Items;
-/*    */ import net.minecraft.world.World;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class RedCow
-/*    */   extends EntityCow
-/*    */ {
-/*    */   public RedCow(World world) {
-/* 16 */     super(world);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   protected void dropFewItems(boolean par1, int par2) {
-/* 24 */     int var3 = this.rand.nextInt(3) + this.rand.nextInt(1 + par2);
-/*    */ 
-/*    */     
-/* 27 */     for (int var4 = 0; var4 < var3; var4++)
-/*    */     {
-/* 29 */       dropItem(Items.apple, 1);
-/*    */     }
-/*    */     
-/* 32 */     super.dropFewItems(par1, par2);
-/*    */   }
-/*    */   
-/*    */   public EntityCow createChild(EntityAgeable entityageable) {
-/* 36 */     return spawnBabyAnimal(entityageable);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public RedCow spawnBabyAnimal(EntityAgeable par1EntityAgeable) {
-/* 42 */     return new RedCow(this.worldObj);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   protected void updateAITick() {
-/* 47 */     if (this.worldObj.rand.nextInt(200) == 1) setRevengeTarget(null); 
-/* 48 */     super.updateAITick();
-/*    */   }
-/*    */   
-/*    */   protected boolean canDespawn() {
-/* 52 */     return false;
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\RedCow.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.entity.passive.*;
+import net.minecraft.world.*;
+import net.minecraft.init.*;
+import net.minecraft.entity.*;
+
+public class RedCow extends EntityCow
+{
+    public RedCow(final World world) {
+        super(world);
+    }
+    
+    protected void dropFewItems(final boolean par1, final int par2) {
+        for (int var3 = this.rand.nextInt(3) + this.rand.nextInt(1 + par2), var4 = 0; var4 < var3; ++var4) {
+            this.dropItem(Items.apple, 1);
+        }
+        super.dropFewItems(par1, par2);
+    }
+    
+    public EntityCow createChild(final EntityAgeable entityageable) {
+        return this.spawnBabyAnimal(entityageable);
+    }
+    
+    public RedCow spawnBabyAnimal(final EntityAgeable par1EntityAgeable) {
+        return new RedCow(this.worldObj);
+    }
+    
+    protected void updateAITick() {
+        if (this.worldObj.rand.nextInt(200) == 1) {
+            this.setRevengeTarget((EntityLivingBase)null);
+        }
+        super.updateAITick();
+    }
+    
+    protected boolean canDespawn() {
+        return false;
+    }
+}

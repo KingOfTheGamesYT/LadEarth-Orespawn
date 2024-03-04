@@ -1,94 +1,59 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import cpw.mods.fml.relauncher.Side;
-/*    */ import cpw.mods.fml.relauncher.SideOnly;
-/*    */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*    */ import net.minecraft.creativetab.CreativeTabs;
-/*    */ import net.minecraft.entity.Entity;
-/*    */ import net.minecraft.entity.EntityLiving;
-/*    */ import net.minecraft.entity.EntityLivingBase;
-/*    */ import net.minecraft.entity.player.EntityPlayer;
-/*    */ import net.minecraft.item.Item;
-/*    */ import net.minecraft.item.ItemStack;
-/*    */ import net.minecraft.item.ItemSword;
-/*    */ import net.minecraft.world.World;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class EmeraldSword
-/*    */   extends ItemSword
-/*    */ {
-/*    */   private int weaponDamage;
-/*    */   private final Item.ToolMaterial toolMaterial;
-/*    */   
-/*    */   public EmeraldSword(int par1, Item.ToolMaterial par2EnumToolMaterial) {
-/* 28 */     super(par2EnumToolMaterial);
-/* 29 */     this.toolMaterial = par2EnumToolMaterial;
-/* 30 */     this.weaponDamage = 15;
-/* 31 */     this.maxStackSize = 1;
-/* 32 */     setMaxDamage(1300);
-/* 33 */     setCreativeTab(CreativeTabs.tabCombat);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {}
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {}
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public void onUpdate(ItemStack stack, World par2World, Entity par3Entity, int par4, boolean par5) {}
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public int getDamageVsEntity(Entity par1Entity) {
-/* 61 */     return this.weaponDamage;
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public String getMaterialName() {
-/* 67 */     return "Emerald";
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public boolean hitEntity(ItemStack par1ItemStack, EntityLiving par2EntityLiving, EntityLiving par3EntityLiving) {
-/* 72 */     par1ItemStack.damageItem(1, (EntityLivingBase)par3EntityLiving);
-/* 73 */     return true;
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   public int getMaxItemUseDuration(ItemStack par1ItemStack) {
-/* 81 */     return 3000;
-/*    */   }
-/*    */   
-/*    */   @SideOnly(Side.CLIENT)
-/*    */   public void registerIcons(IIconRegister iconRegister) {
-/* 86 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\EmeraldSword.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.creativetab.*;
+import net.minecraft.item.*;
+import net.minecraft.world.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class EmeraldSword extends ItemSword
+{
+    private int weaponDamage;
+    private final Item.ToolMaterial toolMaterial;
+    
+    public EmeraldSword(final int par1, final Item.ToolMaterial par2EnumToolMaterial) {
+        super(par2EnumToolMaterial);
+        this.toolMaterial = par2EnumToolMaterial;
+        this.weaponDamage = 15;
+        this.maxStackSize = 1;
+        this.setMaxDamage(1300);
+        this.setCreativeTab(CreativeTabs.tabCombat);
+    }
+    
+    public void onCreated(final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer) {
+    }
+    
+    public void onUsingTick(final ItemStack stack, final EntityPlayer player, final int count) {
+    }
+    
+    public void onUpdate(final ItemStack stack, final World par2World, final Entity par3Entity, final int par4, final boolean par5) {
+    }
+    
+    public int getDamageVsEntity(final Entity par1Entity) {
+        return this.weaponDamage;
+    }
+    
+    public String getMaterialName() {
+        return "Emerald";
+    }
+    
+    public boolean hitEntity(final ItemStack par1ItemStack, final EntityLiving par2EntityLiving, final EntityLiving par3EntityLiving) {
+        par1ItemStack.damageItem(1, (EntityLivingBase)par3EntityLiving);
+        return true;
+    }
+    
+    public int getMaxItemUseDuration(final ItemStack par1ItemStack) {
+        return 3000;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

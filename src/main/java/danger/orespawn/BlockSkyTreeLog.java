@@ -1,124 +1,79 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.relauncher.Side;
-/*     */ import cpw.mods.fml.relauncher.SideOnly;
-/*     */ import java.util.List;
-/*     */ import java.util.Random;
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.block.material.Material;
-/*     */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*     */ import net.minecraft.creativetab.CreativeTabs;
-/*     */ import net.minecraft.init.Blocks;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.item.ItemStack;
-/*     */ import net.minecraft.world.IBlockAccess;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class BlockSkyTreeLog
-/*     */   extends Block
-/*     */ {
-/*     */   protected BlockSkyTreeLog(int par1, int par2) {
-/*  25 */     super(Material.wood);
-/*  26 */     setCreativeTab(CreativeTabs.tabBlock);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
-/*  35 */     par3List.add(new ItemStack(Item.getItemFromBlock(this), 1, 0));
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected ItemStack createStackedBlock(int par1) {
-/*  44 */     return new ItemStack(Item.getItemFromBlock(this), 1, 0);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean canSustainLeaves(IBlockAccess world, int x, int y, int z) {
-/*  50 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean isWood(IBlockAccess world, int x, int y, int z) {
-/*  56 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public Item getItemDropped(int par1, Random par2Random, int par3) {
-/*  64 */     return Item.getItemFromBlock(OreSpawnMain.MySkyTreeLog);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void breakRecursor(World world, int x, int y, int z, int xf, int yf, int zf, int recursion) {
-/*  72 */     int var7 = 1;
-/*     */     
-/*  74 */     if (recursion > 1000)
-/*     */       return; 
-/*  76 */     for (int var9 = -var7; var9 <= var7; var9++) {
-/*     */       
-/*  78 */       for (int var10 = -var7; var10 <= var7; var10++) {
-/*     */         
-/*  80 */         for (int var11 = -var7; var11 <= var7; var11++) {
-/*     */ 
-/*     */           
-/*  83 */           if ((var9 != 0 || var10 != 0 || var11 != 0) && (
-/*  84 */             x + var9 != xf || y + var10 != yf || z + var11 != zf) && (
-/*  85 */             recursion <= 0 || x + var9 < xf - var7 || x + var9 > xf + var7 || y + var10 < yf - var7 || y + var10 > yf + var7 || z + var11 < zf - var7 || z + var11 > zf + var7)) {
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */             
-/*  90 */             Block var12 = world.getBlock(x + var9, y + var10, z + var11);
-/*     */             
-/*  92 */             if (var12 == this) {
-/*     */               
-/*  94 */               world.setBlock(x + var9, y + var10, z + var11, Blocks.air, 0, 2);
-/*  95 */               dropBlockAsItem(world, x + var9, y + var10, z + var11, 0, 0);
-/*  96 */               breakRecursor(world, x + var9, y + var10, z + var11, x, y, z, recursion + 1);
-/*     */             } 
-/*     */           } 
-/*     */         } 
-/*     */       } 
-/*     */     } 
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5) {
-/* 109 */     par1World.setBlock(par2, par3, par4, Blocks.air, 0, 2);
-/* 110 */     breakRecursor(par1World, par2, par3, par4, par2, par3, par4, 0);
-/* 111 */     dropBlockAsItem(par1World, par2, par3, par4, 0, 0);
-/*     */   }
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void registerBlockIcons(IIconRegister iconRegister) {
-/* 116 */     this.blockIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\BlockSkyTreeLog.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.creativetab.*;
+import net.minecraft.item.*;
+import java.util.*;
+import net.minecraft.world.*;
+import net.minecraft.init.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class BlockSkyTreeLog extends Block
+{
+    protected BlockSkyTreeLog(final int par1, final int par2) {
+        super(Material.wood);
+        this.setCreativeTab(CreativeTabs.tabBlock);
+    }
+    
+    public void getSubBlocks(final Item par1, final CreativeTabs par2CreativeTabs, final List par3List) {
+        par3List.add(new ItemStack(Item.getItemFromBlock((Block)this), 1, 0));
+    }
+    
+    protected ItemStack createStackedBlock(final int par1) {
+        return new ItemStack(Item.getItemFromBlock((Block)this), 1, 0);
+    }
+    
+    public boolean canSustainLeaves(final IBlockAccess world, final int x, final int y, final int z) {
+        return true;
+    }
+    
+    public boolean isWood(final IBlockAccess world, final int x, final int y, final int z) {
+        return true;
+    }
+    
+    public Item getItemDropped(final int par1, final Random par2Random, final int par3) {
+        return Item.getItemFromBlock(OreSpawnMain.MySkyTreeLog);
+    }
+    
+    public void breakRecursor(final World world, final int x, final int y, final int z, final int xf, final int yf, final int zf, final int recursion) {
+        final int var7 = 1;
+        if (recursion > 1000) {
+            return;
+        }
+        for (int var8 = -var7; var8 <= var7; ++var8) {
+            for (int var9 = -var7; var9 <= var7; ++var9) {
+                for (int var10 = -var7; var10 <= var7; ++var10) {
+                    if (var8 != 0 || var9 != 0 || var10 != 0) {
+                        if (x + var8 != xf || y + var9 != yf || z + var10 != zf) {
+                            if (recursion <= 0 || x + var8 < xf - var7 || x + var8 > xf + var7 || y + var9 < yf - var7 || y + var9 > yf + var7 || z + var10 < zf - var7 || z + var10 > zf + var7) {
+                                final Block var11 = world.getBlock(x + var8, y + var9, z + var10);
+                                if (var11 == this) {
+                                    world.setBlock(x + var8, y + var9, z + var10, Blocks.air, 0, 2);
+                                    this.dropBlockAsItem(world, x + var8, y + var9, z + var10, 0, 0);
+                                    this.breakRecursor(world, x + var8, y + var9, z + var10, x, y, z, recursion + 1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public void onBlockDestroyedByPlayer(final World par1World, final int par2, final int par3, final int par4, final int par5) {
+        par1World.setBlock(par2, par3, par4, Blocks.air, 0, 2);
+        this.breakRecursor(par1World, par2, par3, par4, par2, par3, par4, 0);
+        this.dropBlockAsItem(par1World, par2, par3, par4, 0, 0);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(final IIconRegister iconRegister) {
+        this.blockIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

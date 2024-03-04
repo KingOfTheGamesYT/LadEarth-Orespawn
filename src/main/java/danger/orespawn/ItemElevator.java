@@ -1,60 +1,39 @@
-/*    */ package danger.orespawn;
-/*    */ 
-/*    */ import cpw.mods.fml.relauncher.Side;
-/*    */ import cpw.mods.fml.relauncher.SideOnly;
-/*    */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*    */ import net.minecraft.creativetab.CreativeTabs;
-/*    */ import net.minecraft.entity.Entity;
-/*    */ import net.minecraft.entity.EntityList;
-/*    */ import net.minecraft.entity.player.EntityPlayer;
-/*    */ import net.minecraft.item.Item;
-/*    */ import net.minecraft.item.ItemStack;
-/*    */ import net.minecraft.world.World;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class ItemElevator
-/*    */   extends Item
-/*    */ {
-/*    */   public ItemElevator(int par1) {
-/* 27 */     this.maxStackSize = 1;
-/* 28 */     setCreativeTab(CreativeTabs.tabTransport);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-/* 33 */     if (par3World.isRemote) return true;
-/*    */ 
-/*    */     
-/* 36 */     Elevator elevator = (Elevator)EntityList.createEntityByName("Hoverboard", par3World);
-/* 37 */     elevator.setLocationAndAngles((par4 + 0.5F), (par5 + 1.2F), (par6 + 0.5F), par3World.rand.nextFloat() * 360.0F, 0.0F);
-/* 38 */     par3World.spawnEntityInWorld((Entity)elevator);
-/*    */     
-/* 40 */     if (!par2EntityPlayer.capabilities.isCreativeMode)
-/*    */     {
-/* 42 */       par1ItemStack.stackSize--;
-/*    */     }
-/*    */     
-/* 45 */     return true;
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   @SideOnly(Side.CLIENT)
-/*    */   public void registerIcons(IIconRegister iconRegister) {
-/* 52 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*    */   }
-/*    */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\ItemElevator.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.creativetab.*;
+import net.minecraft.item.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.world.*;
+import net.minecraft.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class ItemElevator extends Item
+{
+    public ItemElevator(final int par1) {
+        this.maxStackSize = 1;
+        this.setCreativeTab(CreativeTabs.tabTransport);
+    }
+    
+    public boolean onItemUse(final ItemStack par1ItemStack, final EntityPlayer par2EntityPlayer, final World par3World, final int par4, final int par5, final int par6, final int par7, final float par8, final float par9, final float par10) {
+        if (par3World.isRemote) {
+            return true;
+        }
+        final Elevator elevator = (Elevator)EntityList.createEntityByName("Hoverboard", par3World);
+        elevator.setLocationAndAngles((double)(par4 + 0.5f), (double)(par5 + 1.2f), (double)(par6 + 0.5f), par3World.rand.nextFloat() * 360.0f, 0.0f);
+        par3World.spawnEntityInWorld((Entity)elevator);
+        if (!par2EntityPlayer.capabilities.isCreativeMode) {
+            --par1ItemStack.stackSize;
+        }
+        return true;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

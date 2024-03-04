@@ -1,113 +1,73 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.relauncher.Side;
-/*     */ import cpw.mods.fml.relauncher.SideOnly;
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.EntityLivingBase;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.init.Blocks;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.item.ItemStack;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ public class ItemPizza
-/*     */   extends Item
-/*     */ {
-/*     */   private Block spawnID;
-/*     */   
-/*     */   public ItemPizza(int par1, Block par2Block) {
-/*  22 */     this.spawnID = par2Block;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-/*  31 */     Block i1 = par3World.getBlock(par4, par5, par6);
-/*     */     
-/*  33 */     if (i1 == Blocks.snow && (par3World.getBlockMetadata(par4, par5, par6) & 0x7) < 1) {
-/*     */       
-/*  35 */       par7 = 1;
-/*     */     }
-/*  37 */     else if (i1 != Blocks.vine && i1 != Blocks.tallgrass && i1 != Blocks.deadbush) {
-/*     */       
-/*  39 */       if (par7 == 0)
-/*     */       {
-/*  41 */         par5--;
-/*     */       }
-/*     */       
-/*  44 */       if (par7 == 1)
-/*     */       {
-/*  46 */         par5++;
-/*     */       }
-/*     */       
-/*  49 */       if (par7 == 2)
-/*     */       {
-/*  51 */         par6--;
-/*     */       }
-/*     */       
-/*  54 */       if (par7 == 3)
-/*     */       {
-/*  56 */         par6++;
-/*     */       }
-/*     */       
-/*  59 */       if (par7 == 4)
-/*     */       {
-/*  61 */         par4--;
-/*     */       }
-/*     */       
-/*  64 */       if (par7 == 5)
-/*     */       {
-/*  66 */         par4++;
-/*     */       }
-/*     */     } 
-/*     */     
-/*  70 */     if (!par2EntityPlayer.canPlayerEdit(par4, par5, par6, par7, par1ItemStack))
-/*     */     {
-/*  72 */       return false;
-/*     */     }
-/*  74 */     if (par1ItemStack.stackSize == 0)
-/*     */     {
-/*  76 */       return false;
-/*     */     }
-/*     */ 
-/*     */     
-/*  80 */     if (par3World.canPlaceEntityOnSide(this.spawnID, par4, par5, par6, false, par7, (Entity)null, par1ItemStack)) {
-/*     */ 
-/*     */       
-/*  83 */       int j1 = this.spawnID.onBlockPlaced(par3World, par4, par5, par6, par7, par8, par9, par10, 0);
-/*     */       
-/*  85 */       if (par3World.setBlock(par4, par5, par6, this.spawnID, j1, 3)) {
-/*     */         
-/*  87 */         if (par3World.getBlock(par4, par5, par6) == this.spawnID) {
-/*     */           
-/*  89 */           this.spawnID.onBlockPlacedBy(par3World, par4, par5, par6, (EntityLivingBase)par2EntityPlayer, par1ItemStack);
-/*  90 */           this.spawnID.onPostBlockPlaced(par3World, par4, par5, par6, j1);
-/*     */         } 
-/*     */         
-/*  93 */         par3World.playSoundEffect((par4 + 0.5F), (par5 + 0.5F), (par6 + 0.5F), this.spawnID.stepSound.getStepResourcePath(), (this.spawnID.stepSound.getVolume() + 1.0F) / 2.0F, this.spawnID.stepSound.getPitch() * 0.8F);
-/*  94 */         par1ItemStack.stackSize--;
-/*     */       } 
-/*     */     } 
-/*     */     
-/*  98 */     return true;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void registerIcons(IIconRegister iconRegister) {
-/* 105 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\ItemPizza.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.block.*;
+import net.minecraft.item.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.world.*;
+import net.minecraft.init.*;
+import net.minecraft.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class ItemPizza extends Item
+{
+    private Block spawnID;
+    
+    public ItemPizza(final int par1, final Block par2Block) {
+        this.spawnID = par2Block;
+    }
+    
+    public boolean onItemUse(final ItemStack par1ItemStack, final EntityPlayer par2EntityPlayer, final World par3World, int par4, int par5, int par6, int par7, final float par8, final float par9, final float par10) {
+        final Block i1 = par3World.getBlock(par4, par5, par6);
+        if (i1 == Blocks.snow && (par3World.getBlockMetadata(par4, par5, par6) & 0x7) < 1) {
+            par7 = 1;
+        }
+        else if (i1 != Blocks.vine && i1 != Blocks.tallgrass && i1 != Blocks.deadbush) {
+            if (par7 == 0) {
+                --par5;
+            }
+            if (par7 == 1) {
+                ++par5;
+            }
+            if (par7 == 2) {
+                --par6;
+            }
+            if (par7 == 3) {
+                ++par6;
+            }
+            if (par7 == 4) {
+                --par4;
+            }
+            if (par7 == 5) {
+                ++par4;
+            }
+        }
+        if (!par2EntityPlayer.canPlayerEdit(par4, par5, par6, par7, par1ItemStack)) {
+            return false;
+        }
+        if (par1ItemStack.stackSize == 0) {
+            return false;
+        }
+        if (par3World.canPlaceEntityOnSide(this.spawnID, par4, par5, par6, false, par7, (Entity)null, par1ItemStack)) {
+            final int j1 = this.spawnID.onBlockPlaced(par3World, par4, par5, par6, par7, par8, par9, par10, 0);
+            if (par3World.setBlock(par4, par5, par6, this.spawnID, j1, 3)) {
+                if (par3World.getBlock(par4, par5, par6) == this.spawnID) {
+                    this.spawnID.onBlockPlacedBy(par3World, par4, par5, par6, (EntityLivingBase)par2EntityPlayer, par1ItemStack);
+                    this.spawnID.onPostBlockPlaced(par3World, par4, par5, par6, j1);
+                }
+                par3World.playSoundEffect((double)(par4 + 0.5f), (double)(par5 + 0.5f), (double)(par6 + 0.5f), this.spawnID.stepSound.getStepResourcePath(), (this.spawnID.stepSound.getVolume() + 1.0f) / 2.0f, this.spawnID.stepSound.getPitch() * 0.8f);
+                --par1ItemStack.stackSize;
+            }
+        }
+        return true;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}

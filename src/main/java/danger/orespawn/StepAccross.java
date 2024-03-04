@@ -1,141 +1,112 @@
-/*     */ package danger.orespawn;
-/*     */ 
-/*     */ import cpw.mods.fml.relauncher.Side;
-/*     */ import cpw.mods.fml.relauncher.SideOnly;
-/*     */ import net.minecraft.block.Block;
-/*     */ import net.minecraft.client.renderer.texture.IIconRegister;
-/*     */ import net.minecraft.creativetab.CreativeTabs;
-/*     */ import net.minecraft.entity.Entity;
-/*     */ import net.minecraft.entity.player.EntityPlayer;
-/*     */ import net.minecraft.init.Blocks;
-/*     */ import net.minecraft.item.Item;
-/*     */ import net.minecraft.item.ItemStack;
-/*     */ import net.minecraft.world.World;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class StepAccross
-/*     */   extends Item
-/*     */ {
-/*     */   public StepAccross(int i) {
-/*  29 */     this.maxStackSize = 16;
-/*  30 */     setCreativeTab(CreativeTabs.tabTools);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer Player, World world, int cposx, int cposy, int cposz, int par7, float par8, float par9, float par10) {
-/*  43 */     int deltax = 0, deltaz = 0;
-/*     */ 
-/*     */     
-/*  46 */     int length = 33;
-/*     */     
-/*  48 */     int x = cposx, y = cposy + 1, z = cposz;
-/*     */     
-/*  50 */     float f = Player.rotationYawHead;
-/*  51 */     f += 22.5F;
-/*  52 */     f %= 360.0F;
-/*  53 */     f /= 45.0F;
-/*  54 */     switch ((int)f) {
-/*     */       case 0:
-/*  56 */         deltax = 0;
-/*  57 */         deltaz = 1;
-/*     */         break;
-/*     */       case 1:
-/*  60 */         deltax = -1;
-/*  61 */         deltaz = 1;
-/*     */         break;
-/*     */       case 2:
-/*  64 */         deltax = -1;
-/*  65 */         deltaz = 0;
-/*     */         break;
-/*     */       case 3:
-/*  68 */         deltax = -1;
-/*  69 */         deltaz = -1;
-/*     */         break;
-/*     */       case 4:
-/*  72 */         deltax = 0;
-/*  73 */         deltaz = -1;
-/*     */         break;
-/*     */       case 5:
-/*  76 */         deltax = 1;
-/*  77 */         deltaz = -1;
-/*     */         break;
-/*     */       case 6:
-/*  80 */         deltax = 1;
-/*  81 */         deltaz = 0;
-/*     */         break;
-/*     */       case 7:
-/*  84 */         deltax = 1;
-/*  85 */         deltaz = 1;
-/*     */         break;
-/*     */     } 
-/*     */ 
-/*     */     
-/*  90 */     if (deltax == 0 && deltaz == 0) return false;
-/*     */     
-/*  92 */     Player.worldObj.playSoundAtEntity((Entity)Player, "random.explode", 1.0F, 1.5F);
-/*     */     
-/*  94 */     if (world.isRemote) {
-/*     */       
-/*  96 */       for (int var3 = 0; var3 < 6; var3++) {
-/*     */         
-/*  98 */         world.spawnParticle("largesmoke", (x + world.rand.nextFloat() - world.rand.nextFloat()), (y + world.rand.nextFloat()), (z + world.rand.nextFloat() - world.rand.nextFloat()), 0.0D, 0.0D, 0.0D);
-/*  99 */         world.spawnParticle("largeexplode", (x + world.rand.nextFloat() - world.rand.nextFloat()), (y + world.rand.nextFloat()), (z + world.rand.nextFloat() - world.rand.nextFloat()), 0.0D, 0.0D, 0.0D);
-/* 100 */         world.spawnParticle("reddust", (x + world.rand.nextFloat() - world.rand.nextFloat()), (y + world.rand.nextFloat()), (z + world.rand.nextFloat() - world.rand.nextFloat()), 0.0D, 0.0D, 0.0D);
-/*     */       } 
-/*     */       
-/* 103 */       return true;
-/*     */     } 
-/*     */     
-/* 106 */     for (int k = 1; k < length; ) {
-/* 107 */       Block bid = world.getBlock(x + k * deltax, y - 1, z + k * deltaz);
-/* 108 */       if (bid == Blocks.air) {
-/* 109 */         world.setBlock(x + k * deltax, y - 1, z + k * deltaz, Blocks.cobblestone, 0, 2);
-/*     */ 
-/*     */ 
-/*     */         
-/* 113 */         if ((k - 1) % 8 == 0) {
-/* 114 */           bid = world.getBlock(x + k * deltax, y, z + k * deltaz);
-/* 115 */           if (bid == Blocks.air) {
-/* 116 */             world.setBlock(x + k * deltax, y, z + k * deltaz, OreSpawnMain.ExtremeTorch, 0, 2);
-/*     */           }
-/*     */         } 
-/*     */         k++;
-/*     */       } 
-/*     */     } 
-/* 122 */     if (!Player.capabilities.isCreativeMode)
-/*     */     {
-/* 124 */       par1ItemStack.stackSize--;
-/*     */     }
-/*     */     
-/* 127 */     return true;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   @SideOnly(Side.CLIENT)
-/*     */   public void registerIcons(IIconRegister iconRegister) {
-/* 133 */     this.itemIcon = iconRegister.registerIcon("OreSpawn:" + getUnlocalizedName().substring(5));
-/*     */   }
-/*     */ }
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "/home/rhel/Descargas/1.7.10mappings"!
 
+//Decompiled by Procyon!
 
-/* Location:              C:\Users\Admin\Downloads\orespawn-1.7.10-20.3-deobf.jar!\danger\orespawn\StepAccross.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
+package danger.orespawn;
+
+import net.minecraft.creativetab.*;
+import net.minecraft.item.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.world.*;
+import net.minecraft.entity.*;
+import net.minecraft.init.*;
+import net.minecraft.block.*;
+import net.minecraft.client.renderer.texture.*;
+import cpw.mods.fml.relauncher.*;
+
+public class StepAccross extends Item
+{
+    public StepAccross(final int i) {
+        this.maxStackSize = 16;
+        this.setCreativeTab(CreativeTabs.tabTools);
+    }
+    
+    public boolean onItemUse(final ItemStack par1ItemStack, final EntityPlayer Player, final World world, final int cposx, final int cposy, final int cposz, final int par7, final float par8, final float par9, final float par10) {
+        int deltax = 0;
+        int deltaz = 0;
+        final int length = 33;
+        final int x = cposx;
+        final int y = cposy + 1;
+        final int z = cposz;
+        float f = Player.rotationYawHead;
+        f += 22.5f;
+        f %= 360.0f;
+        f /= 45.0f;
+        switch ((int)f) {
+            case 0: {
+                deltax = 0;
+                deltaz = 1;
+                break;
+            }
+            case 1: {
+                deltax = -1;
+                deltaz = 1;
+                break;
+            }
+            case 2: {
+                deltax = -1;
+                deltaz = 0;
+                break;
+            }
+            case 3: {
+                deltax = -1;
+                deltaz = -1;
+                break;
+            }
+            case 4: {
+                deltax = 0;
+                deltaz = -1;
+                break;
+            }
+            case 5: {
+                deltax = 1;
+                deltaz = -1;
+                break;
+            }
+            case 6: {
+                deltax = 1;
+                deltaz = 0;
+                break;
+            }
+            case 7: {
+                deltax = 1;
+                deltaz = 1;
+                break;
+            }
+        }
+        if (deltax == 0 && deltaz == 0) {
+            return false;
+        }
+        Player.worldObj.playSoundAtEntity((Entity)Player, "random.explode", 1.0f, 1.5f);
+        if (world.isRemote) {
+            for (int var3 = 0; var3 < 6; ++var3) {
+                world.spawnParticle("largesmoke", (double)(x + world.rand.nextFloat() - world.rand.nextFloat()), (double)(y + world.rand.nextFloat()), (double)(z + world.rand.nextFloat() - world.rand.nextFloat()), 0.0, 0.0, 0.0);
+                world.spawnParticle("largeexplode", (double)(x + world.rand.nextFloat() - world.rand.nextFloat()), (double)(y + world.rand.nextFloat()), (double)(z + world.rand.nextFloat() - world.rand.nextFloat()), 0.0, 0.0, 0.0);
+                world.spawnParticle("reddust", (double)(x + world.rand.nextFloat() - world.rand.nextFloat()), (double)(y + world.rand.nextFloat()), (double)(z + world.rand.nextFloat() - world.rand.nextFloat()), 0.0, 0.0, 0.0);
+            }
+            return true;
+        }
+        for (int k = 1; k < length; ++k) {
+            Block bid = world.getBlock(x + k * deltax, y - 1, z + k * deltaz);
+            if (bid != Blocks.air) {
+                break;
+            }
+            world.setBlock(x + k * deltax, y - 1, z + k * deltaz, Blocks.cobblestone, 0, 2);
+            if ((k - 1) % 8 == 0) {
+                bid = world.getBlock(x + k * deltax, y, z + k * deltaz);
+                if (bid == Blocks.air) {
+                    world.setBlock(x + k * deltax, y, z + k * deltaz, OreSpawnMain.ExtremeTorch, 0, 2);
+                }
+            }
+        }
+        if (!Player.capabilities.isCreativeMode) {
+            --par1ItemStack.stackSize;
+        }
+        return true;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(final IIconRegister iconRegister) {
+        this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));
+    }
+}
