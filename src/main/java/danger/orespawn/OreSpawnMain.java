@@ -894,6 +894,11 @@ public class OreSpawnMain
     public static Item MinersDream;
     public static Block ExtremeTorch;
     public static Block MyEnderPearlBlock;
+    public static Block Garnet;
+    public static Block Charoite;
+    public static Block Citrine;
+    public static Block Malachite;
+    public static Block Aquamarine;
     public static Block MyEyeOfEnderBlock;
     public static Block MyExperiencePlant;
     public static Block KrakenRepellent;
@@ -1636,6 +1641,8 @@ public class OreSpawnMain
         OreSpawnMain.MyCrystalPlant2 = new BlockCrystalPlant(OreSpawnMain.BaseBlockID + 223).setBlockName("crystalsapling2");
         OreSpawnMain.MyCrystalPlant3 = new BlockCrystalPlant(OreSpawnMain.BaseBlockID + 224).setBlockName("crystalsapling3");
         OreSpawnMain.MyEnderPearlBlock = new OreGenericEgg(OreSpawnMain.BaseBlockID + 111).setBlockName("blockenderpearl");
+        OreSpawnMain.Garnet = new CrystalTreeBlock(OreSpawnMain.BaseBlockID + 385).setBlockName("blockgarnet");
+
         OreSpawnMain.MyEyeOfEnderBlock = new OreGenericEgg(OreSpawnMain.BaseBlockID + 112).setBlockName("blockeyeofender");
         this.make_some_more_things();
     }
@@ -1847,6 +1854,7 @@ public class OreSpawnMain
         GameRegistry.registerBlock(OreSpawnMain.MyQueenSpawnerBlock, "OreSpawn_QueenSpawner");
         GameRegistry.registerBlock(OreSpawnMain.MyDungeonSpawnerBlock, "OreSpawn_DungeonSpawner");
         GameRegistry.registerBlock(OreSpawnMain.MyEnderPearlBlock, "OreSpawn_EnderPearlBlock");
+        GameRegistry.registerBlock(OreSpawnMain.Garnet, "OreSpawn_Garnet");
         GameRegistry.registerBlock(OreSpawnMain.MyEyeOfEnderBlock, "OreSpawn_EyeOfEnderBlock");
         GameRegistry.registerBlock(OreSpawnMain.MyAntBlock, "OreSpawn_AntBlock");
         GameRegistry.registerBlock(OreSpawnMain.MyRedAntBlock, "OreSpawn_RedAntBlock");
@@ -2728,6 +2736,9 @@ public class OreSpawnMain
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.MyTigersEyeBlock, "en_US", "Tiger's Eye Block");
         final ItemStack EnderPearlStack = new ItemStack(OreSpawnMain.MyEnderPearlBlock);
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.MyEnderPearlBlock, "en_US", "Ender-Pearl Block");
+        final ItemStack GarnetCrystalStack = new ItemStack(OreSpawnMain.Garnet);
+        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.Garnet, "en_US", "Garnet");
+
         final ItemStack EyeOfEnderStack = new ItemStack(OreSpawnMain.MyEyeOfEnderBlock);
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.MyEyeOfEnderBlock, "en_US", "Eye-of-Ender Block");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.MyRTPBlock, "en_US", "Random Teleport Block");

@@ -941,4 +941,6 @@ public class OreSpawnConstants
     public static final int SpiderDriverCageIndex = 382;
     public static final int CrabEggIndex = 383;
     public static final int CrabCageIndex = 384;
+    public static final int GarnetBlockID = 385;
+
 }
