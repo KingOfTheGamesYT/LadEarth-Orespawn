@@ -122,7 +122,7 @@ public class Trees
         this.SkyTreeBranch(world, x, height, z, width, 0, 1);
         this.SkyTreeBranch(world, x, height, z, width, 0, -1);
     }
-    
+
     public void DuplicatorTree(final World world, final int x, final int y, final int z) {
         int realy = y;
         Block bid = world.getBlock(x, y - 1, z);
@@ -134,8 +134,7 @@ public class Trees
                     return;
                 }
                 realy = y - 3;
-            }
-            else {
+            } else {
                 realy = y - 2;
             }
             return;
@@ -173,7 +172,12 @@ public class Trees
             }
         }
         Block bidm = Blocks.air;
+        final long startTime = world.getTotalWorldTime();
+
         for (int tries = 0; tries < 20 && (bidm == Blocks.air || bidm == OreSpawnMain.MyDT); ++tries) {
+            if (world.getTotalWorldTime() - startTime >= 48L * 60L * 60L * 20L) {
+                break;
+            }
             int i = world.rand.nextInt(5) - 2;
             int j = world.rand.nextInt(5) - 2;
             bidm = world.getBlock(x + i, realy + 1, z + j);
@@ -191,7 +195,6 @@ public class Trees
             }
         }
     }
-    
     private void make_leaves(final World world, final int x, final int y, final int z) {
         for (int l1 = -3; l1 <= 3; ++l1) {
             for (int l2 = -3; l2 <= 3; ++l2) {
