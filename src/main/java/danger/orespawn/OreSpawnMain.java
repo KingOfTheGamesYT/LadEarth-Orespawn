@@ -895,7 +895,7 @@ public class OreSpawnMain
     public static Block ExtremeTorch;
     public static Block MyEnderPearlBlock;
     public static Block Garnet;
-    public static Block Charoite;
+    public static Block Chaorite;
     public static Block Citrine;
     public static Block Malachite;
     public static Block Aquamarine;
@@ -1642,7 +1642,10 @@ public class OreSpawnMain
         OreSpawnMain.MyCrystalPlant3 = new BlockCrystalPlant(OreSpawnMain.BaseBlockID + 224).setBlockName("crystalsapling3");
         OreSpawnMain.MyEnderPearlBlock = new OreGenericEgg(OreSpawnMain.BaseBlockID + 111).setBlockName("blockenderpearl");
         OreSpawnMain.Garnet = new CrystalTreeBlock(OreSpawnMain.BaseBlockID + 385).setBlockName("blockgarnet");
-
+        OreSpawnMain.Chaorite = new CrystalTreeBlock(OreSpawnMain.BaseBlockID + 386).setBlockName("blockchaorite");
+        OreSpawnMain.Citrine = new CrystalTreeBlock(OreSpawnMain.BaseBlockID + 387).setBlockName("blockcitrine");
+        OreSpawnMain.Malachite = new CrystalTreeBlock(OreSpawnMain.BaseBlockID + 388).setBlockName("blockmalachite");
+        OreSpawnMain.Aquamarine = new CrystalTreeBlock(OreSpawnMain.BaseBlockID + 389).setBlockName("blockaquamarine");
         OreSpawnMain.MyEyeOfEnderBlock = new OreGenericEgg(OreSpawnMain.BaseBlockID + 112).setBlockName("blockeyeofender");
         this.make_some_more_things();
     }
@@ -1855,6 +1858,10 @@ public class OreSpawnMain
         GameRegistry.registerBlock(OreSpawnMain.MyDungeonSpawnerBlock, "OreSpawn_DungeonSpawner");
         GameRegistry.registerBlock(OreSpawnMain.MyEnderPearlBlock, "OreSpawn_EnderPearlBlock");
         GameRegistry.registerBlock(OreSpawnMain.Garnet, "OreSpawn_Garnet");
+        GameRegistry.registerBlock(OreSpawnMain.Chaorite, "OreSpawn_Chaorite");
+        GameRegistry.registerBlock(OreSpawnMain.Citrine, "OreSpawn_Citrine");
+        GameRegistry.registerBlock(OreSpawnMain.Malachite, "OreSpawn_Malachite");
+        GameRegistry.registerBlock(OreSpawnMain.Aquamarine, "OreSpawn_Aquamarine");
         GameRegistry.registerBlock(OreSpawnMain.MyEyeOfEnderBlock, "OreSpawn_EyeOfEnderBlock");
         GameRegistry.registerBlock(OreSpawnMain.MyAntBlock, "OreSpawn_AntBlock");
         GameRegistry.registerBlock(OreSpawnMain.MyRedAntBlock, "OreSpawn_RedAntBlock");
@@ -2738,7 +2745,14 @@ public class OreSpawnMain
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.MyEnderPearlBlock, "en_US", "Ender-Pearl Block");
         final ItemStack GarnetCrystalStack = new ItemStack(OreSpawnMain.Garnet);
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.Garnet, "en_US", "Garnet");
-
+        final ItemStack ChaoriteCrystalStack = new ItemStack(OreSpawnMain.Chaorite);
+        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.Chaorite, "en_US", "Chaorite");
+        final ItemStack CitrineCrystalStack = new ItemStack(OreSpawnMain.Citrine);
+        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.Citrine, "en_US", "Citrine");
+        final ItemStack MalachiteCrystalStack = new ItemStack(OreSpawnMain.Malachite);
+        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.Malachite, "en_US", "Malachite");
+        final ItemStack AquamarineCrystalStack = new ItemStack(OreSpawnMain.Aquamarine);
+        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.Aquamarine, "en_US", "Aquamarine");
         final ItemStack EyeOfEnderStack = new ItemStack(OreSpawnMain.MyEyeOfEnderBlock);
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.MyEyeOfEnderBlock, "en_US", "Eye-of-Ender Block");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.MyRTPBlock, "en_US", "Random Teleport Block");
