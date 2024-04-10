@@ -18,6 +18,7 @@ public class CrystalTreeBlock extends Block
         super(Material.rock);
         this.setHardness(49.0f);
         this.setResistance(1999.0f);
+        this.setHarvestLevel("pickaxe", 2);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
