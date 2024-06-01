@@ -221,7 +221,7 @@ public class ThePrincess extends EntityTameable
             }
             return true;
         }
-        if (this.isTamed() && var2 != null && var2.getItem() == Item.getItemFromBlock(Blocks.ice) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0 && this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
+        if (this.isTamed() && var2 != null && var2.getItem() == Item.getItemFromBlock(OreSpawnMain.PrinceIce) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 16.0 && this.func_152114_e((EntityLivingBase)par1EntityPlayer)) {
             if (!this.worldObj.isRemote) {
                 this.playTameEffect(true);
                 this.worldObj.setEntityState((Entity)this, (byte)6);

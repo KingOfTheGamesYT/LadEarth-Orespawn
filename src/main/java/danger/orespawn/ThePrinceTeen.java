@@ -1222,7 +1222,7 @@ public class ThePrinceTeen extends EntityTameable
                 }
                 return true;
             }
-            if (var2 != null && var2.getItem() == Item.getItemFromBlock(Blocks.ice) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 25.0) {
+            if (var2 != null && var2.getItem() == Item.getItemFromBlock(OreSpawnMain.PrinceIce) && par1EntityPlayer.getDistanceSqToEntity((Entity)this) < 25.0) {
                 if (!this.worldObj.isRemote) {
                     this.playTameEffect(true);
                     this.worldObj.setEntityState((Entity)this, (byte)6);

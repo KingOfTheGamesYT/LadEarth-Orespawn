@@ -81,7 +81,7 @@ public class IceBall extends LaserBall
                 x += (int)par1MovingObjectPosition.hitVec.xCoord;
                 y += (int)par1MovingObjectPosition.hitVec.yCoord;
                 z += (int)par1MovingObjectPosition.hitVec.zCoord;
-                this.worldObj.setBlock(x, y, z, Blocks.ice);
+                this.worldObj.setBlock(x, y, z, OreSpawnMain.PrinceIce);
             }
         }
         this.setDead();

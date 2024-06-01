@@ -936,6 +936,7 @@ public class OreSpawnMain
     public static Block MyCrystalLeaves2;
     public static Block MyCrystalLeaves3;
     public static Block MyCrystalTreeLog;
+    public static Block PrinceIce = new PrinceIce().setHardness(0.5F).setLightOpacity(3).setStepSound(Block.soundTypeGlass); 
     public static int GirlfriendID;
     public static int BoyfriendID;
     public static int RedCowID;
@@ -1869,6 +1870,8 @@ public class OreSpawnMain
         GameRegistry.registerBlock(OreSpawnMain.CrystalTermiteBlock, "OreSpawn_CrystalTermiteBlock");
         GameRegistry.registerBlock(OreSpawnMain.MyRainbowAntBlock, "OreSpawn_RainbowAntBlock");
         GameRegistry.registerBlock(OreSpawnMain.MyUnstableAntBlock, "OreSpawn_UnstableAntBlock");
+        GameRegistry.registerBlock(OreSpawnMain.PrinceIce, "prince_ice");
+
         GameRegistry.registerItem(OreSpawnMain.MyIngotUranium, "OreSpawn_IngotUranium");
         GameRegistry.registerItem(OreSpawnMain.MyCrystalPinkIngot, "OreSpawn_CrystalPinkIngot");
         GameRegistry.registerItem(OreSpawnMain.MyTigersEyeIngot, "OreSpawn_TigersEyeIngot");
@@ -6379,7 +6382,7 @@ public class OreSpawnMain
         OreSpawnMain.IslandSizeFactor = 2;
         OreSpawnMain.GinormousEmeraldTreeEnable = 1;
         OreSpawnMain.GuiOverlayEnable = 1;
-        OreSpawnMain.FastGraphicsLeaves = 0;
+        OreSpawnMain.FastGraphicsLeaves = 1;
         OreSpawnMain.WormEnable = 1;
         OreSpawnMain.CloudSharkEnable = 1;
         OreSpawnMain.GoldFishEnable = 1;
