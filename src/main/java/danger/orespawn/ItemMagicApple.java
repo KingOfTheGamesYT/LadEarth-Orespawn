@@ -209,10 +209,10 @@ public class ItemMagicApple extends Item
                                         else {
                                             final int ilt = this.rand.nextInt(4);
                                             if (ilt == 0) {
-                                                local_leaf_type = OreSpawnMain.MyBlockUraniumBlock;
+                                                local_leaf_type = OreSpawnMain.CrystallizedUranium;
                                             }
                                             if (ilt == 1) {
-                                                local_leaf_type = OreSpawnMain.MyBlockTitaniumBlock;
+                                                local_leaf_type = OreSpawnMain.CrystallizedTitanium;
                                             }
                                             if (ilt == 2) {
                                                 local_leaf_type = OreSpawnMain.Garnet;
