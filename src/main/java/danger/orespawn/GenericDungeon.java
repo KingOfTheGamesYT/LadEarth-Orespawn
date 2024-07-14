@@ -5039,12 +5039,12 @@ public class GenericDungeon
         world.setBlock(cposx + 1, cposy + 3, cposz, Blocks.mob_spawner, 0, 2);
         tileentitymobspawner = this.getSpawnerTileEntity(world, cposx + 1, cposy + 3, cposz);
         if (tileentitymobspawner != null) {
-            tileentitymobspawner.func_145881_a().setEntityName("Girlfriend");
+            tileentitymobspawner.func_145881_a().setEntityName("Friend");
         }
         world.setBlock(cposx - 1, cposy + 3, cposz, Blocks.mob_spawner, 0, 2);
         tileentitymobspawner = this.getSpawnerTileEntity(world, cposx - 1, cposy + 3, cposz);
         if (tileentitymobspawner != null) {
-            tileentitymobspawner.func_145881_a().setEntityName("Boyfriend");
+            tileentitymobspawner.func_145881_a().setEntityName("Friend");
         }
         world.setBlock(cposx, cposy + 3, cposz + 1, Blocks.mob_spawner, 0, 2);
         tileentitymobspawner = this.getSpawnerTileEntity(world, cposx, cposy + 3, cposz + 1);

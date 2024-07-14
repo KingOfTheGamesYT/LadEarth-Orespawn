@@ -16,14 +16,14 @@ import cpw.mods.fml.relauncher.*;
 public class ItemSpawnEgg extends Item
 {
     public int my_id;
-    
+
     public ItemSpawnEgg(final int i, final int j) {
         this.my_id = 0;
         this.my_id = j;
         this.maxStackSize = 64;
         this.setCreativeTab(CreativeTabs.tabMisc);
     }
-    
+
     public boolean onItemUse(final ItemStack par1ItemStack, final EntityPlayer par2EntityPlayer, final World par3World, final int par4, final int par5, final int par6, final int par7, final float par8, final float par9, final float par10) {
         if (par3World.isRemote) {
             return true;
@@ -37,7 +37,7 @@ public class ItemSpawnEgg extends Item
         }
         return true;
     }
-    
+
     public static Entity spawn_something(final int id, final World world, final double d0, final double d1, final double d2) {
         int entityID = 0;
         int skelly_type = 0;
@@ -511,7 +511,7 @@ public class ItemSpawnEgg extends Item
         }
         return ent;
     }
-    
+
     public static Entity spawnCreature(final World par0World, final int par1, final String name, final double par2, final double par4, final double par6) {
         Entity var8 = null;
         if (name == null) {
@@ -527,7 +527,7 @@ public class ItemSpawnEgg extends Item
         }
         return var8;
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void registerIcons(final IIconRegister iconRegister) {
         this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));

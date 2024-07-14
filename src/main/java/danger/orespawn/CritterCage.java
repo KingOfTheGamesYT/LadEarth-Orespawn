@@ -16,14 +16,14 @@ import cpw.mods.fml.relauncher.*;
 public class CritterCage extends Item
 {
     public int cage_id;
-    
+
     public CritterCage(final int i, final int j) {
         this.cage_id = 0;
         this.cage_id = j;
         this.maxStackSize = 16;
         this.setCreativeTab(CreativeTabs.tabMisc);
     }
-    
+
     public ItemStack onItemRightClick(final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer) {
         final CritterCage cc = (CritterCage)OreSpawnMain.CageEmpty;
         if (this.cage_id == cc.cage_id) {
@@ -37,7 +37,7 @@ public class CritterCage extends Item
         }
         return par1ItemStack;
     }
-    
+
     public boolean onItemUse(final ItemStack par1ItemStack, final EntityPlayer par2EntityPlayer, final World par3World, final int par4, final int par5, final int par6, final int par7, final float par8, final float par9, final float par10) {
         final CritterCage cc = (CritterCage)OreSpawnMain.CageEmpty;
         if (this.cage_id == cc.cage_id) {
@@ -172,11 +172,11 @@ public class CritterCage extends Item
                 break;
             }
             case 183: {
-                name = "Girlfriend";
+                name = "Friend (Girl)";
                 break;
             }
             case 215: {
-                name = "Boyfriend";
+                name = "Friend (Boy)";
                 break;
             }
             case 189: {
@@ -528,7 +528,7 @@ public class CritterCage extends Item
         }
         return false;
     }
-    
+
     public static Entity spawnCreature(final World par0World, final int par1, final String name, final double par2, final double par4, final double par6) {
         Entity var8 = null;
         if (name == null) {
@@ -548,7 +548,7 @@ public class CritterCage extends Item
         }
         return var8;
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void registerIcons(final IIconRegister iconRegister) {
         this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));

@@ -19,11 +19,11 @@ public class GirlfriendOverlayGui extends Gui
 {
     private Minecraft mc;
     private static final ResourceLocation texture;
-    
+
     public GirlfriendOverlayGui(final Minecraft mc) {
         this.mc = mc;
     }
-    
+
     @SubscribeEvent
     public void onRenderOverlay(final RenderGameOverlayEvent event) {
         if (event.isCancelable() || event.type != RenderGameOverlayEvent.ElementType.HOTBAR) {
@@ -79,7 +79,7 @@ public class GirlfriendOverlayGui extends Gui
                 outstring = gf.getCustomNameTag();
             }
             if (outstring == null || outstring.equals("")) {
-                outstring = "Girlfriend";
+                outstring = "Friend";
             }
             gfHealth = gf.getGirlfriendHealth() / gf.getMaxHealth();
         }
@@ -96,7 +96,7 @@ public class GirlfriendOverlayGui extends Gui
                 outstring = gf2.getCustomNameTag();
             }
             if (outstring == null || outstring.equals("")) {
-                outstring = "Boyfriend";
+                outstring = "Friend";
             }
             gfHealth = gf2.getBoyfriendHealth() / gf2.getMaxHealth();
         }
@@ -408,7 +408,7 @@ public class GirlfriendOverlayGui extends Gui
             this.drawTexturedModalRect(x, y, u, v + barHeight, barWidthFilled, barHeight);
         }
     }
-    
+
     static {
         texture = new ResourceLocation("orespawn", "girlfriendgui.png");
     }

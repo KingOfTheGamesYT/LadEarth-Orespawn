@@ -3275,8 +3275,8 @@ public class OreSpawnMain
         OreSpawnMain.GirlfriendID = EntityRegistry.findGlobalUniqueEntityId();
         EntityRegistry.instance();
         EntityRegistry.registerGlobalEntityID((Class)Girlfriend.class, "Girlfriend", OreSpawnMain.GirlfriendID);
-        LanguageRegistry.instance().addStringLocalization("Girlfriend", "en_US", "Girlfriend");
-        LanguageRegistry.instance().addStringLocalization("entity.Girlfriend.name", "en_US", "Girlfriend");
+        LanguageRegistry.instance().addStringLocalization("Girlfriend", "en_US", "Friend");
+        LanguageRegistry.instance().addStringLocalization("entity.Girlfriend.name", "en_US", "Friend");
         EntityRegistry.instance();
         EntityRegistry.registerModEntity((Class)Girlfriend.class, "Girlfriend", OreSpawnMain.GirlfriendID, (Object)this, 64, 1, false);
         EntityRegistry.instance();
@@ -4013,8 +4013,8 @@ public class OreSpawnMain
         OreSpawnMain.BoyfriendID = EntityRegistry.findGlobalUniqueEntityId();
         EntityRegistry.instance();
         EntityRegistry.registerGlobalEntityID((Class)Boyfriend.class, "Boyfriend", OreSpawnMain.BoyfriendID);
-        LanguageRegistry.instance().addStringLocalization("Boyfriend", "en_US", "Boyfriend");
-        LanguageRegistry.instance().addStringLocalization("entity.Boyfriend.name", "en_US", "Boyfriend");
+        LanguageRegistry.instance().addStringLocalization("Boyfriend", "en_US", "Friend");
+        LanguageRegistry.instance().addStringLocalization("entity.Boyfriend.name", "en_US", "Friend");
         EntityRegistry.instance();
         EntityRegistry.registerModEntity((Class)Boyfriend.class, "Boyfriend", OreSpawnMain.BoyfriendID, (Object)this, 64, 1, false);
         EntityRegistry.instance();
@@ -4844,8 +4844,8 @@ public class OreSpawnMain
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.CagedMooshroom, "en_US", "Caged Mooshroom");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.CagedOcelot, "en_US", "Caged Ocelot");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.CagedBlaze, "en_US", "Caged Blaze");
-        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.CagedGirlfriend, "en_US", "Caged Girlfriend");
-        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.CagedBoyfriend, "en_US", "Caged Boyfriend");
+        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.CagedGirlfriend, "en_US", "Caged Friend (Girl)");
+        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.CagedBoyfriend, "en_US", "Caged Friend (Boy)");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.CagedWitherSkeleton, "en_US", "Caged Wither Skeleton");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.CagedEnderDragon, "en_US", "Caged Ender Dragon");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.CagedSnowGolem, "en_US", "Caged Snow Golem");
@@ -4941,8 +4941,8 @@ public class OreSpawnMain
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.SnowGolemEgg, "en_US", "Spawn Snow Golem");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.IronGolemEgg, "en_US", "Spawn Iron Golem");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.WitherBossEgg, "en_US", "Spawn Wither Boss");
-        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.GirlfriendEgg, "en_US", "Spawn Girlfriend");
-        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.BoyfriendEgg, "en_US", "Spawn Boyfriend");
+        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.GirlfriendEgg, "en_US", "Spawn Friend (Girl)");
+        LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.BoyfriendEgg, "en_US", "Spawn Friend (Boy)");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.TheKingEgg, "en_US", "Spawn The King");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.TheQueenEgg, "en_US", "Spawn The Queen");
         LanguageRegistry.instance().addNameForObject((Object)OreSpawnMain.ThePrinceEgg, "en_US", "Spawn The Prince");
