@@ -26,7 +26,7 @@ public class ItemMagicApple extends Item
     public boolean no_critters;
     Random rand;
     private final WeightedRandomChestContent[] chestContentsList;
-    
+
     public ItemMagicApple(final int i) {
         this.tree_radius = 6;
         this.no_critters = false;
@@ -35,11 +35,11 @@ public class ItemMagicApple extends Item
         this.maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
-    
+
     public void onCreated(final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer) {
         par1ItemStack.addEnchantment(Enchantment.fortune, 2);
     }
-    
+
     private Entity spawnCreature(final World par0World, final int par1, final double par2, final double par4, final double par6) {
         Entity var8 = null;
         var8 = EntityList.createEntityByID(par1, par0World);
@@ -50,18 +50,18 @@ public class ItemMagicApple extends Item
         }
         return var8;
     }
-    
+
     public void onUsingTick(final ItemStack stack, final EntityPlayer player, final int count) {
         final int lvl = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack);
         if (lvl <= 0) {
             stack.addEnchantment(Enchantment.fortune, 2);
         }
     }
-    
+
     public void onUpdate(final ItemStack stack, final World par2World, final Entity par3Entity, final int par4, final boolean par5) {
         this.onUsingTick(stack, null, 0);
     }
-    
+
     private Boolean isBoringBlock(final World world, final int x, final int y, final int z) {
         final Block var1 = world.getBlock(x, y, z);
         if (var1 == Blocks.tallgrass) {
@@ -96,7 +96,7 @@ public class ItemMagicApple extends Item
         }
         return false;
     }
-    
+
     private Boolean isBoringBaseBlock(final World world, final int x, final int y, final int z) {
         if (world.isAirBlock(x, y, z)) {
             return true;
@@ -110,7 +110,7 @@ public class ItemMagicApple extends Item
         }
         return true;
     }
-    
+
     private void growVines(final World world, final int par2, int par3, final int par4, final int par5, int par6, final Chunk chunk) {
         if (world.getBlock(par2, par3, par4) != Blocks.air) {
             return;
@@ -125,7 +125,7 @@ public class ItemMagicApple extends Item
             --par6;
         }
     }
-    
+
     private void make_branch(final World world, final int x, final int y, final int z, final int this_width, final int dirx, final int dirz, final Block ID, final Block leafID, final int tree_type, final int t_radius, final boolean bad_critters, final Chunk chunk) {
         int current_width = this_width;
         int last_branch = 0;
@@ -215,10 +215,10 @@ public class ItemMagicApple extends Item
                                                 local_leaf_type = OreSpawnMain.MyBlockTitaniumBlock;
                                             }
                                             if (ilt == 2) {
-                                                local_leaf_type = OreSpawnMain.MyBlockRubyBlock;
+                                                local_leaf_type = OreSpawnMain.Garnet;
                                             }
                                             if (ilt == 3) {
-                                                local_leaf_type = OreSpawnMain.MyBlockAmethystBlock;
+                                                local_leaf_type = OreSpawnMain.Chaorite;
                                             }
                                         }
                                     }
@@ -251,7 +251,7 @@ public class ItemMagicApple extends Item
             --current_width;
         }
     }
-    
+
     public void MakeBigSquareTree(final World world, final int x, final int y, final int z, final Block ID, final Block leafID, final Block stepID, final int tree_type, final int t_radius, final boolean bad_critters, final Chunk chunk) {
         int this_height = t_radius + this.rand.nextInt(t_radius);
         int this_width = t_radius;
@@ -473,9 +473,9 @@ public class ItemMagicApple extends Item
             this_height += this.rand.nextInt(t_radius);
         }
         if (this.isBoringBaseBlock(world, x, current_y, z)) {
-            this.FastSetBlock(world, x, current_y, z, Blocks.emerald_block, 0, 2, chunk);
-            this.FastSetBlock(world, x, current_y + 1, z, Blocks.emerald_block, 0, 2, chunk);
-            if (stepID == Blocks.diamond_block) {
+            this.FastSetBlock(world, x, current_y, z, OreSpawnMain.Malachite, 0, 2, chunk);
+            this.FastSetBlock(world, x, current_y + 1, z, OreSpawnMain.Malachite, 0, 2, chunk);
+            if (stepID == OreSpawnMain.Aquamarine) {
                 Entity var8 = null;
                 var8 = EntityList.createEntityByName("The King", world);
                 if (var8 != null) {
@@ -485,7 +485,7 @@ public class ItemMagicApple extends Item
                     ((TheKing)var8).setGuardMode(1);
                 }
             }
-            if (stepID == OreSpawnMain.MyBlockAmethystBlock) {
+            if (stepID == OreSpawnMain.Chaorite) {
                 Entity var8 = null;
                 var8 = EntityList.createEntityByName("The Queen", world);
                 if (var8 != null) {
@@ -498,7 +498,7 @@ public class ItemMagicApple extends Item
             }
         }
     }
-    
+
     private void MakeCirclularBranch(final World world, final int iangle, final int branchlen, final int width, final int startx, final int starty, final int startz, final int twist, final Block ID, final Block leafID, final int tree_type, final Chunk chunk) {
         double curlen = 0.0;
         int curangle = iangle;
@@ -569,7 +569,7 @@ public class ItemMagicApple extends Item
             }
         }
     }
-    
+
     public void MakeBigCircularTree(final World world, final int x, final int y, final int z, final Block ID, final Block leafID, final Block stepID, final int tree_type, final int t_radius, final boolean bad_critters, final Chunk chunk) {
         double rad = t_radius;
         int curx = 0;
@@ -672,11 +672,11 @@ public class ItemMagicApple extends Item
             ++cury;
             rad -= 0.01 * this.rand.nextInt(15);
             if (rad <= 0.0 && this.isBoringBaseBlock(world, x, y + cury, z)) {
-                this.FastSetBlock(world, x, y + cury, z, Blocks.diamond_block, 0, 2, chunk);
+                this.FastSetBlock(world, x, y + cury, z, OreSpawnMain.Aquamarine, 0, 2, chunk);
             }
         }
     }
-    
+
     public void MakeBigRoundTree(final World world, final int inx, final int y, final int inz, final Block ID, final Block leafID, final Block stepID, final int tree_type, final int t_radius, final Chunk chunk) {
         double rad = t_radius;
         int cury = 0;
@@ -756,11 +756,11 @@ public class ItemMagicApple extends Item
             ++cury;
             rad -= 0.01 * world.rand.nextInt(15);
             if (rad <= 0.0 && this.isBoringBaseBlock(world, (int)fx, y + cury, (int)fz)) {
-                this.FastSetBlock(world, (int)fx, y + cury, (int)fz, Blocks.diamond_block, 0, 2, chunk);
+                this.FastSetBlock(world, (int)fx, y + cury, (int)fz, OreSpawnMain.Aquamarine, 0, 2, chunk);
             }
         }
     }
-    
+
     private void MakeRoundBranch(final World world, final int iangle, final int branchlen, final int width, final float startx, final int starty, final float startz, final Block ID, final Block leafID, final int tree_type, final Chunk chunk) {
         final double deltadir = 0.06283185200000001;
         final double deltamag = 0.3499999940395355;
@@ -790,11 +790,11 @@ public class ItemMagicApple extends Item
             }
         }
     }
-    
+
     public void FastSetBlock(final World world, final int ix, final int iy, final int iz, final Block id, final int im, final int iflg, final Chunk chunk) {
         OreSpawnMain.setBlockSuperFast(world, ix, iy, iz, id, im, 2, chunk);
     }
-    
+
     public boolean onItemUse(final ItemStack par1ItemStack, final EntityPlayer par2EntityPlayer, final World world, final int clickedX, final int clickedY, final int clickedZ, final int par7, final float par8, final float par9, final float par10) {
         final Block var1 = world.getBlock(clickedX, clickedY, clickedZ);
         if (var1 != Blocks.grass && var1 != Blocks.farmland && var1 != Blocks.dirt) {
@@ -807,7 +807,7 @@ public class ItemMagicApple extends Item
             this.no_critters = false;
         }
         if (!world.isRemote) {
-            world.setBlock(clickedX, clickedY, clickedZ, Blocks.gold_block, 0, 2);
+            world.setBlock(clickedX, clickedY, clickedZ, OreSpawnMain.Citrine, 0, 2);
         }
         for (int var2 = 0; var2 < 6; ++var2) {
             par2EntityPlayer.worldObj.spawnParticle("largesmoke", (double)(clickedX + 0.5f), (double)(clickedY + 1 + 0.25f), (double)(clickedZ + 0.5f), 0.0, 0.0, 0.0);
@@ -831,10 +831,10 @@ public class ItemMagicApple extends Item
             else if (rand_treetype == 1) {
                 if (OreSpawnMain.GinormousEmeraldTreeEnable != 0) {
                     if (this.rand.nextInt(2) == 0) {
-                        this.MakeBigSquareTree(world, clickedX, clickedY, clickedZ, Blocks.gold_block, Blocks.emerald_block, Blocks.diamond_block, -1, this.tree_radius, true, null);
+                        this.MakeBigSquareTree(world, clickedX, clickedY, clickedZ, OreSpawnMain.Citrine, OreSpawnMain.Malachite, OreSpawnMain.Aquamarine, -1, this.tree_radius, true, null);
                     }
                     else {
-                        this.MakeBigSquareTree(world, clickedX, clickedY, clickedZ, Blocks.obsidian, OreSpawnMain.MyBlockRubyBlock, OreSpawnMain.MyBlockAmethystBlock, -1, this.tree_radius, true, null);
+                        this.MakeBigSquareTree(world, clickedX, clickedY, clickedZ, Blocks.obsidian, OreSpawnMain.Garnet, OreSpawnMain.Chaorite, -1, this.tree_radius, true, null);
                     }
                 }
                 else {
@@ -850,7 +850,7 @@ public class ItemMagicApple extends Item
         }
         return true;
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void registerIcons(final IIconRegister iconRegister) {
         this.itemIcon = iconRegister.registerIcon("OreSpawn:" + this.getUnlocalizedName().substring(5));

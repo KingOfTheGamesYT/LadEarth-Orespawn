@@ -936,7 +936,7 @@ public class OreSpawnMain
     public static Block MyCrystalLeaves2;
     public static Block MyCrystalLeaves3;
     public static Block MyCrystalTreeLog;
-    public static Block PrinceIce = new PrinceIce().setHardness(0.5F).setLightOpacity(3).setStepSound(Block.soundTypeGlass); 
+    public static Block PrinceIce = new PrinceIce().setHardness(0.5F).setLightOpacity(3).setStepSound(Block.soundTypeGlass);
     public static int GirlfriendID;
     public static int BoyfriendID;
     public static int RedCowID;
@@ -1128,11 +1128,11 @@ public class OreSpawnMain
     public static OreStats BlkEmerald_stats;
     public static OreStats Gold_stats;
     public static OreStats BlkGold_stats;
-    
+
     public OreSpawnMain() {
         this.OreSpawnGen = new OreSpawnWorld();
     }
-    
+
     @Mod.EventHandler
     public void preInit(final FMLPreInitializationEvent event) {
         final Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -1650,7 +1650,7 @@ public class OreSpawnMain
         OreSpawnMain.MyEyeOfEnderBlock = new OreGenericEgg(OreSpawnMain.BaseBlockID + 112).setBlockName("blockeyeofender");
         this.make_some_more_things();
     }
-    
+
     private void make_some_more_things() {
         GameRegistry.registerBlock((Block)OreSpawnMain.MySpiderSpawnBlock, "OreSpawn_SpiderSpawnBlock");
         GameRegistry.registerBlock((Block)OreSpawnMain.MyBatSpawnBlock, "OreSpawn_BatSpawnBlock");
@@ -5096,7 +5096,7 @@ public class OreSpawnMain
         NetworkRegistry.INSTANCE.registerGuiHandler((Object)this, (IGuiHandler)new OreSpawnGUIHandler());
         this.DoDispenserRegistrations();
     }
-    
+
     public void initializeCagesAndEggs() {
         OreSpawnMain.CageEmpty = new CritterCage(OreSpawnMain.BaseItemID + 0, 160).setUnlocalizedName("cageempty");
         OreSpawnMain.CagedSpider = new CritterCage(OreSpawnMain.BaseItemID + 1, 161).setUnlocalizedName("cagespider");
@@ -5327,7 +5327,7 @@ public class OreSpawnMain
         OreSpawnMain.SpiderDriverEgg = new ItemSpawnEgg(OreSpawnMain.BaseItemID + 477, 381).setUnlocalizedName("eggspiderdriver");
         OreSpawnMain.CrabEgg = new ItemSpawnEgg(OreSpawnMain.BaseItemID + 482, 383).setUnlocalizedName("eggcrab");
     }
-    
+
     private void DoDispenserRegistrations() {
         BlockDispenser.dispenseBehaviorRegistry.putObject((Object)OreSpawnMain.LizardEgg, (Object)new DispenserBehaviorOreSpawnEgg());
         BlockDispenser.dispenseBehaviorRegistry.putObject((Object)OreSpawnMain.WitherSkeletonEgg, (Object)new DispenserBehaviorOreSpawnEgg());
@@ -5464,11 +5464,11 @@ public class OreSpawnMain
         BlockDispenser.dispenseBehaviorRegistry.putObject((Object)OreSpawnMain.MySpikeyRock, (Object)new MyDispenserBehaviorRock());
         BlockDispenser.dispenseBehaviorRegistry.putObject((Object)OreSpawnMain.MyTNTRock, (Object)new MyDispenserBehaviorRock());
     }
-    
+
     @Mod.EventHandler
     public void load(final FMLInitializationEvent event) {
     }
-    
+
     @Mod.EventHandler
     public static void postInit(final FMLPostInitializationEvent event) {
         OreSpawnMain.BMaze = new BasiliskMaze();
@@ -5478,12 +5478,12 @@ public class OreSpawnMain
         OreSpawnMain.OreSpawnUtils = new MyUtils();
         OreSpawnMain.Chunker = new ChunkOreGenerator();
     }
-    
+
     @SideOnly(Side.CLIENT)
     public Entity spawnEntity(final int entityId, final World world, final double scaledX, final double scaledY, final double scaledZ) {
         return null;
     }
-    
+
     public static Entity getPointedAtEntity(final World world, final EntityPlayer player, final double dist) {
         Entity pointedAt = null;
         if (player != null && world != null) {
@@ -5527,7 +5527,7 @@ public class OreSpawnMain
         }
         return pointedAt;
     }
-    
+
     public static boolean setBlockFast(final World world, final int par1, final int par2, final int par3, final Block par4, final int par5, final int par6) {
         if (par1 < -30000000 || par3 < -30000000 || par1 >= 30000000 || par3 >= 30000000) {
             return false;
@@ -5554,7 +5554,7 @@ public class OreSpawnMain
         }
         return flag;
     }
-    
+
     public static boolean setBlockSuperFast(final World world, final int par1, final int par2, final int par3, final Block par4, final int par5, final int par6, final Chunk refChunk) {
         if (par1 < -30000000 || par3 < -30000000 || par1 >= 30000000 || par3 >= 30000000) {
             return false;
@@ -5587,7 +5587,7 @@ public class OreSpawnMain
         }
         return flag;
     }
-    
+
     public static boolean setBlockIDWithMetadataFast(final Chunk chunk, final int par1, final int par2, final int par3, final Block par4, final int par5) {
         if (par1 < -30000000 || par3 < -30000000 || par1 >= 30000000 || par3 >= 30000000) {
             return false;
@@ -5612,7 +5612,7 @@ public class OreSpawnMain
         extendedblockstorage.setExtBlockMetadata(par1, par2 & 0xF, par3, par5);
         return true;
     }
-    
+
     public static Block getBlockIDInChunk(final Chunk chunk, final int par1, final int par2, final int par3) {
         if (par1 < -30000000 || par3 < -30000000 || par1 >= 30000000 || par3 >= 30000000) {
             return Blocks.air;
@@ -5628,7 +5628,7 @@ public class OreSpawnMain
         }
         return chunk.getBlock(par1 & 0xF, par2, par3 & 0xF);
     }
-    
+
     public static boolean setBlockIDWithMetadataInChunk(final Chunk chunk, int par1, final int par2, int par3, final Block par4, final int par5) {
         if (par1 < -30000000 || par3 < -30000000 || par1 >= 30000000 || par3 >= 30000000) {
             return false;
@@ -5661,7 +5661,7 @@ public class OreSpawnMain
         extendedblockstorage.setExtBlockMetadata(par1, par2 & 0xF, par3, par5);
         return true;
     }
-    
+
     private ArmorStats get_armorstats(final Configuration config, final String s, final int dura, final int head, final int chest, final int leg, final int boots, final int enchant, final int e_resp, final int e_aqua, final int e_prot, final int e_fire, final int e_blast, final int e_proj, final int e_unbreak, final int e_feather) {
         final ArmorStats a = new ArmorStats();
         final String arm = "OreSpawnARMOR";
@@ -5729,7 +5729,7 @@ public class OreSpawnMain
         }
         return a;
     }
-    
+
     private WeaponStats get_weaponstats(final Configuration config, final String arm, final String s, final int harvest, final int maxuses, final int efficiency, final int damage, final int enchantability) {
         final WeaponStats w = new WeaponStats();
         w.harvestlevel = config.get(arm, s + "_harvestlevel", harvest).getInt();
@@ -5766,7 +5766,7 @@ public class OreSpawnMain
         }
         return w;
     }
-    
+
     private MobStats get_mobstats(final Configuration config, final String arm, final String s, final int health, final int attack, final int defense) {
         final MobStats m = new MobStats();
         m.health = config.get(arm, s + "_health", health).getInt();
@@ -5798,7 +5798,7 @@ public class OreSpawnMain
         }
         return m;
     }
-    
+
     private OreStats get_orestats(final Configuration config, final String arm, final String s, final int rate, final int clumpsize, final int min, final int max) {
         final OreStats o = new OreStats();
         o.rate = config.get(arm, s + "_rate", rate).getInt();
@@ -5832,7 +5832,7 @@ public class OreSpawnMain
         }
         return o;
     }
-    
+
     private void disableAllMobs() {
         OreSpawnMain.MosquitoEnable = 0;
         OreSpawnMain.GhostEnable = 0;
@@ -5935,7 +5935,7 @@ public class OreSpawnMain
         OreSpawnMain.GodzillaEnable = 0;
         OreSpawnMain.CrabEnable = 0;
     }
-    
+
     private void laySomeEggs() {
         OreSpawnMain.MySpiderSpawnBlock = (OreGenericEgg)new OreGenericEgg(OreSpawnMain.BaseBlockID + 0).setBlockName("orespider");
         OreSpawnMain.MyBatSpawnBlock = (OreGenericEgg)new OreGenericEgg(OreSpawnMain.BaseBlockID + 1).setBlockName("orebat");
@@ -6063,7 +6063,7 @@ public class OreSpawnMain
         OreSpawnMain.MySpiderDriverSpawnBlock = (OreGenericEgg)new OreGenericEgg(OreSpawnMain.BaseBlockID + 305).setBlockName("orespiderdriver");
         OreSpawnMain.MyCrabSpawnBlock = (OreGenericEgg)new OreGenericEgg(OreSpawnMain.BaseBlockID + 306).setBlockName("orecrab");
     }
-    
+
     private void getMobs(final Configuration config, final String mobs) {
         OreSpawnMain.MosquitoEnable = config.get(mobs, "MosquitoEnable", 1).getInt();
         OreSpawnMain.RockEnable = config.get(mobs, "RockEnable", 1).getInt();
@@ -6227,11 +6227,11 @@ public class OreSpawnMain
         OreSpawnMain.Leon_stats = this.get_mobstats(config, mobs, "Leonopteryx", 150, 20, 8);
         OreSpawnMain.Crab_stats = this.get_mobstats(config, mobs, "Crab", 180, 24, 16);
     }
-    
+
     public String getVersion() {
         return "1.7.10.20.3";
     }
-    
+
     static {
         OreSpawnMain.MyKeyhandler = null;
         OreSpawnMain.flyup_keystate = 0;
