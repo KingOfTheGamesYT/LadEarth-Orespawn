@@ -65,7 +65,7 @@ public class GenericDungeon
     private int[] king;
     private int[] queen;
     private int[] blkcolors;
-    
+
     public GenericDungeon() {
         this.RainbowContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent(OreSpawnMain.MagicApple, 0, 1, 1, 25), new WeightedRandomChestContent(OreSpawnMain.CloudSharkEgg, 0, 4, 10, 25), new WeightedRandomChestContent(Items.bone, 0, 2, 16, 25), new WeightedRandomChestContent(Items.string, 0, 2, 16, 25), new WeightedRandomChestContent(Items.rotten_flesh, 0, 3, 10, 25), new WeightedRandomChestContent(Items.experience_bottle, 0, 4, 10, 25) };
         this.WhiteHouseContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent(OreSpawnMain.MyCornDog, 0, 6, 12, 35), new WeightedRandomChestContent(OreSpawnMain.UraniumNugget, 0, 2, 6, 10), new WeightedRandomChestContent(OreSpawnMain.TitaniumNugget, 0, 2, 6, 10), new WeightedRandomChestContent(OreSpawnMain.MyAmethyst, 0, 2, 6, 35), new WeightedRandomChestContent(OreSpawnMain.MyRuby, 0, 2, 6, 25), new WeightedRandomChestContent(OreSpawnMain.CriminalEgg, 0, 4, 10, 35), new WeightedRandomChestContent(Items.emerald, 0, 6, 16, 35), new WeightedRandomChestContent(Items.porkchop, 0, 6, 16, 35), new WeightedRandomChestContent(Items.cooked_porkchop, 0, 6, 16, 35), new WeightedRandomChestContent(Items.diamond, 0, 6, 16, 35), new WeightedRandomChestContent(Items.gold_ingot, 0, 6, 16, 35) };
@@ -80,7 +80,7 @@ public class GenericDungeon
         this.CrystalBattleTowerRotatorContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent((Item)OreSpawnMain.TigersEyeHelmet, 0, 1, 1, 10), new WeightedRandomChestContent((Item)OreSpawnMain.TigersEyeBody, 0, 1, 1, 10), new WeightedRandomChestContent((Item)OreSpawnMain.TigersEyeLegs, 0, 1, 1, 10), new WeightedRandomChestContent((Item)OreSpawnMain.TigersEyeBoots, 0, 1, 1, 10), new WeightedRandomChestContent(OreSpawnMain.MyRatSword, 0, 1, 1, 15) };
         this.CrystalBattleTowerVortexContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent(Item.getItemFromBlock(OreSpawnMain.CrystalCoal), 0, 6, 10, 10), new WeightedRandomChestContent(Item.getItemFromBlock(OreSpawnMain.CrystalCoal), 0, 6, 10, 10), new WeightedRandomChestContent(OreSpawnMain.MyTigersEyeSword, 0, 1, 1, 10), new WeightedRandomChestContent(Item.getItemFromBlock(OreSpawnMain.MyTigersEyeBlock), 0, 4, 8, 15), new WeightedRandomChestContent(OreSpawnMain.MyPoisonSword, 0, 1, 1, 15) };
         this.RobotContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent(Items.redstone, 0, 1, 10, 35), new WeightedRandomChestContent(Items.repeater, 0, 1, 10, 35), new WeightedRandomChestContent(Items.minecart, 0, 1, 1, 35), new WeightedRandomChestContent(Items.fire_charge, 0, 1, 10, 35), new WeightedRandomChestContent(Items.hopper_minecart, 0, 1, 1, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.redstone_block), 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.rail), 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.detector_rail), 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock((Block)Blocks.sticky_piston), 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock((Block)Blocks.piston), 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.redstone_torch), 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.tnt), 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.rail), 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.lever), 0, 1, 10, 35), new WeightedRandomChestContent(OreSpawnMain.AntRobotKit, 0, 1, 1, 10), new WeightedRandomChestContent(OreSpawnMain.SpiderRobotKit, 0, 1, 1, 10), new WeightedRandomChestContent(Items.iron_door, 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.redstone_torch), 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.wooden_button), 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.iron_bars), 0, 1, 10, 35), new WeightedRandomChestContent(Items.comparator, 0, 1, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.activator_rail), 0, 1, 10, 35), new WeightedRandomChestContent(OreSpawnMain.MyRayGun, 0, 1, 1, 35) };
-        this.IncaPyramidContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent(Items.golden_sword, 0, 1, 1, 35), new WeightedRandomChestContent((Item)Items.golden_boots, 0, 1, 1, 35), new WeightedRandomChestContent((Item)Items.golden_leggings, 0, 1, 1, 35), new WeightedRandomChestContent((Item)Items.golden_helmet, 0, 1, 1, 35), new WeightedRandomChestContent((Item)Items.golden_chestplate, 0, 1, 1, 35), new WeightedRandomChestContent(Item.getItemFromBlock((Block)Blocks.yellow_flower), 0, 3, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock((Block)Blocks.red_flower), 0, 3, 10, 35), new WeightedRandomChestContent(Items.gold_nugget, 0, 3, 10, 35), new WeightedRandomChestContent(Items.gold_ingot, 0, 3, 10, 35), new WeightedRandomChestContent(Items.experience_bottle, 0, 4, 10, 35), new WeightedRandomChestContent(OreSpawnMain.MyCornCob, 0, 4, 10, 35), new WeightedRandomChestContent(OreSpawnMain.MyExperienceCatcher, 0, 4, 10, 25), new WeightedRandomChestContent(Items.bone, 0, 4, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.gold_block), 0, 4, 10, 35) };
+        this.IncaPyramidContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent(Items.golden_sword, 0, 1, 1, 35), new WeightedRandomChestContent((Item)Items.golden_boots, 0, 1, 1, 35), new WeightedRandomChestContent((Item)Items.golden_leggings, 0, 1, 1, 35), new WeightedRandomChestContent((Item)Items.golden_helmet, 0, 1, 1, 35), new WeightedRandomChestContent((Item)Items.golden_chestplate, 0, 1, 1, 35), new WeightedRandomChestContent(Item.getItemFromBlock((Block)Blocks.yellow_flower), 0, 3, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock((Block)Blocks.red_flower), 0, 3, 10, 35), new WeightedRandomChestContent(Items.gold_nugget, 0, 3, 10, 35), new WeightedRandomChestContent(Items.gold_ingot, 0, 3, 10, 35), new WeightedRandomChestContent(Items.experience_bottle, 0, 4, 10, 35), new WeightedRandomChestContent(OreSpawnMain.MyCornCob, 0, 4, 10, 35), new WeightedRandomChestContent(OreSpawnMain.MyExperienceCatcher, 0, 4, 10, 25), new WeightedRandomChestContent(Items.bone, 0, 4, 10, 35), new WeightedRandomChestContent(Item.getItemFromBlock(OreSpawnMain.Citrine), 0, 4, 10, 35) };
         this.DamselContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent(Items.iron_pickaxe, 0, 1, 1, 35), new WeightedRandomChestContent(Items.iron_sword, 0, 1, 1, 35), new WeightedRandomChestContent(Items.cooked_porkchop, 0, 3, 10, 35), new WeightedRandomChestContent(Items.beef, 0, 3, 10, 35), new WeightedRandomChestContent(Items.cooked_chicken, 0, 3, 10, 35), new WeightedRandomChestContent(Items.cooked_fished, 0, 3, 10, 35), new WeightedRandomChestContent(OreSpawnMain.MyBLT, 0, 4, 10, 35), new WeightedRandomChestContent(OreSpawnMain.MySalad, 0, 4, 10, 35), new WeightedRandomChestContent(OreSpawnMain.MyCornDog, 0, 4, 10, 35) };
         this.EnderCastleContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.ender_chest), 0, 2, 4, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.diamond_block), 0, 2, 4, 35), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.dragon_egg), 0, 1, 1, 35), new WeightedRandomChestContent(Item.getItemFromBlock(OreSpawnMain.MyEnderPearlBlock), 0, 3, 6, 35), new WeightedRandomChestContent(Item.getItemFromBlock(OreSpawnMain.MyEyeOfEnderBlock), 0, 3, 6, 35), new WeightedRandomChestContent(OreSpawnMain.MyExperienceCatcher, 0, 4, 10, 25), new WeightedRandomChestContent(Items.ender_pearl, 0, 2, 4, 35), new WeightedRandomChestContent(Items.ender_eye, 0, 2, 4, 35) };
         this.BouncyContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent(Items.rotten_flesh, 0, 6, 16, 35), new WeightedRandomChestContent(Items.fish, 0, 6, 16, 25), new WeightedRandomChestContent(Items.bone, 0, 6, 16, 25), new WeightedRandomChestContent(Items.string, 0, 6, 16, 25), new WeightedRandomChestContent(Item.getItemFromBlock((Block)Blocks.red_flower), 0, 6, 16, 25), new WeightedRandomChestContent(Item.getItemFromBlock((Block)Blocks.yellow_flower), 0, 6, 16, 25), new WeightedRandomChestContent(Items.ender_pearl, 0, 2, 4, 20) };
@@ -109,7 +109,7 @@ public class GenericDungeon
         this.queen = new int[] { -1, -1, 24, 3, -1, 24, 5, -1, 17, 12, -1, 16, 15, -1, 15, 14, -1, 15, 6, 3, 5, -1, 14, 6, 4, 3, -1, 14, 5, -1, 14, 5, -1, 12, 9, -1, 11, 11, -1, 8, 17, -1, 5, 23, -1, 3, 27, -1, 2, 29, -1, 1, 31, -1, 0, 33, -1, 13, 6, -1, 12, 9, -1, 11, 3, 1, 2, 1, 4, -1, 10, 3, 2, 2, 3, 2, -1, 10, 2, 4, 2, 3, 2, -1, 9, 2, 5, 2, 4, 6, -1, 9, 2, 5, 2, 6, 4, -1, 8, 2, 6, 1, -1, 8, 2, 5, 2, -1, 8, 2, 5, 2, -1, 8, 2, 5, 2, -1, 15, 2, -1, -1, -1 };
         this.blkcolors = new int[] { 14, 1, 4, 5, 3, 11, 10, 6 };
     }
-    
+
     private void setThisBlock(final World world, final int cposx, final int cposy, final int cposz) {
         if (world.rand.nextInt(2) == 1) {
             this.FastSetBlock(world, cposx, cposy, cposz, Blocks.mossy_cobblestone);
@@ -118,7 +118,7 @@ public class GenericDungeon
             this.FastSetBlock(world, cposx, cposy, cposz, Blocks.cobblestone);
         }
     }
-    
+
     private TileEntityChest getChestTileEntity(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityChest chest = null;
         TileEntity t = null;
@@ -129,7 +129,7 @@ public class GenericDungeon
         }
         return null;
     }
-    
+
     private TileEntityMobSpawner getSpawnerTileEntity(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner chest = null;
         TileEntity t = null;
@@ -140,7 +140,7 @@ public class GenericDungeon
         }
         return null;
     }
-    
+
     public void makeDungeon(final World world, final int cposx, final int cposy, final int cposz) {
         final int width = 12;
         final int height = 6;
@@ -227,11 +227,11 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, this.chestContentsList, (IInventory)chest, 5 + world.rand.nextInt(7));
         }
     }
-    
+
     public void FastSetBlock(final World world, final int ix, final int iy, final int iz, final Block id) {
         OreSpawnMain.setBlockFast(world, ix, iy, iz, id, 0, 2);
     }
-    
+
     public void makeEnormousCastle(final World world, final int cposx, final int cposy, final int cposz) {
         final int width = 28;
         final int height = 16;
@@ -427,7 +427,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void buildLevel(final World world, final int cposx, final int cposy, final int cposz, final int width, final int height, final int pw, final String critter, final int stepside, final int stepoff, final int holelen, final int decor, final int level) {
         for (int i = -pw; i < width + pw; ++i) {
             for (int j = 1; j < height; ++j) {
@@ -460,7 +460,7 @@ public class GenericDungeon
             for (int j = 1; j < height; ++j) {
                 Block blk = Blocks.bedrock;
                 if (k == 0 || k == width - 1) {
-                    blk = Blocks.gold_block;
+                    blk = OreSpawnMain.Citrine;
                 }
                 int i = 0;
                 this.FastSetBlock(world, cposx + i, cposy + j, cposz + k, blk);
@@ -532,7 +532,7 @@ public class GenericDungeon
         }
         this.addLevelDecorations(world, cposx, cposy, cposz, width, height, decor, level);
     }
-    
+
     public void addLevelDecorations(final World world, final int cposx, final int cposy, final int cposz, final int width, final int height, final int decor, final int difficulty) {
         TileEntityMobSpawner tileentitymobspawner = null;
         int reward = 1;
@@ -778,7 +778,7 @@ public class GenericDungeon
             this.fill_chests(world, cposx, cposy, cposz, width, height, decor, reward);
         }
     }
-    
+
     private void fill_chests(final World world, final int cposx, final int cposy, final int cposz, final int width, final int height, final int decor, final int reward) {
         TileEntityChest chest = null;
         WeightedRandomChestContent[] chestContents = null;
@@ -842,7 +842,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makeRotatorStation(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -867,7 +867,7 @@ public class GenericDungeon
             chest.setInventorySlotContents(3, new ItemStack(OreSpawnMain.CrystalCoal, 4 + world.rand.nextInt(16), 0));
         }
     }
-    
+
     public void makeBeeHive(final World world, final int cposx, final int cposy, final int cposz) {
         final int width = 10;
         final int height = 30;
@@ -914,7 +914,7 @@ public class GenericDungeon
         }
         this.fill_beehive_chests(world, cposx, cposy, cposz, width, height);
     }
-    
+
     private void fill_beehive_chests(final World world, final int cposx, final int cposy, final int cposz, final int width, final int height) {
         TileEntityChest chest = null;
         WeightedRandomChestContent[] chestContents = null;
@@ -946,7 +946,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makeHauntedHouse(final World world, final int cposx, final int cposy, final int cposz) {
         int deltax = 0;
         final int deltaz = 0;
@@ -1063,7 +1063,7 @@ public class GenericDungeon
             tileentitymobspawner.func_145881_a().setEntityName("Ghost Pumpkin Skelly");
         }
     }
-    
+
     public void makeMantisHive(final World world, final int cposx, final int cposy, final int cposz) {
         int width = 13;
         TileEntityMobSpawner tileentitymobspawner = null;
@@ -1114,7 +1114,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     private void fill_mantishive_chests(final World world, final int cposx, final int cposy, final int cposz, final int width, final int height) {
         TileEntityChest chest = null;
         WeightedRandomChestContent[] chestContents = null;
@@ -1145,7 +1145,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 3 + world.rand.nextInt(7));
         }
     }
-    
+
     public void makeKyuubiDungeon(final World world, final int cposx, final int cposy, final int cposz) {
         final int width = 5;
         final int height = 5;
@@ -1263,7 +1263,7 @@ public class GenericDungeon
         this.FastSetBlock(world, x + 2, y, z + 27, (Block)Blocks.fire);
         this.FastSetBlock(world, x + 18, y, z + 28, (Block)Blocks.fire);
     }
-    
+
     private void addlavasquare(final World world, final int x, final int y, final int z) {
         this.FastSetBlock(world, x - 1, y, z, Blocks.netherrack);
         this.FastSetBlock(world, x + 1, y, z, Blocks.netherrack);
@@ -1271,7 +1271,7 @@ public class GenericDungeon
         this.FastSetBlock(world, x, y, z - 1, Blocks.netherrack);
         this.FastSetBlock(world, x, y, z, Blocks.lava);
     }
-    
+
     private void addkyuubi(final World world, final int x, final int y, final int z) {
         int width = 9;
         TileEntityChest chest = null;
@@ -1313,7 +1313,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 7 + world.rand.nextInt(7));
         }
     }
-    
+
     private void addblaze(final World world, final int x, final int y, final int z) {
         int width = 7;
         int height = 4;
@@ -1414,7 +1414,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 6 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeSmallBeeHive(final World world, final int cposx, final int cposy, final int cposz) {
         final int width = 7;
         final int height = 21;
@@ -1504,7 +1504,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 7 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeShadowDungeon(final World world, final int cposx, final int cposy, final int cposz) {
         final int totalwidth = 19;
         TileEntityMobSpawner tileentitymobspawner = null;
@@ -1587,7 +1587,7 @@ public class GenericDungeon
             ++yoff;
         }
     }
-    
+
     private void fill_shadow_chests(final World world, final int cposx, final int cposy, final int cposz, final int width, final int height) {
         TileEntityChest chest = null;
         WeightedRandomChestContent[] chestContents = null;
@@ -1618,7 +1618,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 3 + world.rand.nextInt(7));
         }
     }
-    
+
     public void makeAlienWTFDungeon(final World world, int cposx, int cposy, int cposz) {
         final int width = 5;
         final int height = 5;
@@ -1742,7 +1742,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     private void makePart(final World world, final int cposx, final int cposy, final int cposz, final int width, final int height, final int dx, final int dz, final int difficulty) {
         TileEntityMobSpawner tileentitymobspawner = null;
         for (int i = 0; i < width; ++i) {
@@ -1840,7 +1840,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makeEnderKnightDungeon(final World world, int cposx, final int cposy, int cposz) {
         final int height = 6;
         int zwidth = 5;
@@ -1950,7 +1950,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     private void makeShelves(final World world, final int cposx, final int cposy, final int cposz) {
         final int i = world.rand.nextInt(4);
         Block blk = Blocks.air;
@@ -1977,7 +1977,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makePlayPool(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -2002,7 +2002,7 @@ public class GenericDungeon
         world.setBlock(cposx - 1, cposy + 18, cposz, (Block)Blocks.flowing_water, 0, 3);
         world.setBlock(cposx + 4, cposy + 18, cposz, (Block)Blocks.flowing_water, 0, 3);
     }
-    
+
     public void makeWaterDragonLair(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -2094,7 +2094,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 4 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeCloudSharkDungeon(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -2128,7 +2128,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 4 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeLeafMonsterDungeon(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -2270,7 +2270,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 12 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeMiniDungeon(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -2443,7 +2443,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 4 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeGoldFishBowl(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         int j = 1;
@@ -2523,7 +2523,7 @@ public class GenericDungeon
             tileentitymobspawner.func_145881_a().setEntityName("Gold Fish");
         }
     }
-    
+
     public void makeEnderReaperGraveyard(final World world, final int cposx, final int cposy, final int cposz) {
         final int width = 11;
         final int length = 13;
@@ -2596,7 +2596,7 @@ public class GenericDungeon
         this.makeAGrave(world, cposx, cposy, cposz, 7, 8);
         this.makeAGrave(world, cposx, cposy, cposz, 9, 6);
     }
-    
+
     public void makeAGrave(final World world, final int cposx, final int cposy, final int cposz, final int xoff, final int zoff) {
         TileEntityChest chest = null;
         WeightedRandomChestContent[] chestContents = null;
@@ -2609,7 +2609,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 3 + world.rand.nextInt(3));
         }
     }
-    
+
     public void makeUrchinSpawner(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -2668,7 +2668,7 @@ public class GenericDungeon
             chest.setInventorySlotContents(3, new ItemStack(OreSpawnMain.CrystalCoal, 4 + world.rand.nextInt(16), 0));
         }
     }
-    
+
     public void makeSpitBugLair(final World world, final int cposx, final int cposy, final int cposz) {
         final int green = 5;
         final int dark_green = 13;
@@ -2728,7 +2728,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 4 + world.rand.nextInt(4));
         }
     }
-    
+
     public void makeIgloo(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -2842,7 +2842,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makeEnderDragonHospital(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -3016,7 +3016,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 6 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeCrystalHauntedHouse(final World world, final int cposx, final int cposy, final int cposz) {
         int deltax = 0;
         final int deltaz = 0;
@@ -3125,7 +3125,7 @@ public class GenericDungeon
             tileentitymobspawner.func_145881_a().setEntityName("Ghost Pumpkin Skelly");
         }
     }
-    
+
     public void makeBouncyCastle(final World world, final int cposx, final int cposy, final int cposz) {
         int deltax = 0;
         final int deltaz = 0;
@@ -3226,7 +3226,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 6 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeEnderCastle(final World world, final int cposx, final int cposy, final int cposz) {
         final int width = 22;
         final int height = 12;
@@ -3512,7 +3512,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 6 + world.rand.nextInt(5));
         }
     }
-    
+
     private void makeAColumn(final World world, final int cposx, final int cposy, final int cposz, final int height, final int dir) {
         final int width = 4;
         final int halfwidth = 2;
@@ -3638,7 +3638,7 @@ public class GenericDungeon
             OreSpawnMain.setBlockFast(world, cposx + i, cposy + j, cposz + k, bid, 0, 2);
         }
     }
-    
+
     public void makeDamselInDistress(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         int meta = 0;
@@ -3745,7 +3745,7 @@ public class GenericDungeon
             world.spawnEntityInWorld(var8);
         }
     }
-    
+
     public void makeIncaPyramid(final World world, int cposx, int cposy, int cposz) {
         Block bid = Blocks.air;
         int meta = 0;
@@ -4004,7 +4004,7 @@ public class GenericDungeon
         }
         this.makeincagraves(world, cposx - baseheight, cposy - baseheight, cposz - baseheight, basewidth, basedepth);
     }
-    
+
     private void makepoolalter(final World world, final int cposx, final int cposy, final int cposz) {
         for (int i = -1; i <= 1; ++i) {
             for (int k = -1; k <= 1; ++k) {
@@ -4013,7 +4013,7 @@ public class GenericDungeon
         }
         OreSpawnMain.setBlockFast(world, cposx, cposy + 1, cposz, Blocks.water, 0, 2);
     }
-    
+
     private void makeincagraves(final World world, final int cposx, final int cposy, final int cposz, final int width, final int depth) {
         for (int i = 5; i < width - 5; i += 6) {
             this.makeincagrave(world, cposx + i, cposy, cposz + 5, 1);
@@ -4028,7 +4028,7 @@ public class GenericDungeon
             this.makeincagrave(world, cposx + i, cposy, cposz + 25, 3);
         }
     }
-    
+
     private void makeincagrave(final World world, final int cposx, final int cposy, final int cposz, final int dir) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -4093,7 +4093,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makeRobotLab(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         final int meta = 0;
@@ -4142,7 +4142,7 @@ public class GenericDungeon
         this.makerobopillar(world, cposx + width - 1, cposy, cposz + length * 2 / 3, 1);
         this.makerobopillar(world, cposx + width - 1, cposy, cposz + (length - 1), 1);
     }
-    
+
     private void makerobopillar(final World world, final int cposx, final int cposy, final int cposz, final int dir) {
         TileEntityMobSpawner tileentitymobspawner = null;
         for (int j = 0; j < 5; ++j) {
@@ -4176,7 +4176,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makerobomain(final World world, int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         final int width = 30;
@@ -4215,7 +4215,7 @@ public class GenericDungeon
         this.makerobotreasureroom(world, cposx + 9, cposy, cposz + 18);
         this.makerobotower(world, cposx + width / 2 - 6, cposy + height, cposz + length / 2 - 6);
     }
-    
+
     public void makerobotower(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         for (int j = 0; j < 2; ++j) {
@@ -4271,7 +4271,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makeroboaltar(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         TileEntityMobSpawner tileentitymobspawner = null;
@@ -4306,7 +4306,7 @@ public class GenericDungeon
             tileentitymobspawner.func_145881_a().setEntityName("Robo-Pounder");
         }
     }
-    
+
     public void makeroborailway(final World world, final int cposx, final int cposy, final int cposz) {
         OreSpawnMain.setBlockFast(world, cposx + 0, cposy + 1, cposz + 0, Blocks.rail, 0, 2);
         OreSpawnMain.setBlockFast(world, cposx + 3, cposy + 1, cposz + 0, Blocks.rail, 0, 2);
@@ -4341,7 +4341,7 @@ public class GenericDungeon
         OreSpawnMain.setBlockFast(world, cposx + 0, cposy + 1, cposz + 12, Blocks.rail, 0, 2);
         OreSpawnMain.setBlockFast(world, cposx + 3, cposy + 1, cposz + 12, Blocks.rail, 0, 2);
     }
-    
+
     public void makeroboassemblyline(final World world, final int cposx, final int cposy, final int cposz) {
         for (int k = 0; k < 24; ++k) {
             if (k % 3 == 1) {
@@ -4356,7 +4356,7 @@ public class GenericDungeon
             OreSpawnMain.setBlockFast(world, cposx + 1, cposy + 1, cposz + k, Blocks.quartz_block, 0, 2);
         }
     }
-    
+
     public void makerobotreasureroom(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         TileEntityChest chest = null;
@@ -4399,7 +4399,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 10 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeKingAltar(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         final int width = 51;
@@ -4451,7 +4451,7 @@ public class GenericDungeon
         this.makekingbackground(world, cposx + 4, cposy + 10, cposz + 9);
         this.makekingcenteraltar(world, cposx + width / 2, cposy, cposz + length / 2);
     }
-    
+
     private void makekingcolumn(final World world, int cposx, int cposy, int cposz) {
         Block bid = Blocks.air;
         int meta = 0;
@@ -4480,33 +4480,33 @@ public class GenericDungeon
                         bid = Blocks.quartz_block;
                     }
                     if (j % 4 == 0 && bid != Blocks.air && (i == 2 || k == 2)) {
-                        bid = Blocks.gold_block;
+                        bid = OreSpawnMain.Citrine;
                     }
                     if (j % 4 == 1 && bid != Blocks.air) {
                         if (i == 1 || k == 1) {
-                            bid = Blocks.gold_block;
+                            bid = OreSpawnMain.Citrine;
                         }
                         if (i == 3 || k == 3) {
-                            bid = Blocks.gold_block;
+                            bid = OreSpawnMain.Citrine;
                         }
                     }
                     if (j % 4 == 2 && bid != Blocks.air) {
                         if (i == 1 || k == 1) {
-                            bid = Blocks.gold_block;
+                            bid = OreSpawnMain.Citrine;
                         }
                         if (i == 3 || k == 3) {
-                            bid = Blocks.gold_block;
+                            bid = OreSpawnMain.Citrine;
                         }
                         if (i == 2 || k == 2) {
-                            bid = Blocks.emerald_block;
+                            bid = OreSpawnMain.Malachite;
                         }
                     }
                     if (j % 4 == 3 && bid != Blocks.air) {
                         if (i == 1 || k == 1) {
-                            bid = Blocks.gold_block;
+                            bid = OreSpawnMain.Citrine;
                         }
                         if (i == 3 || k == 3) {
-                            bid = Blocks.gold_block;
+                            bid = OreSpawnMain.Citrine;
                         }
                     }
                     meta = 0;
@@ -4518,7 +4518,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     private void makekingbackground(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         final int meta = 0;
@@ -4552,27 +4552,27 @@ public class GenericDungeon
             }
         }
         for (int i = 0; i < width; ++i) {
-            OreSpawnMain.setBlockFast(world, cposx, cposy - 1, cposz + i, Blocks.gold_block, 0, 2);
+            OreSpawnMain.setBlockFast(world, cposx, cposy - 1, cposz + i, OreSpawnMain.Citrine, 0, 2);
         }
         for (int i = 0; i < width; ++i) {
-            OreSpawnMain.setBlockFast(world, cposx, cposy + height, cposz + i, Blocks.gold_block, 0, 2);
+            OreSpawnMain.setBlockFast(world, cposx, cposy + height, cposz + i, OreSpawnMain.Citrine, 0, 2);
         }
         for (int i = -1; i <= height; ++i) {
-            OreSpawnMain.setBlockFast(world, cposx, cposy + i, cposz - 1, Blocks.gold_block, 0, 2);
+            OreSpawnMain.setBlockFast(world, cposx, cposy + i, cposz - 1, OreSpawnMain.Citrine, 0, 2);
         }
         for (int i = -1; i <= height; ++i) {
-            OreSpawnMain.setBlockFast(world, cposx, cposy + i, cposz + width, Blocks.gold_block, 0, 2);
+            OreSpawnMain.setBlockFast(world, cposx, cposy + i, cposz + width, OreSpawnMain.Citrine, 0, 2);
         }
-        OreSpawnMain.setBlockFast(world, cposx, cposy - 2, cposz - 2, Blocks.diamond_block, 0, 2);
-        OreSpawnMain.setBlockFast(world, cposx, cposy + height + 1, cposz + width + 1, Blocks.diamond_block, 0, 2);
-        OreSpawnMain.setBlockFast(world, cposx, cposy - 2, cposz + width + 1, Blocks.diamond_block, 0, 2);
-        OreSpawnMain.setBlockFast(world, cposx, cposy + height + 1, cposz - 2, Blocks.diamond_block, 0, 2);
+        OreSpawnMain.setBlockFast(world, cposx, cposy - 2, cposz - 2, OreSpawnMain.Aquamarine, 0, 2);
+        OreSpawnMain.setBlockFast(world, cposx, cposy + height + 1, cposz + width + 1, OreSpawnMain.Aquamarine, 0, 2);
+        OreSpawnMain.setBlockFast(world, cposx, cposy - 2, cposz + width + 1, OreSpawnMain.Aquamarine, 0, 2);
+        OreSpawnMain.setBlockFast(world, cposx, cposy + height + 1, cposz - 2, OreSpawnMain.Aquamarine, 0, 2);
         OreSpawnMain.setBlockFast(world, cposx, cposy - 1, cposz - 2, OreSpawnMain.CrystalTorch, 0, 2);
         OreSpawnMain.setBlockFast(world, cposx, cposy + height + 2, cposz + width + 1, OreSpawnMain.CrystalTorch, 0, 2);
         OreSpawnMain.setBlockFast(world, cposx, cposy - 1, cposz + width + 1, OreSpawnMain.CrystalTorch, 0, 2);
         OreSpawnMain.setBlockFast(world, cposx, cposy + height + 2, cposz - 2, OreSpawnMain.CrystalTorch, 0, 2);
     }
-    
+
     private void makekingcenteraltar(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         final int meta = 0;
@@ -4724,7 +4724,7 @@ public class GenericDungeon
             chest.setInventorySlotContents(13, new ItemStack(OreSpawnMain.TheKingEgg));
         }
     }
-    
+
     public void makeLeonNest(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         final int rad = 10;
@@ -4777,7 +4777,7 @@ public class GenericDungeon
             tileentitymobspawner.func_145881_a().setEntityName("Leonopteryx");
         }
     }
-    
+
     public void makeCephadromeAltar(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         final int meta = 0;
@@ -4875,7 +4875,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makeCrystalBattleTower(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -5001,7 +5001,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 6 + world.rand.nextInt(6));
         }
     }
-    
+
     public void makeGirlfriendIsland(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -5067,7 +5067,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 4 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeGreenhouseDungeon(final World world, final int cposx, final int cposy, final int cposz) {
         final int height = 7;
         final int width = 15;
@@ -5204,7 +5204,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 5 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeMonsterIsland(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -5274,7 +5274,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 4 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeNightmareRookery(World world, int cposx, int cposy, int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -5346,7 +5346,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makeStinkyHouse(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -5412,7 +5412,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 8 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeRubberDuckyPond(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         TileEntityMobSpawner tileentitymobspawner = null;
@@ -5452,7 +5452,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makeWhiteHouse(final World world, final int cposx, final int cposy, final int cposz) {
         final TileEntityMobSpawner tileentitymobspawner = null;
         final TileEntityChest chest = null;
@@ -5465,7 +5465,7 @@ public class GenericDungeon
         this.makewhroof(world, cposx - 4, cposy, cposz - 6);
         this.makewhinterior(world, cposx - 1, cposy + 2, cposz - 3);
     }
-    
+
     private void makefountain(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         for (int i = 0; i < 7; ++i) {
@@ -5495,7 +5495,7 @@ public class GenericDungeon
         world.setBlock(cposx + 2, cposy + 5, cposz + 2, (Block)Blocks.flowing_water, 0, 3);
         world.setBlock(cposx + 4, cposy + 5, cposz + 2, (Block)Blocks.flowing_water, 0, 3);
     }
-    
+
     private void makewalkway(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         for (int i = 0; i < 3; ++i) {
@@ -5516,7 +5516,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     private void makewhbase(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         for (int i = 0; i < 25; ++i) {
@@ -5535,7 +5535,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     private void makewhwalls(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         for (int i = 0; i < 23; ++i) {
@@ -5587,7 +5587,7 @@ public class GenericDungeon
         ItemDoor.placeDoorBlock(world, cposx + 11, cposy, cposz, 3, Blocks.iron_door);
         OreSpawnMain.setBlockFast(world, cposx + 12, cposy + 1, cposz - 1, Blocks.stone_button, 4, 2);
     }
-    
+
     private void makewhroof(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         for (int j = 0; j < 13; ++j) {
@@ -5598,10 +5598,10 @@ public class GenericDungeon
                         bid = Blocks.quartz_block;
                     }
                     if (j == 0 && bid != Blocks.air && (i + k & 0x1) == 0x1) {
-                        bid = Blocks.emerald_block;
+                        bid = OreSpawnMain.Malachite;
                     }
                     if (j == 12) {
-                        bid = Blocks.emerald_block;
+                        bid = OreSpawnMain.Malachite;
                     }
                     this.FastSetBlock(world, cposx + i + j, cposy + 8 + j, cposz + k + j, bid);
                     if ((i == 0 || i == 24 - 2 * j) && (k == 0 || k == 24 - 2 * j)) {
@@ -5633,7 +5633,7 @@ public class GenericDungeon
         this.FastSetBlock(world, cposx + 12, cposy + 8 + 1, cposz + 11, bid);
         this.FastSetBlock(world, cposx + 12, cposy + 8 + 1, cposz + 13, bid);
     }
-    
+
     private void makewhinterior(final World world, final int cposx, final int cposy, final int cposz) {
         int zoff = 1;
         int xoff = 0;
@@ -5730,7 +5730,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 3 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeQueenAltar(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         final int width = 51;
@@ -5782,7 +5782,7 @@ public class GenericDungeon
         this.makequeenbackground(world, cposx + 4, cposy + 10, cposz + 9);
         this.makequeencenteraltar(world, cposx + width / 2, cposy, cposz + length / 2);
     }
-    
+
     private void makequeencolumn(final World world, int cposx, int cposy, int cposz) {
         Block bid = Blocks.air;
         int meta = 0;
@@ -5829,7 +5829,7 @@ public class GenericDungeon
                             bid = Blocks.redstone_block;
                         }
                         if (i == 2 || k == 2) {
-                            bid = OreSpawnMain.MyBlockAmethystBlock;
+                            bid = OreSpawnMain.Chaorite;
                         }
                     }
                     if (j % 4 == 3 && bid != Blocks.air) {
@@ -5846,7 +5846,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     private void makequeenbackground(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         final int meta = 0;
@@ -5872,7 +5872,7 @@ public class GenericDungeon
                     ++curz;
                 }
                 if (bid == Blocks.stone) {
-                    bid = OreSpawnMain.MyBlockRubyBlock;
+                    bid = OreSpawnMain.Garnet;
                 }
                 else {
                     bid = Blocks.stone;
@@ -5880,27 +5880,27 @@ public class GenericDungeon
             }
         }
         for (int i = 0; i < width; ++i) {
-            OreSpawnMain.setBlockFast(world, cposx, cposy - 1, cposz + i, Blocks.diamond_block, 0, 2);
+            OreSpawnMain.setBlockFast(world, cposx, cposy - 1, cposz + i, OreSpawnMain.Aquamarine, 0, 2);
         }
         for (int i = 0; i < width; ++i) {
-            OreSpawnMain.setBlockFast(world, cposx, cposy + height, cposz + i, Blocks.diamond_block, 0, 2);
+            OreSpawnMain.setBlockFast(world, cposx, cposy + height, cposz + i, OreSpawnMain.Aquamarine, 0, 2);
         }
         for (int i = -1; i <= height; ++i) {
-            OreSpawnMain.setBlockFast(world, cposx, cposy + i, cposz - 1, Blocks.diamond_block, 0, 2);
+            OreSpawnMain.setBlockFast(world, cposx, cposy + i, cposz - 1, OreSpawnMain.Aquamarine, 0, 2);
         }
         for (int i = -1; i <= height; ++i) {
-            OreSpawnMain.setBlockFast(world, cposx, cposy + i, cposz + width, Blocks.diamond_block, 0, 2);
+            OreSpawnMain.setBlockFast(world, cposx, cposy + i, cposz + width, OreSpawnMain.Aquamarine, 0, 2);
         }
-        OreSpawnMain.setBlockFast(world, cposx, cposy - 2, cposz - 2, Blocks.diamond_block, 0, 2);
-        OreSpawnMain.setBlockFast(world, cposx, cposy + height + 1, cposz + width + 1, Blocks.diamond_block, 0, 2);
-        OreSpawnMain.setBlockFast(world, cposx, cposy - 2, cposz + width + 1, Blocks.diamond_block, 0, 2);
-        OreSpawnMain.setBlockFast(world, cposx, cposy + height + 1, cposz - 2, Blocks.diamond_block, 0, 2);
+        OreSpawnMain.setBlockFast(world, cposx, cposy - 2, cposz - 2, OreSpawnMain.Aquamarine, 0, 2);
+        OreSpawnMain.setBlockFast(world, cposx, cposy + height + 1, cposz + width + 1, OreSpawnMain.Aquamarine, 0, 2);
+        OreSpawnMain.setBlockFast(world, cposx, cposy - 2, cposz + width + 1, OreSpawnMain.Aquamarine, 0, 2);
+        OreSpawnMain.setBlockFast(world, cposx, cposy + height + 1, cposz - 2, OreSpawnMain.Aquamarine, 0, 2);
         OreSpawnMain.setBlockFast(world, cposx, cposy - 1, cposz - 2, OreSpawnMain.CrystalTorch, 0, 2);
         OreSpawnMain.setBlockFast(world, cposx, cposy + height + 2, cposz + width + 1, OreSpawnMain.CrystalTorch, 0, 2);
         OreSpawnMain.setBlockFast(world, cposx, cposy - 1, cposz + width + 1, OreSpawnMain.CrystalTorch, 0, 2);
         OreSpawnMain.setBlockFast(world, cposx, cposy + height + 2, cposz - 2, OreSpawnMain.CrystalTorch, 0, 2);
     }
-    
+
     private void makequeencenteraltar(final World world, final int cposx, final int cposy, final int cposz) {
         Block bid = Blocks.air;
         final int meta = 0;
@@ -5947,10 +5947,10 @@ public class GenericDungeon
             for (int k = -length; k <= length; ++k) {
                 bid = Blocks.obsidian;
                 if (i == width && (k == -length || k == length)) {
-                    bid = OreSpawnMain.MyBlockAmethystBlock;
+                    bid = OreSpawnMain.Chaorite;
                 }
                 if (i == -width && (k == -length || k == length)) {
-                    bid = OreSpawnMain.MyBlockAmethystBlock;
+                    bid = OreSpawnMain.Chaorite;
                 }
                 OreSpawnMain.setBlockFast(world, cposx + i, cposy + j, cposz + k, bid, 0, 2);
             }
@@ -5962,10 +5962,10 @@ public class GenericDungeon
             for (int k = -length; k <= length; ++k) {
                 bid = Blocks.obsidian;
                 if (i == width && (k == -length || k == length)) {
-                    bid = OreSpawnMain.MyBlockAmethystBlock;
+                    bid = OreSpawnMain.Chaorite;
                 }
                 if (i == -width && (k == -length || k == length)) {
-                    bid = OreSpawnMain.MyBlockAmethystBlock;
+                    bid = OreSpawnMain.Chaorite;
                 }
                 OreSpawnMain.setBlockFast(world, cposx + i, cposy + j, cposz + k, bid, 0, 2);
             }
@@ -6052,7 +6052,7 @@ public class GenericDungeon
             chest.setInventorySlotContents(13, new ItemStack(OreSpawnMain.TheQueenEgg));
         }
     }
-    
+
     public void makeFrogPond(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         world.setBlock(cposx, cposy + 2, cposz, Blocks.mob_spawner, 0, 2);
@@ -6075,7 +6075,7 @@ public class GenericDungeon
         world.setBlock(cposx, cposy + 2, cposz - 1, Blocks.waterlily, 0, 3);
         world.setBlock(cposx, cposy + 2, cposz + 1, Blocks.waterlily, 0, 3);
     }
-    
+
     public void makePumpkin(final World world, final int cposx, final int cposy, final int cposz) {
         final int width = 14;
         final int depth = 12;
@@ -6215,7 +6215,7 @@ public class GenericDungeon
             tileentitymobspawner.func_145881_a().setEntityName("Ghost Pumpkin Skelly");
         }
     }
-    
+
     public void makeRoundRotator(final World world, final int cposx, final int cposy, final int cposz) {
         TileEntityMobSpawner tileentitymobspawner = null;
         TileEntityChest chest = null;
@@ -6287,7 +6287,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 6 + world.rand.nextInt(6));
         }
     }
-    
+
     public void makeRainbow(final World world, final int cposx, final int cposy, final int cposz) {
         int width = 12;
         int depth = 1;
@@ -6417,7 +6417,7 @@ public class GenericDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, chestContents, (IInventory)chest, 10 + world.rand.nextInt(5));
         }
     }
-    
+
     public void makeEnormousCastleQ(final World world, final int cposx, final int cposy, final int cposz) {
         final int width = 28;
         final int height = 16;
@@ -6543,7 +6543,7 @@ public class GenericDungeon
         for (int i = 0; i < platformwidth; ++i) {
             j = height;
             for (int k = -(platformwidth / 2); k <= platformwidth / 2; ++k) {
-                this.FastSetBlock(world, cposx + i - 20, cposy + j, cposz + k + width / 2, OreSpawnMain.MyBlockAmethystBlock);
+                this.FastSetBlock(world, cposx + i - 20, cposy + j, cposz + k + width / 2, OreSpawnMain.Chaorite);
                 if ((i == 0 || i == platformwidth - 1 || k == -(platformwidth / 2) || k == platformwidth / 2) && (i != 0 || k < -1 || k > 1)) {
                     this.FastSetBlock(world, cposx + i - 20, cposy + j + 1, cposz + k + width / 2, Blocks.nether_brick_fence);
                 }
@@ -6563,7 +6563,7 @@ public class GenericDungeon
                     }
                 }
                 else {
-                    this.FastSetBlock(world, cposx + i, cposy + j, cposz + k + width / 2, OreSpawnMain.MyBlockAmethystBlock);
+                    this.FastSetBlock(world, cposx + i, cposy + j, cposz + k + width / 2, OreSpawnMain.Chaorite);
                     if (k == -2 || k == 2) {
                         this.FastSetBlock(world, cposx + i, cposy + j + 1, cposz + k + width / 2, Blocks.nether_brick_fence);
                     }
@@ -6587,7 +6587,7 @@ public class GenericDungeon
                     }
                 }
                 else {
-                    this.FastSetBlock(world, cposx + i, cposy + j, cposz + k + width / 2, OreSpawnMain.MyBlockAmethystBlock);
+                    this.FastSetBlock(world, cposx + i, cposy + j, cposz + k + width / 2, OreSpawnMain.Chaorite);
                     if (k == -2 || k == 2) {
                         this.FastSetBlock(world, cposx + i, cposy + j + 1, cposz + k + width / 2, Blocks.nether_brick_fence);
                     }
@@ -6613,7 +6613,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void buildLevelQ(final World world, final int cposx, final int cposy, final int cposz, final int width, final int height, final int pw, final String critter, final int stepside, final int stepoff, final int holelen, final int decor, final int level) {
         for (int i = -pw; i < width + pw; ++i) {
             for (int j = 1; j < height; ++j) {
@@ -6646,7 +6646,7 @@ public class GenericDungeon
             for (int j = 1; j < height; ++j) {
                 Block blk = Blocks.bedrock;
                 if (k == 0 || k == width - 1) {
-                    blk = OreSpawnMain.MyBlockRubyBlock;
+                    blk = OreSpawnMain.Garnet;
                 }
                 int i = 0;
                 this.FastSetBlock(world, cposx + i, cposy + j, cposz + k, blk);
@@ -6718,7 +6718,7 @@ public class GenericDungeon
         }
         this.addLevelDecorationsQ(world, cposx, cposy, cposz, width, height, decor, level);
     }
-    
+
     public void addLevelDecorationsQ(final World world, final int cposx, final int cposy, final int cposz, final int width, final int height, final int decor, final int difficulty) {
         TileEntityMobSpawner tileentitymobspawner = null;
         int reward = 1;
@@ -6964,7 +6964,7 @@ public class GenericDungeon
             this.fill_chestsQ(world, cposx, cposy, cposz, width, height, decor, reward);
         }
     }
-    
+
     private void fill_chestsQ(final World world, final int cposx, final int cposy, final int cposz, final int width, final int height, final int decor, final int reward) {
         TileEntityChest chest = null;
         WeightedRandomChestContent[] chestContents = null;
@@ -7028,7 +7028,7 @@ public class GenericDungeon
             }
         }
     }
-    
+
     public void makeSpiderHangout(final World world, final int cposx, final int cposy, final int cposz) {
         Entity var8 = null;
         TileEntityMobSpawner tileentitymobspawner = null;
@@ -7082,7 +7082,7 @@ public class GenericDungeon
             world.spawnEntityInWorld(var8);
         }
     }
-    
+
     public void makeRedAntHangout(final World world, final int cposx, final int cposy, final int cposz) {
         Entity var8 = null;
         for (int i = 0; i < 16; ++i) {

@@ -20,7 +20,7 @@ import net.minecraft.entity.*;
 public class OreSpawnWorld implements IWorldGenerator
 {
     public static int recently_placed;
-    
+
     public void generate(final Random random, final int chunkX, final int chunkZ, final World world, final IChunkProvider chunkGenerator, final IChunkProvider chunkProvider) {
         if (world.isRemote) {
             return;
@@ -215,7 +215,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     private void generateEnd(final World world, final Random random, final int chunkX, final int chunkZ) {
         this.addEndAnts(world, random, chunkX, chunkZ);
         final int i = world.rand.nextInt(4);
@@ -232,7 +232,7 @@ public class OreSpawnWorld implements IWorldGenerator
             this.addEnderCastle(world, random, chunkX, chunkZ);
         }
     }
-    
+
     private void generateNether(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.MosquitoEnable != 0) {
             this.addNetherMosquitos(world, random, chunkX, chunkZ);
@@ -259,7 +259,7 @@ public class OreSpawnWorld implements IWorldGenerator
             new WorldGenMinable(OreSpawnMain.MyOreRubyBlock, 2, Blocks.netherrack).generate(world, random, randPosX, randPosY, randPosZ);
         }
     }
-    
+
     public void generateSurface(final World world, final Random random, final int chunkX, final int chunkZ) {
         boolean ahh = false;
         this.addStrawberries(world, random, chunkX, chunkZ);
@@ -316,7 +316,7 @@ public class OreSpawnWorld implements IWorldGenerator
             this.addRocks(world, random, chunkX, chunkZ);
         }
     }
-    
+
     public void generateRuby(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.Ruby_stats.rate <= 0) {
             return;
@@ -339,7 +339,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void generateOres(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.SpawnOres_stats.rate > 0) {
             int patchy = OreSpawnMain.SpawnOres_stats.rate + random.nextInt(20);
@@ -963,7 +963,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addStrawberries(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(20) != 0) {
             return;
@@ -980,7 +980,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public boolean addHauntedHouse(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(285) != 0) {
             return false;
@@ -999,7 +999,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addANest(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(230) != 0) {
             return false;
@@ -1023,7 +1023,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public void addCorn(final World world, final Random random, final int chunkX, final int chunkZ) {
         int is_all_air = 1;
         int nc = 6;
@@ -1078,7 +1078,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addTomatoes(final World world, final Random random, final int chunkX, final int chunkZ) {
         int is_all_air = 1;
         if (random.nextInt(70) != 1) {
@@ -1126,7 +1126,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addButterfliesAndMoths(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(10 + OreSpawnMain.LessLag * 2) != 0) {
             return;
@@ -1159,7 +1159,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addPlayPool(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(350) != 0) {
             return;
@@ -1180,7 +1180,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addFrogPond(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(350) != 0) {
             return;
@@ -1201,7 +1201,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addGoldFishBowl(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(350) != 0) {
             return;
@@ -1222,7 +1222,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public boolean addLeafMonster(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(275) != 0) {
             return false;
@@ -1244,7 +1244,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addRubberDuckyPond(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(275) != 0) {
             return false;
@@ -1266,7 +1266,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addSpitBug(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(190) != 0) {
             return false;
@@ -1288,7 +1288,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addIgloo(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(220) != 0) {
             return false;
@@ -1310,7 +1310,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addBouncyCastle(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(230) != 0) {
             return false;
@@ -1332,7 +1332,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addDamselInDistress(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(250) != 0) {
             return false;
@@ -1351,7 +1351,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addSpiderHangout(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(350) != 0) {
             return false;
@@ -1373,7 +1373,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addRedAntHangout(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(250) != 0) {
             return false;
@@ -1392,7 +1392,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public void addWaterDragonLair(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(350) != 0) {
             return;
@@ -1413,7 +1413,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addGirlfriendIsland(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(300) != 0) {
             return;
@@ -1434,7 +1434,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addMonsterIsland(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(300) != 0) {
             return;
@@ -1455,7 +1455,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addMosquitos(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(25 + OreSpawnMain.LessLag * 2) != 0) {
             return;
@@ -1475,7 +1475,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addNetherMosquitos(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(25) != 0) {
             return;
@@ -1491,7 +1491,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addNetherAnts(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.RedAntEnable == 0) {
             return;
@@ -1510,7 +1510,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addAnts(final World world, final Random random, final int chunkX, final int chunkZ, int redfreq) {
         if (OreSpawnMain.RedAntEnable == 0 && OreSpawnMain.BlackAntEnable == 0 && OreSpawnMain.RainbowAntEnable == 0 && OreSpawnMain.UnstableAntEnable == 0) {
             return;
@@ -1555,10 +1555,10 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addEndAnts(final World world, final Random random, final int chunkX, final int chunkZ) {
     }
-    
+
     public void addEndKnights(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(25) != 0) {
             return;
@@ -1574,7 +1574,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addEndReapers(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(25) != 0) {
             return;
@@ -1590,7 +1590,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addHospital(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(25) != 0) {
             return;
@@ -1606,7 +1606,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addEnderCastle(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(50) != 0) {
             return;
@@ -1622,7 +1622,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addUnstableAnts(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.UnstableAntEnable == 0) {
             return;
@@ -1639,7 +1639,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addCrystalTermites(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.TermiteEnable == 0) {
             return;
@@ -1658,7 +1658,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public boolean addRotatorStation(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.RotatorEnable == 0) {
             return false;
@@ -1679,7 +1679,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addRoundRotator(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.RotatorEnable == 0) {
             return false;
@@ -1700,7 +1700,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addUrchinSpawner(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.UrchinEnable == 0) {
             return false;
@@ -1721,7 +1721,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addCrystalHauntedHouse(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(230) != 0) {
             return false;
@@ -1739,7 +1739,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addCrystalBattleTower(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(280) != 0) {
             return false;
@@ -1757,7 +1757,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public void addIrukandji(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.IrukandjiEnable == 0) {
             return;
@@ -1780,7 +1780,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addCrystalChestsAndSpawners(final World world, final Random random, final int chunkX, final int chunkZ) {
         Block bid = Blocks.air;
         int i = 0;
@@ -1820,7 +1820,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addCrystalChest(final World world, final int x, final int y, final int z, final int dir) {
         final int i = world.rand.nextInt(3);
         if (i == 0) {
@@ -1847,7 +1847,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addIslands(final World world, final Random random, final int chunkX, final int chunkZ) {
         final int posX = 2 + chunkX + random.nextInt(12);
         final int posZ = 2 + chunkZ + random.nextInt(12);
@@ -1861,7 +1861,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public boolean addAppleTrees(final World world, final Random random, final int chunkX, final int chunkZ, final Chunk chunk) {
         int freq = Math.abs(chunkX / 16) + Math.abs(chunkZ / 16);
         int howmany = 2;
@@ -1902,7 +1902,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return added;
     }
-    
+
     public boolean addHugeTree(final World world, final Random random, final int chunkX, final int chunkZ, final Chunk chunk) {
         int made_one = 0;
         if (random.nextInt(50) != 0) {
@@ -1938,10 +1938,10 @@ public class OreSpawnWorld implements IWorldGenerator
                         tree_radius = 6;
                         no_critters = true;
                         if (random.nextInt(2) == 0) {
-                            a.MakeBigSquareTree(world, posX, posY - 1, posZ, Blocks.gold_block, Blocks.emerald_block, Blocks.diamond_block, -1, tree_radius, no_critters, chunk);
+                            a.MakeBigSquareTree(world, posX, posY - 1, posZ, OreSpawnMain.Citrine, OreSpawnMain.Malachite, OreSpawnMain.Aquamarine, -1, tree_radius, no_critters, chunk);
                         }
                         else {
-                            a.MakeBigSquareTree(world, posX, posY - 1, posZ, Blocks.obsidian, OreSpawnMain.MyBlockRubyBlock, OreSpawnMain.MyBlockAmethystBlock, -1, tree_radius, no_critters, chunk);
+                            a.MakeBigSquareTree(world, posX, posY - 1, posZ, Blocks.obsidian, OreSpawnMain.Garnet, OreSpawnMain.Chaorite, -1, tree_radius, no_critters, chunk);
                         }
                     }
                     else if (rand_treetype > 15) {
@@ -1959,7 +1959,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return made_one != 0;
     }
-    
+
     public void addVeggies(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(15) != 0) {
             return;
@@ -2011,7 +2011,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addRocks(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(5) != 0) {
             return;
@@ -2029,7 +2029,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public void addD4Rocks(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(7) != 0) {
             return;
@@ -2046,7 +2046,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public boolean addFairyTree(final World world, final Random random, final int chunkX, final int chunkZ) {
         final int posX = chunkX + 8;
         final int posZ = chunkZ + 8;
@@ -2083,7 +2083,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return true;
     }
-    
+
     public boolean addRubyDungeon(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(15) != 0) {
             return false;
@@ -2100,7 +2100,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addGenericDungeon(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(16) != 0) {
             return false;
@@ -2117,7 +2117,7 @@ public class OreSpawnWorld implements IWorldGenerator
         OreSpawnMain.MyDungeon.makeDungeon(world, posX, posY, posZ);
         return true;
     }
-    
+
     public boolean addBeeHive(final World world, final Random random, final int chunkX, final int chunkZ) {
         int lowestY = 128;
         int lowestX = chunkX;
@@ -2152,7 +2152,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addAlienWTF(final World world, final Random random, final int chunkX, final int chunkZ) {
         int lowestY = 128;
         int lowestX = chunkX;
@@ -2187,7 +2187,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addEnderKnight(final World world, final Random random, final int chunkX, final int chunkZ) {
         int lowestY = 128;
         int lowestX = chunkX;
@@ -2222,7 +2222,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addLeonNest(final World world, final Random random, final int chunkX, final int chunkZ) {
         int highestY = 30;
         int highestX = chunkX;
@@ -2257,7 +2257,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addShadowDungeon(final World world, final Random random, final int chunkX, final int chunkZ) {
         int lowestY = 128;
         int lowestX = chunkX;
@@ -2292,7 +2292,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4RubyDungeon(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2309,7 +2309,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4CephadromeAltar(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2326,7 +2326,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4Castle(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2356,7 +2356,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4Greenhouse(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2381,7 +2381,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4NightmareRookery(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2406,7 +2406,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4StinkyHouse(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2431,7 +2431,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4WhiteHouse(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2456,7 +2456,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4EnderCastle(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2481,7 +2481,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4IncaPyramid(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2506,7 +2506,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4RobotLab(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2539,7 +2539,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4Mini(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2556,7 +2556,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addPumpkin(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(2) != 0) {
             return false;
@@ -2573,14 +2573,14 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public boolean addD4CloudShark(final World world, final Random random, final int chunkX, final int chunkZ) {
         final int posX = 4 + chunkX + random.nextInt(8);
         final int posZ = 4 + chunkZ + random.nextInt(8);
         OreSpawnMain.MyDungeon.makeCloudSharkDungeon(world, posX, 150 + world.rand.nextInt(10), posZ);
         return true;
     }
-    
+
     public boolean addD4Rainbow(final World world, final Random random, final int chunkX, final int chunkZ) {
         final int posX = 4 + chunkX + random.nextInt(8);
         final int posZ = 4 + chunkZ + random.nextInt(8);
@@ -2588,7 +2588,7 @@ public class OreSpawnWorld implements IWorldGenerator
         OreSpawnWorld.recently_placed = 50;
         return true;
     }
-    
+
     public boolean addD4GenericDungeon(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (OreSpawnMain.LessLag != 0 && random.nextInt(4) != 0) {
             return false;
@@ -2605,7 +2605,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public void addLavaAndWater(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(5) != 0) {
             return;
@@ -2672,7 +2672,7 @@ public class OreSpawnWorld implements IWorldGenerator
             }
         }
     }
-    
+
     public boolean addOtherTrees(final World world, final Random random, final int chunkX, final int chunkZ) {
         int nc = 5;
         int count = 0;
@@ -2724,7 +2724,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return count > 0;
     }
-    
+
     public boolean addKingAltar(final World world, final Random random, final int chunkX, final int chunkZ) {
         if (random.nextInt(2000) != 1) {
             return false;
@@ -2754,7 +2754,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return false;
     }
-    
+
     public void addBasiliskMaze(final World world, final Random random, final int chunkX, final int chunkZ) {
         int lowestY = 128;
         int lowestX = chunkX;
@@ -2787,7 +2787,7 @@ public class OreSpawnWorld implements IWorldGenerator
             OreSpawnWorld.recently_placed = 50;
         }
     }
-    
+
     public void addKyuubiDungeon(final World world, final Random random, final int chunkX, final int chunkZ) {
         int lowestY = 128;
         int lowestX = chunkX;
@@ -2820,7 +2820,7 @@ public class OreSpawnWorld implements IWorldGenerator
             OreSpawnWorld.recently_placed = 50;
         }
     }
-    
+
     private boolean quickSpaceCheck(final World world, final int posX, final int posY, final int posZ) {
         for (int i = -2; i < 10; ++i) {
             for (int k = -2; k < 10; ++k) {
@@ -2831,7 +2831,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return true;
     }
-    
+
     private boolean quickBigSpaceCheck(final World world, final int posX, final int posY, final int posZ) {
         for (int i = -5; i < 25; ++i) {
             for (int k = -5; k < 25; ++k) {
@@ -2842,7 +2842,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return true;
     }
-    
+
     private boolean quickReallyBigSpaceCheck(final World world, final int posX, final int posY, final int posZ) {
         for (int i = -5; i < 55; ++i) {
             for (int k = -5; k < 55; ++k) {
@@ -2853,7 +2853,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return true;
     }
-    
+
     private boolean D4BigSpaceCheck(final World world, final int posX, final int posY, final int posZ) {
         for (int i = -25; i < 40; ++i) {
             for (int k = -25; k < 30; ++k) {
@@ -2871,7 +2871,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return true;
     }
-    
+
     private Entity spawnCreature(final World par0World, final String par1, double par2, final double par4, double par6) {
         Entity var8 = null;
         var8 = EntityList.createEntityByName(par1, par0World);
@@ -2894,7 +2894,7 @@ public class OreSpawnWorld implements IWorldGenerator
         }
         return var8;
     }
-    
+
     static {
         OreSpawnWorld.recently_placed = 50;
     }

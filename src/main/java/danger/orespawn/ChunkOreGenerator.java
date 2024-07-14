@@ -502,7 +502,7 @@ public class ChunkOreGenerator
                 final int randPosY = random.nextInt(128);
                 final int randPosZ = 3 + chunkZ + random.nextInt(10);
                 if (randPosY <= OreSpawnMain.Amethyst_stats.maxdepth && randPosY >= OreSpawnMain.Amethyst_stats.mindepth) {
-                    this.generateBlockOre(world, random, randPosX, randPosY, randPosZ, chunk, OreSpawnMain.MyOreAmethystBlock, OreSpawnMain.Amethyst_stats.clumpsize);
+                    this.generateBlockOre(world, random, randPosX, randPosY, randPosZ, chunk, OreSpawnMain.Chaorite, OreSpawnMain.Amethyst_stats.clumpsize);
                 }
             }
         }
@@ -617,7 +617,7 @@ public class ChunkOreGenerator
             }
         }
     }
-    
+
     public boolean generateBlockOre(final World par1World, final Random par2Random, final int par3, final int par4, final int par5, final Chunk chunk, final Block newbid, final int numberOfBlocks) {
         final float f = par2Random.nextFloat() * 3.1415927f;
         final double d0 = par3 + 8 + MathHelper.sin(f) * numberOfBlocks / 8.0f;

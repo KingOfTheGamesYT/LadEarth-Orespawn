@@ -15,14 +15,14 @@ import net.minecraft.inventory.*;
 public class RubyBirdDungeon
 {
     private final WeightedRandomChestContent[] chestContentsList;
-    
+
     public RubyBirdDungeon() {
         this.chestContentsList = new WeightedRandomChestContent[] { new WeightedRandomChestContent(OreSpawnMain.CageEmpty, 0, 3, 10, 20), new WeightedRandomChestContent(OreSpawnMain.MyRuby, 0, 2, 8, 15), new WeightedRandomChestContent(OreSpawnMain.MyBacon, 0, 6, 12, 20), new WeightedRandomChestContent(OreSpawnMain.MyButterCandy, 0, 6, 12, 20), new WeightedRandomChestContent(OreSpawnMain.MyRubyPickaxe, 0, 1, 1, 15), new WeightedRandomChestContent(OreSpawnMain.MyRubyShovel, 0, 1, 1, 15), new WeightedRandomChestContent(OreSpawnMain.MyRubyHoe, 0, 1, 1, 15), new WeightedRandomChestContent(OreSpawnMain.MyRubyAxe, 0, 1, 1, 15), new WeightedRandomChestContent(OreSpawnMain.MyRubySword, 0, 1, 1, 15), new WeightedRandomChestContent((Item)OreSpawnMain.RubyBody, 0, 1, 1, 15), new WeightedRandomChestContent((Item)OreSpawnMain.RubyLegs, 0, 1, 1, 15), new WeightedRandomChestContent((Item)OreSpawnMain.RubyHelmet, 0, 1, 1, 15), new WeightedRandomChestContent((Item)OreSpawnMain.RubyBoots, 0, 1, 1, 15), new WeightedRandomChestContent(OreSpawnMain.MyThunderStaff, 0, 1, 1, 5) };
     }
-    
+
     private void setThisBlock(final World world, final int cposx, final int cposy, final int cposz) {
         if (world.rand.nextInt(20) == 1) {
-            this.FastSetBlock(world, cposx, cposy, cposz, OreSpawnMain.MyOreRubyBlock);
+            this.FastSetBlock(world, cposx, cposy, cposz, OreSpawnMain.Garnet);
         }
         else if (world.rand.nextInt(2) == 1) {
             this.FastSetBlock(world, cposx, cposy, cposz, Blocks.mossy_cobblestone);
@@ -31,7 +31,7 @@ public class RubyBirdDungeon
             this.FastSetBlock(world, cposx, cposy, cposz, Blocks.cobblestone);
         }
     }
-    
+
     public void makeDungeon(final World world, final int cposx, final int cposy, final int cposz) {
         final int width = 10;
         final int height = 5;
@@ -82,7 +82,7 @@ public class RubyBirdDungeon
             WeightedRandomChestContent.generateChestContents(world.rand, this.chestContentsList, (IInventory)chest, 4 + world.rand.nextInt(7));
         }
     }
-    
+
     public void FastSetBlock(final World world, final int ix, final int iy, final int iz, final Block id) {
         OreSpawnMain.setBlockFast(world, ix, iy, iz, id, 0, 2);
     }
