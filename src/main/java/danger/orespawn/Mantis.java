@@ -25,7 +25,7 @@ public class Mantis extends EntityMob
     private int lastX;
     private int lastZ;
     private Entity rt;
-    
+
     public Mantis(final World par1World) {
         super(par1World);
         this.currentFlightTarget = null;
@@ -41,71 +41,71 @@ public class Mantis extends EntityMob
         this.fireResistance = 5;
         this.TargetSorter = new GenericTargetSorter((Entity)this);
     }
-    
+
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue((double)this.mygetMaxHealth());
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.3199999928474426);
         this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue((double)OreSpawnMain.Mantis_stats.attack);
     }
-    
+
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(20, (Object)0);
     }
-    
+
     protected boolean canDespawn() {
         return !this.isNoDespawnRequired();
     }
-    
+
     public final int getAttacking() {
         return this.dataWatcher.getWatchableObjectInt(20);
     }
-    
+
     public final void setAttacking(final int par1) {
         this.dataWatcher.updateObject(20, par1);
     }
-    
+
     protected float getSoundVolume() {
         return 0.35f;
     }
-    
+
     protected float getSoundPitch() {
         return 1.0f;
     }
-    
+
     protected String getLivingSound() {
         return "orespawn:Beebuzz";
     }
-    
+
     protected String getHurtSound() {
         return "orespawn:dragonfly_hurt";
     }
-    
+
     protected String getDeathSound() {
         return "orespawn:alo_death";
     }
-    
+
     public boolean canBePushed() {
         return true;
     }
-    
+
     protected void collideWithEntity(final Entity par1Entity) {
     }
-    
+
     public int mygetMaxHealth() {
         return OreSpawnMain.Mantis_stats.health;
     }
-    
+
     protected Item getDropItem() {
         return Item.getItemFromBlock((Block)Blocks.yellow_flower);
     }
-    
+
     private void dropItemRand(final Item index, final int par1) {
         final EntityItem var3 = new EntityItem(this.worldObj, this.posX + OreSpawnMain.OreSpawnRand.nextInt(5) - OreSpawnMain.OreSpawnRand.nextInt(5), this.posY + 1.0, this.posZ + OreSpawnMain.OreSpawnRand.nextInt(5) - OreSpawnMain.OreSpawnRand.nextInt(5), new ItemStack(index, par1, 0));
         this.worldObj.spawnEntityInWorld((Entity)var3);
     }
-    
+
     protected void dropFewItems(final boolean par1, final int par2) {
         this.dropItemRand(OreSpawnMain.MyMantisClaw, 1);
         this.dropItemRand(OreSpawnMain.MyMantisClaw, 1);
@@ -119,15 +119,13 @@ public class Mantis extends EntityMob
         for (int var4 = 1 + this.worldObj.rand.nextInt(3), i = 0; i < var4; ++i) {
             this.dropItemRand(OreSpawnMain.TitaniumNugget, 1);
         }
-        for (int var4 = 2 + this.worldObj.rand.nextInt(3), i = 0; i < var4; ++i) {
-            this.dropItemRand(Items.diamond, 1);
-        }
+
     }
-    
+
     protected boolean isAIEnabled() {
         return true;
     }
-    
+
     public void onUpdate() {
         super.onUpdate();
         this.motionY *= 0.6;
@@ -135,11 +133,11 @@ public class Mantis extends EntityMob
             this.attackEntityAsMob((Entity)this);
         }
     }
-    
+
     public boolean canSeeTarget(final double pX, final double pY, final double pZ) {
         return this.worldObj.rayTraceBlocks(Vec3.createVectorHelper(this.posX, this.posY + 0.75, this.posZ), Vec3.createVectorHelper(pX, pY, pZ), false) == null;
     }
-    
+
     protected void updateAITasks() {
         int xdir = 1;
         int zdir = 1;
@@ -213,21 +211,21 @@ public class Mantis extends EntityMob
             this.heal(1.0f);
         }
     }
-    
+
     protected boolean canTriggerWalking() {
         return true;
     }
-    
+
     protected void fall(final float par1) {
     }
-    
+
     protected void updateFallState(final double par1, final boolean par3) {
     }
-    
+
     public boolean doesEntityNotTriggerPressurePlate() {
         return false;
     }
-    
+
     public boolean attackEntityFrom(final DamageSource par1DamageSource, final float par2) {
         final boolean ret = super.attackEntityFrom(par1DamageSource, par2);
         final Entity e = par1DamageSource.getEntity();
@@ -237,7 +235,7 @@ public class Mantis extends EntityMob
         }
         return ret;
     }
-    
+
     public boolean getCanSpawnHere() {
         for (int k = -2; k <= 2; ++k) {
             for (int j = -2; j <= 2; ++j) {
@@ -277,14 +275,14 @@ public class Mantis extends EntityMob
         target = (Mantis)this.worldObj.findNearestEntityWithinAABB((Class)Mantis.class, this.boundingBox.expand(32.0, 16.0, 32.0), (Entity)this);
         return target == null;
     }
-    
+
     public int getTotalArmorValue() {
         return OreSpawnMain.Mantis_stats.defense;
     }
-    
+
     public void initCreature() {
     }
-    
+
     private boolean isSuitableTarget(final EntityLivingBase par1EntityLiving, final boolean par2) {
         if (par1EntityLiving == null) {
             return false;
@@ -368,7 +366,7 @@ public class Mantis extends EntityMob
         final MyUtils oreSpawnUtils = OreSpawnMain.OreSpawnUtils;
         return MyUtils.isAttackableNonMob(par1EntityLiving);
     }
-    
+
     private EntityLivingBase findSomethingToAttack() {
         if (OreSpawnMain.PlayNicely != 0) {
             return null;
